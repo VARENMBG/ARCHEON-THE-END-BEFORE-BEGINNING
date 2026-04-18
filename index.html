@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>The End Before Beginning | Novel Epik - Arc 1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background 0.3s, color 0.2s;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: #fefaf5;
+            color: #2e241f;
+            line-height: 1.8;
+        }
+
+        body.dark {
+            background: #1a1a1a;
+            color: #e0e0e0;
+        }
+
+        body.dark .chapter-content {
+            background: #2a2a2a;
+        }
+
+        body.dark header {
+            background: #0f0f0f;
+            color: #e0b07f;
+        }
+
+        body.dark nav {
+            background: #0a0a0a;
+        }
+
+        body.dark nav button {
+            color: #ccc;
+        }
+
+        body.dark nav button:hover, body.dark .nav-active {
+            background: #e0b07f;
+            color: #1a1a1a;
+        }
+
+        body.dark .chapter-list {
+            background: #2a2a2a;
+        }
+
+        body.dark .chapter-item {
+            border-bottom-color: #444;
+        }
+
+        body.dark .chapter-item:hover {
+            background: #3a3a3a;
+        }
+
+        .arc-badge {
+            background: #b87c4f20;
+            border: 1px solid #b87c4f;
+            color: #b87c4f;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            display: inline-block;
+            margin-left: 1rem;
+        }
+
+        body.dark .arc-badge {
+            background: #b87c4f40;
+        }
+
+        header {
+            background: #2c241a;
+            color: #f0dbc0;
+            padding: 2rem 1.5rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            font-weight: normal;
+        }
+
+        header p {
+            font-style: italic;
+            margin-top: 0.5rem;
+            opacity: 0.8;
+        }
+
+        nav {
+            background: #3e2e24;
+            padding: 0.8rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: #f0dbc0;
+            font-size: 1rem;
+            padding: 0.4rem 1.2rem;
+            cursor: pointer;
+            font-family: inherit;
+            border-radius: 30px;
+            font-weight: bold;
+        }
+
+        nav button:hover, .nav-active {
+            background: #b87c4f;
+            color: white;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .page {
+            display: none;
+            animation: fade 0.3s ease;
+        }
+
+        .active-page {
+            display: block;
+        }
+
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(12px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        .chapter-content {
+            background: white;
+            padding: 2.2rem;
+            border-radius: 24px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+        }
+
+        .chapter-title {
+            font-size: 2rem;
+            margin-bottom: 0.2rem;
+            color: #b87c4f;
+            border-left: 5px solid #b87c4f;
+            padding-left: 1rem;
+        }
+
+        .chapter-text p {
+            margin-bottom: 1.5rem;
+            text-indent: 2em;
+        }
+
+        .chapter-list {
+            background: white;
+            border-radius: 24px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+        }
+
+        .chapter-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .chapter-item:hover {
+            background: #f5ede4;
+            padding-left: 1.5rem;
+        }
+
+        .chapter-num {
+            font-weight: bold;
+            color: #b87c4f;
+        }
+
+        .read-badge {
+            background: #2c241a;
+            color: #f0dbc0;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        body.dark .read-badge {
+            background: #b87c4f;
+            color: #1a1a1a;
+        }
+
+        .dark-toggle {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #b87c4f;
+            border: none;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 200;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .nav-button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-chapter-btn {
+            background: #b87c4f;
+            border: none;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+
+        .nav-chapter-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            background: #b87c4f20;
+            border: 1px solid #b87c4f;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            color: #b87c4f;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .social-link:hover {
+            background: #b87c4f;
+            color: white;
+        }
+
+        body.dark .social-link {
+            background: #b87c4f30;
+        }
+
+        body.dark .social-link:hover {
+            background: #b87c4f;
+            color: #1a1a1a;
+        }
+
+        @media (max-width: 600px) {
+            .chapter-title { font-size: 1.5rem; }
+            .chapter-content { padding: 1.3rem; }
+            nav button { padding: 0.3rem 0.8rem; font-size: 0.9rem; }
+            .nav-chapter-btn { font-size: 0.7rem; padding: 0.4rem 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>The End Before Beginning</h1>
+    <p>Arc 1 — Awal dari Kehampaan <span class="arc-badge">Arc 1: Chapter 1-20</span></p>
+</header>
+
+<nav>
+    <button data-page="home" class="nav-active">📖 Beranda</button>
+    <button data-page="chapters">📚 Daftar Bab</button>
+    <button data-page="about">🖋️ Tentang Novel</button>
+</nav>
+
+<div class="container">
+    <div id="home" class="page active-page">
+        <div class="chapter-content">
+            <div class="chapter-title">Sinopsis</div>
+            <div class="chapter-text">
+                <p>Di desa Elaris, setiap anak yang lahir membawa mana — <em>kecuali satu</em>. Archeon lahir dalam keheningan, tanpa jejak sihir sedikit pun. Kosong. Tapi kehampaan itu mulai mengguncang dunia ketika Crystal of Origin, penjaga keseimbangan selama ribuan tahun, mulai retak tanpa suara.</p>
+                <p>Di usianya yang ke-17, ia diusir dari desa. Namun takdir justru membawanya lebih dekat pada rahasia yang tertidur: <strong>sesuatu di dalam dirinya belum bangun</strong>. Dan saat ia bermimpi tentang sosok di ruang gelap, dunia mulai berguncang.</p>
+                <p>Lyria, Rhen, Mira, Kaien, dan Selene — mereka yang tak pernah pergi — akan menjadi saksi dari akhir yang sesungguhnya adalah awal.</p>
+                <p style="font-style: italic; margin-top: 1.5rem;">"Dia lahir dalam keheningan. Tapi keheningan itu sedang memanggil badai."</p>
+            </div>
+            <div style="margin-top: 2rem; text-align: center;">
+                <button data-page="chapters" style="background: #b87c4f; color: white; border: none; padding: 0.6rem 1.8rem; border-radius: 40px; cursor: pointer;">📖 Mulai Membaca</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="chapters" class="page">
+        <div class="chapter-list">
+            <h2 style="color:#b87c4f; margin-bottom: 1rem;">Daftar Bab — Arc 1</h2>
+            <div id="chapter-list-container"></div>
+        </div>
+    </div>
+
+    <div id="about" class="page">
+        <div class="chapter-content">
+            <div class="chapter-title">Tentang Novel</div>
+            <div class="chapter-text">
+                <p><strong>The End Before Beginning</strong> adalah serial novel fantasi epik tentang identitas, kehampaan, dan takdir yang tak terlihat di permukaan.</p>
+                <p>Archeon, anak tanpa mana, justru menjadi pusat krisis dunia karena dalam kehampaannya tersegel kekuatan yang bahkan para dewa takut membangunkannya.</p>
+                <p>📖 <strong>Status:</strong> Sedang berlangsung (Arc 1: Chapter 1-20)<br>
+                📍 <strong>Progress:</strong> Chapter 6 tersedia<br>
+                🖋️ <strong>Penulis:</strong> Muhammad Alfarel Hafizh<br>
+                ✨ <strong>Update:</strong> Setiap pekan</p>
+                <p style="margin-top: 1rem;">"Kau tidak lemah karena kau kosong. Kau kosong karena kau menyimpan sesuatu yang terlalu besar untuk diukur."</p>
+            </div>
+            <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee;">
+                <h3 style="color: #b87c4f; margin-bottom: 1rem;">📱 Ikuti Penulis</h3>
+                <div class="social-links">
+                    <a href="https://www.tiktok.com/@varenpenikmatmbgdannaspd" target="_blank" class="social-link">🎵 TikTok: @varenpenikmatmbgdannaspd</a>
+                    <a href="https://www.instagram.com/varenemci" target="_blank" class="social-link">📸 Instagram: @varenemci</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button class="dark-toggle" id="darkModeBtn">🌙</button>
+
+<footer>
+    © 2026 The End Before Beginning — Muhammad Alfarel Hafizh
+</footer>
+
+<script>
+    // DATA BAB LENGKAP (Chapter 1, 2, 3, 4, 5, & 6)
+    // Arc 1: Chapter 1 - 20
+    const chaptersData = [
+        { 
+            id: 1, 
+            title: "Anak yang Lahir dalam Keheningan", 
+            isAvailable: true, 
+            content: `<p>Malam itu desa Elaris diselimuti kabut lebih tebal dari biasanya.</p>
+                <p>Tidak ada hujan. Tidak ada angin. Tidak ada suara malam. Bahkan hutan di sekitar desa terasa diam, seolah seluruh dunia sedang menunggu sesuatu.</p>
+                <p>Di sebuah rumah kayu sederhana di pinggir desa, seorang bayi laki-laki akhirnya lahir. Tangisannya kecil. Pelan. Hampir tidak terdengar.</p>
+                <p>Ibunya, Elena, memeluk bayi itu dengan napas lelah. Di sampingnya, ayahnya, Daren, menatap dengan wajah tegang.</p>
+                <p>Seperti tradisi desa, tabib tua bernama Sera meletakkan tangannya di dada bayi itu untuk merasakan aliran mana pertama. Setiap anak yang lahir di Elaris selalu membawa mana. Sedikit ataupun besar.</p>
+                <p>Namun saat Sera menutup mata, wajahnya perlahan berubah. Ia membuka mata pelan. Lalu menatap bayi itu sekali lagi.</p>
+                <p><strong>Tidak ada.</strong> Tidak ada mana. Sama sekali.</p>
+                <p>Sera menatap Elena, namun tidak berkata apa pun. Daren langsung memahami dari wajahnya.</p>
+                <p>"Kosong?" bisiknya pelan. Sera hanya mengangguk kecil.</p>
+                <p>Di dunia itu, bahkan bayi paling lemah tetap memiliki jejak mana. Tetapi bayi itu berbeda. Ia tidak terasa lemah. Ia terasa kosong. Seolah sesuatu di dalam dirinya belum bangun.</p>
+                <p>Elena memeluk bayinya lebih erat. "Aku tidak peduli. Dia tetap anakku."</p>
+                <p>Daren terdiam cukup lama sebelum akhirnya berkata pelan, "Namanya..." Elena menatap bayi itu. "Archeon."</p>
+                <p>Malam itu berlalu seperti biasa. Tidak ada petir. Tidak ada cahaya. Tidak ada pertanda besar.</p>
+                <p>Namun jauh di tengah desa, Crystal of Origin yang berdiri diam selama ratusan tahun mendadak meredup sesaat. Lalu kembali normal. Tak seorang pun melihatnya.</p>
+                <p>Beberapa jam kemudian, di rumah lain tak jauh dari sana, seorang bayi perempuan lahir. Tangisnya lembut. Hangat. Menenangkan. Saat bayi itu membuka mata, bunga-bunga putih di halaman rumah mekar perlahan di tengah malam. Ibunya tersenyum sambil berbisik, "Lyria..."</p>
+                <p>Dan sejak malam itu, dua anak lahir di bawah langit yang sama, membawa takdir yang bahkan dunia belum pahami.</p>
+                <p><em>— Bab 1 selesai —</em></p>`
+        },
+        { 
+            id: 2, 
+            title: "Langkah Pertama yang Dibuang Dunia", 
+            isAvailable: true, 
+            content: `<p>Setelah hari pengukuran itu, alun-alun desa menjadi sunyi.</p>
+                <p>Tidak ada seorang pun yang berani menatap Archeon terlalu lama. Bukan karena ia menakutkan. Tetapi karena bagi mereka, Archeon adalah sesuatu yang lebih buruk. Seseorang yang bahkan tidak diakui oleh Crystal of Origin.</p>
+                <p>Tetua Rowan berdiri di depan semua warga dengan wajah dingin. Tongkat kayunya menghantam tanah.</p>
+                <p>"Tidak ada mana. Tidak ada reaksi. Tidak ada masa depan."</p>
+                <p>Suara tetua itu terdengar jelas di seluruh alun-alun. "Mulai hari ini... Archeon tidak lagi memiliki tempat di desa Elaris."</p>
+                <p>Bisikan langsung terdengar. "Memang seharusnya begitu." "Dia hanya membawa sial." "Kristal pun menolaknya."</p>
+                <p>Archeon berdiri diam. Ia sudah lama terbiasa mendengar orang-orang bicara seperti itu. Namun kali ini berbeda. Karena hari itu, untuk pertama kalinya, ia benar-benar kehilangan tempat pulang.</p>
+                <p>Lyria melangkah maju. "Tidak."</p>
+                <p>Semua orang menoleh. Lyria berdiri di depan Archeon dengan tatapan tajam. "Kalian tidak bisa mengusirnya hanya karena kristal diam."</p>
+                <p>Tetua Rowan menatapnya. "Lyria. Jangan ikut campur."</p>
+                <p>Lyria menggenggam tangan Archeon. "Kalau kalian mengusir dia... berarti kalian mengusirku juga."</p>
+                <p>Warga langsung gempar. Ibunya, Mila, langsung maju dengan wajah panik. "Lyria jangan bodoh!"</p>
+                <p>Namun Lyria menatap ibunya pelan. "Aku tidak meninggalkan dia."</p>
+                <p>Archeon menoleh. Ia menatap lengan Lyria yang masih menggenggam tangannya. Tangannya hangat. Dan anehnya, untuk sesaat, rasa sesak di dadanya menghilang.</p>
+                <p>Sebelum siapa pun bicara lagi, langkah kaki lain terdengar. Rhen maju sambil memasukkan pedang kayunya ke punggung. "Kalau dia pergi... aku ikut."</p>
+                <p>Mira mengangkat tangan kecil. "Aku juga."</p>
+                <p>Kaien tersenyum kecil. "Aku sudah bosan dengan desa ini."</p>
+                <p>Selene menatap kristal sebentar, lalu berkata pelan. "Aku sudah melihat hari ini akan datang."</p>
+                <p>Tetua Rowan membentak. "Kalian semua sudah gila?"</p>
+                <p>Namun tak satu pun dari mereka mundur. Archeon menatap teman-temannya dengan mata sedikit membesar. "Kalian... kenapa?"</p>
+                <p>Rhen mendengus. "Jangan buat aku mengulang."</p>
+                <p>Mira tersenyum kecil. "Karena teman ya teman."</p>
+                <p>Kaien menyilangkan tangan. "Kau terlalu sering sendirian."</p>
+                <p>Selene menatap Archeon tenang. "Dan jalanmu baru dimulai."</p>
+                <p>Untuk pertama kalinya, Archeon tidak tahu harus menjawab apa. Karena selama hidupnya, ia selalu siap dibuang. Tapi ia tidak pernah siap jika ada orang yang memilih tetap tinggal.</p>
+                <p>Sore itu, Archeon kembali ke rumah kecilnya. Ia hanya membawa: satu tas kain tua, pisau kecil peninggalan ayahnya, dan sebuah kalung sederhana dari ibunya. Tidak ada yang istimewa. Karena hidupnya memang tidak pernah memiliki banyak hal.</p>
+                <p>Saat ia keluar dari rumah, ia menatap desanya untuk terakhir kali. Rumah-rumah kayu. Kabut tipis. Jalan batu. Dan kristal besar di tengah desa. Tempat yang membesarkannya. Namun tak pernah benar-benar menerimanya.</p>
+                <p>Lyria berdiri di sampingnya. "Menyesal?"</p>
+                <p>Archeon menatap lurus ke depan. "Tidak." Ia terdiam sebentar. "Hanya kosong."</p>
+                <p>Lyria menatapnya lama. Lalu tersenyum kecil. "Kalau begitu... mulai sekarang isi pelan-pelan."</p>
+                <p>Archeon menoleh padanya. Dan tanpa sadar, ia tersenyum tipis.</p>
+                <p>Mereka mulai berjalan. Archeon. Lyria. Rhen. Mira. Kaien. Selene. Enam remaja meninggalkan desa Elaris saat matahari tenggelam.</p>
+                <p>Namun di belakang mereka, sesuatu terjadi. Di dalam Crystal of Origin, retakan hitam itu mulai menjalar hingga hampir menyentuh inti. <em>Krik...</em> Satu serpihan kecil jatuh dari belakang kristal. Tidak ada yang melihat. Tidak ada yang mendengar.</p>
+                <p>Namun di dalam inti kristal, sebuah suara pelan mulai terdengar. "Sedikit lagi..."</p>
+                <p>Di hutan luar desa, Archeon tiba-tiba berhenti melangkah. Lyria menoleh. "Kenapa?"</p>
+                <p>Archeon memegang dadanya pelan. Ia tidak tahu kenapa. Namun untuk sesaat, ia merasa seperti mendengar seseorang berbisik dari jauh. Bukan dari depan. Bukan dari belakang. Tetapi dari dalam dirinya sendiri.</p>
+                <p>Archeon mengangkat wajahnya ke arah hutan gelap di depan. Dan untuk pertama kalinya, ia merasa jalan yang baru saja dimulainya mungkin tidak akan pernah membiarkannya kembali.</p>
+                <p><em>— Bab 2 selesai —</em></p>`
+        },
+        { 
+            id: 3, 
+            title: "Suara yang Tidak Seharusnya Ada", 
+            isAvailable: true, 
+            content: `<p>Malam pertama di luar desa terasa asing.</p>
+                <p>Tidak ada cahaya dari rumah penduduk. Tidak ada suara lonceng malam. Tidak ada Crystal of Origin yang bersinar dari kejauhan.</p>
+                <p>Yang ada hanya hutan. Gelap. Sunyi. Dan terlalu luas.</p>
+                <p>Kaien menyalakan api kecil di dekat batu besar agar mereka bisa beristirahat.</p>
+                <p>Mira duduk sambil memeluk lutut. "Aku baru sadar... kita benar-benar pergi."</p>
+                <p>Rhen bersandar di pohon. "Kalau mau balik, balik saja."</p>
+                <p>Mira langsung melotot. "Aku cuma ngomong."</p>
+                <p>Kaien tertawa kecil.</p>
+                <p>Lyria duduk di dekat Archeon. Seperti biasa. Selene sejak tadi hanya menatap gelapnya hutan dengan wajah yang sulit dibaca.</p>
+                <p>Archeon sendiri duduk diam menatap api kecil di depan. Wajahnya tenang. Namun pikirannya tidak. Karena sejak meninggalkan desa, dadanya terasa aneh. Seolah ada sesuatu yang perlahan bangun.</p>
+                <p>Lyria menoleh pelan. "Kau masih memikirkan tadi?"</p>
+                <p>Archeon tidak langsung menjawab. "Aku merasa... sesuatu berubah."</p>
+                <p>Lyria menatapnya. "Di dalam dirimu?"</p>
+                <p>Archeon mengangguk kecil.</p>
+                <p>Sebelum Lyria sempat bicara lagi, Selene tiba-tiba berdiri. Matanya menatap gelap di antara pepohonan. "Diam."</p>
+                <p>Suasana langsung sunyi. Kaien memadamkan api. Rhen menggenggam pedangnya. Mira menahan napas.</p>
+                <p>Dari balik kabut, terdengar langkah pelan. <em>Krek... Krek...</em> Satu. Lalu dua. Lalu banyak. Mata merah mulai muncul di antara pepohonan. Puluhan.</p>
+                <p>Mira langsung pucat. "Itu... Wolf Shade?"</p>
+                <p>Rhen mengepalkan pedangnya. "Bukan satu. Satu kelompok."</p>
+                <p>Makhluk-makhluk itu perlahan keluar dari kegelapan. Serigala hitam dengan tubuh lebih besar dari manusia. Mata merah. Mulut penuh kabut hitam. Monster rank menengah. Namun bagi remaja seusia mereka, itu tetap terlalu berbahaya.</p>
+                <p>Kaien berdiri di depan. "Aku tahan depan."</p>
+                <p>Rhen mengangguk. "Aku sisi kanan."</p>
+                <p>Mira membuka segel. Selene menarik Lyria ke belakang.</p>
+                <p>Namun anehnya, semua mata monster itu tidak melihat siapa pun. Mereka menatap satu orang. Archeon.</p>
+                <p>Lyria langsung menyadarinya. "Mereka datang untukmu."</p>
+                <p>Archeon menatap monster-monster itu. Dadanya kembali berdenyut.</p>
+                <p>Salah satu serigala melompat. Rhen menebas cepat. <em>Crash!</em> Monster itu terpental. Namun dua lainnya langsung menyerang Kaien. Kaien menahan satu, tapi yang lain hampir menggigit bahunya.</p>
+                <p>Mira mengaktifkan segel cahaya. Ledakan kecil mendorong beberapa monster mundur. Namun jumlah mereka terlalu banyak.</p>
+                <p>Rhen menggertakkan gigi. "Kalau begini lama-lama habis."</p>
+                <p>Archeon masih diam. Ia tidak takut. Yang ia rasakan justru hal lain. Familiar. Seolah pemandangan ini bukan pertama kalinya ia lihat.</p>
+                <p>Suara itu muncul. Pelan. Sangat dekat. <strong>"Bangun."</strong></p>
+                <p>Archeon membeku. Matanya melebar. Ia menoleh ke kanan. Ke kiri. Tidak ada siapa-siapa.</p>
+                <p>Suara itu terdengar lagi. <strong>"Bangun, Archeon."</strong></p>
+                <p>Jantungnya berdetak keras. Lyria melihat wajahnya berubah. "Archeon?"</p>
+                <p>Namun sebelum ia menjawab, monster terbesar melompat langsung ke arah Lyria. "Lyria!"</p>
+                <p>Tubuh Archeon bergerak sendiri. Dalam satu langkah, ia sudah berdiri di depan Lyria. Semua orang membeku. Bahkan Archeon sendiri. Karena ia tidak tahu bagaimana ia bisa bergerak secepat itu.</p>
+                <p>Cakar monster hampir mengenai wajahnya. Namun tepat sebelum menyentuh — waktu terasa melambat. Archeon melihat sesuatu. Garis hitam tipis di tubuh monster itu. Seperti benang. Satu benang menghubungkan jantung monster dengan seluruh tubuhnya.</p>
+                <p>Suara itu berbisik. <strong>"Putuskan."</strong></p>
+                <p>Tanpa sadar, Archeon menyentuh garis itu. <em>Tap.</em> <strong>CRACK.</strong> Tubuh monster langsung terlempar keras ke batang pohon. Dan tidak bangkit lagi.</p>
+                <p>Sunyi. Semua orang terdiam. Mira menatap dengan wajah pucat. "Apa... yang kau lakukan?"</p>
+                <p>Archeon menatap tangannya sendiri. Ia sendiri tidak tahu.</p>
+                <p>Monster lain mundur. Naluri mereka berubah. Takut. Bukan pada manusia. Tetapi pada sesuatu yang baru saja terbangun. Pemimpin kelompok menggeram pelan. Lalu seluruh monster kabur masuk kembali ke hutan.</p>
+                <p>Kabut kembali sunyi. Kaien masih menatap kosong. "Barusan... kau bergerak sangat cepat."</p>
+                <p>Rhen menatap Archeon tajam. "Itu bukan mana."</p>
+                <p>Selene menunduk pelan. "Tidak... itu sesuatu yang lain."</p>
+                <p>Archeon memegang tangannya. Masih gemetar. Lalu di telapak kirinya, muncul satu garis hitam kecil. Sangat samar.</p>
+                <p>Lyria melihatnya. Ia memegang tangan Archeon perlahan. Saat sentuhan mereka bertemu, garis hitam itu meredup.</p>
+                <p>Archeon menatap Lyria. Dan untuk pertama kalinya, ia sadar satu hal. Hanya Lyria yang bisa membuat sesuatu di dalam dirinya menjadi tenang.</p>
+                <p>Lyria menatapnya lembut. "Apa pun itu... kamu masih kamu."</p>
+                <p>Archeon terdiam. Namun jauh di dalam dirinya, suara itu kembali terdengar. Lebih jelas. <strong>"Akhirnya... kau mulai mengingat."</strong></p>
+                <p>Archeon menoleh pelan ke arah hutan gelap. Karena untuk pertama kalinya, ia tahu. Sesuatu sedang menunggunya. Dan itu bukan monster.</p>
+                <p><em>— Bab 3 selesai —</em></p>`
+        },
+        { 
+            id: 4, 
+            title: "Jalan yang Tidak Dikenal", 
+            isAvailable: true, 
+            content: `<p>Pagi pertama di luar desa datang dengan sunyi.</p>
+                <p>Kabut tipis masih menggantung di antara pepohonan, sementara cahaya matahari hanya menembus sedikit di sela daun hutan utara.</p>
+                <p>Archeon terbangun lebih dulu. Ia duduk perlahan di dekat batu tempat mereka beristirahat. Yang lain masih tertidur. Hanya suara sungai kecil dan angin dingin yang terdengar pelan.</p>
+                <p>Namun Archeon tahu, ada sesuatu yang berubah. Bukan di luar. Di dalam dirinya.</p>
+                <p>Sejak serigala hitam semalam, dadanya terasa aneh. Bukan sakit. Bukan berat. Seperti ada sesuatu yang sebelumnya tertidur kini membuka mata sedikit demi sedikit.</p>
+                <p>Archeon menatap telapak tangan kirinya. Garis hitam samar semalam sudah menghilang. Seolah tidak pernah ada.</p>
+                <p>"Apa sebenarnya aku..."</p>
+                <p>Suara itu tidak menjawab. Hanya sunyi.</p>
+                <p>Langkah pelan terdengar dari belakang. Lyria berjalan mendekat sambil membawa air dari sungai. "Kau tidak tidur lagi?"</p>
+                <p>Archeon menoleh. "Sedikit."</p>
+                <p>Lyria duduk di sampingnya. "Kau memikirkan semalam?"</p>
+                <p>Archeon menatap hutan di depan. "Aku tidak tahu apa yang terjadi."</p>
+                <p>Lyria memandang wajahnya beberapa detik, lalu berkata pelan, "Kalau kau belum tahu sekarang, tidak apa-apa."</p>
+                <p>Archeon menoleh. Lyria tersenyum kecil. "Kita cari jawabannya pelan-pelan."</p>
+                <p>Kalimat sederhana itu anehnya membuat pikirannya lebih tenang.</p>
+                <p>Tak lama kemudian, yang lain mulai bangun. Mira meregangkan tubuh sambil mengeluh. "Aku rindu kasur."</p>
+                <p>Kaien tertawa kecil. "Kau bahkan bisa tidur di batu."</p>
+                <p>Rhen memeriksa pedangnya. "Kita harus jalan sebelum siang."</p>
+                <p>Selene berdiri paling akhir, menatap hutan dengan mata tenang. "Ke timur."</p>
+                <p>Rhen mengernyit. "Kenapa timur?" Selene menjawab pendek. "Aku merasa kita harus ke sana."</p>
+                <p>Mira menghela napas. "Jawaban seperti biasa." Meski tidak ada yang benar-benar mengerti, mereka tetap mengikuti. Karena sejak dulu, firasat Selene jarang salah.</p>
+                <p>Perjalanan dimulai. Mereka melewati akar besar, tanah lembap, dan jalur sempit di antara batu. Untuk pertama kalinya, Archeon benar-benar meninggalkan Elaris jauh di belakang. Dunia di luar desa ternyata jauh lebih luas dari yang pernah ia bayangkan. Dan lebih sunyi.</p>
+                <p>Saat mereka berjalan, Archeon mulai menyadari sesuatu. Ia bisa mendengar lebih jelas. Terlalu jelas. Suara daun jatuh. Air menetes dari ranting. Langkah kaki teman-temannya. Bahkan suara sayap serangga kecil beberapa meter dari mereka.</p>
+                <p>Archeon berhenti sebentar. Lyria menoleh. "Kenapa?" Archeon menggeleng pelan. "Tidak apa-apa." Namun sebenarnya, ia mulai merasa tubuhnya berbeda. Belum kuat. Belum aneh. Tetapi berbeda.</p>
+                <p>Tidak lama kemudian, Selene tiba-tiba mengangkat tangan. "Berhenti." Semua langsung diam. Rhen menatap sekitar. "Apa?" Selene menatap depan. "Ada orang."</p>
+                <p>Kaien langsung siaga. Mira menelan ludah. Archeon memicingkan mata. Awalnya ia tidak melihat apa pun. Lalu samar-samar, di balik pepohonan, ia melihat tiga bayangan bergerak.</p>
+                <p>Beberapa detik kemudian, tiga pria keluar dari semak. Mereka membawa pedang pendek. Pakaian lusuh. Tatapan kasar. Bandit.</p>
+                <p>Salah satu dari mereka tertawa kecil. "Wah... anak-anak desa?" Pria lain menyeringai. "Dan ada gadis cantik juga."</p>
+                <p>Rhen langsung maju. "Jangan dekat." Bandit tertawa. "Berani juga." Kaien melangkah ke depan, berdiri di samping Rhen. Mira mulai menyiapkan segel kecil. Lyria berdiri dekat Archeon.</p>
+                <p>Namun Archeon memperhatikan sesuatu. Bukan kata-kata mereka. Bukan senjata mereka. Tetapi gerakan kecil. Tangan kiri pria paling belakang bergerak pelan ke pinggang. Pisau lempar.</p>
+                <p>Archeon langsung sadar. "Lyria, turun!" Lyria reflek menunduk. <em>Whiss—</em> Pisau melesat tepat melewati tempat kepala Lyria tadi. Semua terkejut. Bahkan bandit itu sendiri. "Dia melihatnya?"</p>
+                <p>Rhen langsung menyerang. Kaien ikut maju. Pertarungan singkat terjadi. Mereka bukan petarung hebat, hanya bandit biasa. Namun jumlah lawan tetap membuat keadaan kacau.</p>
+                <p>Satu bandit menerobos dari samping langsung menuju Mira. Archeon melihatnya. Tanpa berpikir, ia bergerak. Belum secepat semalam. Belum luar biasa. Namun cukup cepat untuk menarik Mira mundur. Pedang lawan hanya mengenai udara.</p>
+                <p>Mira membelalak. "Archeon?" Archeon sendiri terkejut. Ia menatap tangannya. Gerakan itu terasa alami. Terlalu alami. Seolah tubuhnya bergerak lebih dulu daripada pikirannya.</p>
+                <p>Tak lama, Rhen menjatuhkan lawan terakhir. Bandit yang tersisa kabur ke hutan. Sunyi kembali. Kaien menghela napas panjang. "Nyaris."</p>
+                <p>Mira menatap Archeon. "Kau dua kali menyelamatkan orang." Rhen menatap tajam. "Refleksmu berubah."</p>
+                <p>Archeon diam. Ia tahu itu benar. Tapi ia sendiri tidak mengerti kenapa. Selene menatapnya pelan. "Bukan kekuatan." Archeon menoleh. Selene melanjutkan. "Seperti tubuhmu sedang mengingat sesuatu."</p>
+                <p>Kalimat itu membuat Archeon terdiam.</p>
+                <p>Malamnya, mereka berhenti di reruntuhan pondok tua untuk beristirahat. Api kecil menyala di tengah. Yang lain mulai tertidur satu per satu. Namun Archeon tidak bisa.</p>
+                <p>Saat ia menutup mata, mimpi itu datang lagi. Ia kembali berdiri di ruang gelap tanpa ujung. Namun kali ini, sosok di kejauhan terlihat lebih jelas. Tinggi. Sunyi. Membelakangi dirinya.</p>
+                <p>Archeon melangkah pelan. "Siapa kau?"</p>
+                <p>Sosok itu berhenti. Lalu berkata pelan. "Bukan siapa." Suara itu terdengar sama seperti dirinya. "Tetapi siapa dirimu nanti."</p>
+                <p>Archeon membeku. Sosok itu mulai menoleh. Namun sebelum wajahnya terlihat—</p>
+                <p>Archeon terbangun. Napasnya berat. Keringat dingin membasahi lehernya. Lyria yang duduk di dekatnya langsung terbangun. "Kau mimpi lagi?"</p>
+                <p>Archeon menatap kosong ke depan. Lalu menjawab pelan. "Kurasa... sesuatu sedang menungguku."</p>
+                <p>Lyria menggenggam tangannya pelan. "Kita hadapi bersama."</p>
+                <p>Archeon menatap tangan mereka. Dan untuk pertama kalinya, ia mulai sadar. Perjalanan ini bukan tentang menjadi kuat. Tetapi tentang memahami siapa dirinya sebenarnya.</p>
+                <p><em>— Bab 4 selesai —</em></p>`
+        },
+        { 
+            id: 5, 
+            title: "Kota Pertama", 
+            isAvailable: true, 
+            content: `<p>Pagi berikutnya, mereka melanjutkan perjalanan ke timur.</p>
+                <p>Kabut hutan perlahan menipis, digantikan jalan tanah yang mulai lebih lebar. Pepohonan tidak lagi terlalu rapat. Suara burung mulai terdengar. Dan untuk pertama kalinya sejak meninggalkan Elaris, mereka melihat tanda kehidupan lain. Sebuah jalan batu tua.</p>
+                <p>Mira langsung tersenyum. "Itu berarti ada kota."</p>
+                <p>Kaien menghela napas lega. "Akhirnya makanan sungguhan."</p>
+                <p>Rhen mendengus. "Kau cuma mikirin makan."</p>
+                <p>Kaien menjawab santai. "Itu kekuatanku."</p>
+                <p>Lyria menoleh pada Archeon. "Kau bagaimana?"</p>
+                <p>Archeon berjalan pelan di sampingnya. "Aku baik."</p>
+                <p>Namun sebenarnya, ia masih memikirkan mimpi semalam. Bukan hanya suara itu. Tetapi kalimat terakhirnya. <em>Bukan siapa. Tetapi siapa dirimu nanti.</em></p>
+                <p>Archeon tidak tahu kenapa, namun suara itu terasa seperti seseorang yang sangat mengenalnya. Bahkan lebih dari dirinya sendiri.</p>
+                <p>Setelah beberapa jam berjalan, mereka akhirnya sampai. Sebuah kota kecil berdiri di depan mereka. Gerbang kayu tinggi. Rumah-rumah batu sederhana. Pasar ramai. Orang-orang berlalu lalang.</p>
+                <p>Di atas gerbang tertulis: <strong>Astera</strong>.</p>
+                <p>Mira langsung berputar kecil. "Aku kangen keramaian!" Kaien menghirup udara dalam. "Aku mencium daging panggang." Rhen menggeleng. "Memalukan."</p>
+                <p>Untuk pertama kalinya, Archeon hanya berdiri diam memandang kota itu. Ia belum pernah keluar dari Elaris. Semua terasa asing. Semua terasa besar.</p>
+                <p>Lyria memperhatikan wajahnya. "Pertama kali?" Archeon mengangguk kecil. Lyria tersenyum lembut. "Kalau begitu, selamat datang di dunia luar."</p>
+                <p>Mereka masuk bersama. Astera jauh berbeda dari Elaris. Di jalan utama: pedagang berteriak menawarkan barang, anak-anak berlari membawa roti, petualang memakai armor berjalan santai, suara logam dari bengkel terdengar dari jauh.</p>
+                <p>Archeon menatap semuanya diam-diam. Ia baru sadar betapa kecil dunianya selama ini.</p>
+                <p>Namun di balik rasa kagum itu, Selene tiba-tiba berhenti. Ia menoleh ke belakang. Rhen langsung sadar. "Ada apa?" Selene menjawab pelan. "Kita diperhatikan."</p>
+                <p>Archeon ikut menoleh. Di atap bangunan seberang, seorang pria berjubah abu-abu berdiri diam. Wajahnya tertutup tudung. Namun matanya jelas menatap Archeon.</p>
+                <p>Saat Archeon berkedip, pria itu menghilang. Mira menelan ludah. "Aku tidak suka itu." Rhen mengangguk pelan. "Aku juga."</p>
+                <p>Mereka akhirnya berhenti di penginapan kecil dekat pusat kota. Pemiliknya seorang wanita paruh baya bernama Nora. Ia menatap kelompok mereka sebentar, lalu tersenyum kecil. "Kalian kelihatan seperti anak-anak yang kabur."</p>
+                <p>Kaien menjawab cepat. "Kami petualang." Nora tertawa. "Yang lapar duluan biasanya memang petualang."</p>
+                <p>Malam itu, untuk pertama kalinya sejak keluar dari desa, mereka makan bersama di meja hangat. Sup panas. Roti. Daging panggang. Kaien hampir menangis. "Aku mau tinggal di kota ini." Mira memukul lengannya. "Belum juga sehari."</p>
+                <p>Suasana kecil itu membuat Archeon diam. Ia memperhatikan mereka semua. Tertawa. Bercanda. Berdebat kecil. Hal yang dulu tidak pernah ia miliki.</p>
+                <p>Lyria memperhatikan wajahnya. "Kau kenapa?" Archeon menatap meja. "Aku baru sadar." "Apa?" Archeon menjawab pelan. "Aku tidak merasa sendirian." Lyria tersenyum kecil. "Itu bagus."</p>
+                <p>Namun kedamaian itu tidak berlangsung lama. Malam hari, saat semua sudah tidur, Archeon terbangun sendiri. Ia mendengar sesuatu. Bukan suara keras. Hanya langkah. Pelan. Di luar jendela.</p>
+                <p>Archeon bangkit perlahan tanpa membangunkan yang lain. Ia berjalan menuju jendela. Di luar, gang sempit itu kosong. Namun bayangan bergerak di ujung jalan. Archeon menyipitkan mata. Pria berjubah abu-abu tadi. Berdiri diam. Menatapnya.</p>
+                <p>Jantung Archeon berdetak lebih cepat. Pria itu mengangkat satu tangan. Lalu menunjuk langsung ke dada Archeon. Dan berkata tanpa suara. <strong>"Aku menemukanmu."</strong></p>
+                <p>Archeon langsung membuka jendela. Namun saat ia melihat lagi, pria itu sudah hilang. Lyria terbangun. "Archeon?" Archeon tetap menatap luar. "Ada seseorang." Lyria bangkit. "Siapa?" Archeon menjawab pelan. "Aku tidak tahu."</p>
+                <p>Ia memegang dadanya. Namun kali ini, bukan rasa takut yang muncul. Melainkan satu perasaan aneh. Seolah seseorang di dunia luar ini sudah lama menunggu dirinya keluar dari desa.</p>
+                <p>Dan untuk pertama kalinya, Archeon mulai sadar. Perjalanan mereka mungkin bukan kebetulan. Mungkin sejak awal, seseorang memang sedang mengarahkan langkahnya.</p>
+                <p><em>— Bab 5 selesai —</em></p>`
+        },
+        { 
+            id: 6, 
+            title: "Pemburu dalam Bayangan", 
+            isAvailable: true, 
+            content: `<p>Pagi di kota Astera terasa lebih ramai dari biasanya.</p>
+                <p>Suara pedagang mulai memenuhi jalan. Kuda-kuda menarik kereta. Orang-orang berjalan cepat menuju pasar.</p>
+                <p>Namun bagi Archeon, semua terasa berbeda. Karena sejak semalam, ia tahu satu hal. Seseorang sedang mengawasinya.</p>
+                <p>Archeon berdiri di dekat jendela kamar penginapan, menatap jalan di bawah. Orang-orang lalu lalang seperti biasa. Tidak ada pria berjubah abu-abu itu. Namun perasaan diawasi masih belum hilang.</p>
+                <p>Lyria berdiri di sampingnya. "Kau belum tidur lagi?" Archeon menggeleng kecil. "Aku merasa dia masih dekat."</p>
+                <p>Lyria menatap wajahnya sebentar. "Kita bilang ke yang lain." Archeon sempat ingin menolak, namun akhirnya mengangguk.</p>
+                <p>Beberapa menit kemudian, mereka semua berkumpul di meja bawah penginapan. Mira langsung tegang. "Jadi ada orang misterius mengikuti kita dari kemarin?" Kaien menyilangkan tangan. "Aku tidak suka bagian itu." Rhen menatap Archeon. "Kau yakin bukan mimpi?" Archeon menatap balik. "Aku yakin."</p>
+                <p>Selene yang sedari tadi diam akhirnya berbicara. "Dia bukan mengikuti kita." Semua menoleh. Selene menatap Archeon. "Dia mengikuti kamu."</p>
+                <p>Suasana langsung sunyi. Archeon terdiam. Karena jauh di dalam dirinya, ia tahu Selene benar.</p>
+                <p>Pemilik penginapan, Nora, meletakkan teh di meja mereka. Saat mendengar percakapan itu, wajahnya berubah sedikit. "Kalian sebaiknya hati-hati."</p>
+                <p>Rhen menoleh. "Kau tahu sesuatu?" Nora menatap luar jendela sebentar, lalu berkata pelan. "Beberapa minggu ini, ada orang asing datang ke kota." "Mereka tidak bicara banyak." "Tapi mereka selalu mencari satu hal." "Apa?" tanya Mira. Nora menjawab singkat. <strong>"Anak tanpa mana."</strong></p>
+                <p>Archeon membeku. Lyria langsung menggenggam tangannya di bawah meja. Mira menelan ludah. "Itu terlalu spesifik." Kaien mengernyit. "Siapa yang tahu soal itu?" Nora menggeleng. "Tidak ada yang tahu. Makanya itu aneh."</p>
+                <p>Setelah sarapan, mereka memutuskan keluar untuk mencari informasi. Rhen dan Kaien menuju guild kecil. Mira ikut Selene ke pasar. Lyria tetap bersama Archeon.</p>
+                <p>Mereka berjalan melewati jalan batu yang dipenuhi orang. Namun Archeon terus merasa langkah seseorang mengikuti dari jauh. Lyria menoleh pelan. "Kau merasakannya lagi?" Archeon mengangguk. "Sejak keluar penginapan." Lyria menatap sekeliling. "Jangan jauh dariku." Archeon hampir tersenyum kecil. "Aku yang harus bilang begitu."</p>
+                <p>Mereka berhenti di toko buku tua di ujung jalan. Pemiliknya seorang pria tua bernama Eldric. Mata tuanya langsung tertuju pada Archeon. Lalu ia berkata pelan. "Jadi akhirnya... kau datang juga."</p>
+                <p>Archeon langsung menegang. "Kau mengenalku?" Eldric menggeleng. "Tidak." Ia menatap lebih dalam. "Tapi aku mengenali tatapan itu."</p>
+                <p>Lyria maju sedikit. "Maksudmu apa?" Eldric mengambil buku tua dari rak belakang. Sampulnya hitam lusuh. Tanpa judul. Ia membuka beberapa halaman lalu menunjukkannya pada Archeon. Gambar di dalamnya adalah simbol lingkaran hitam yang sangat mirip dengan garis samar yang pernah muncul di tangan Archeon.</p>
+                <p>Mata Archeon membesar. "Itu..." Eldric berkata pelan. <strong>"Simbol orang yang berjalan tanpa mana."</strong> "Dan setiap kali simbol itu muncul, dunia berubah."</p>
+                <p>Archeon menatap halaman itu lama. Namun sebelum ia bisa bertanya lagi—</p>
+                <p><strong>BRAK!</strong> Pintu toko terbuka keras. Tiga pria berjubah hitam masuk. Salah satunya membuka tudung. Pria yang semalam. Tatapannya dingin. "Akhirnya kami menemukanmu."</p>
+                <p>Lyria langsung berdiri di depan Archeon. "Siapa kalian?" Pria itu menjawab tenang. "Kami hanya ingin membawanya."</p>
+                <p>Rhen dan yang lain belum kembali. Mereka hanya berdua. Archeon merasakan jantungnya berdetak cepat. Bukan karena takut. Tapi karena tubuhnya mulai bereaksi sendiri.</p>
+                <p>Pria berjubah itu menatap Archeon. "Ikut dengan tenang. Atau kami paksa." Lyria menyiapkan sihirnya. "Tidak akan."</p>
+                <p>Pria itu mengangkat tangan. Aura hitam tipis muncul di sekelilingnya. Archeon langsung menyadari. Ia bisa melihat lagi. Benang-benang tipis hitam mengalir di tubuh pria itu. Lebih jelas dari sebelumnya.</p>
+                <p>Archeon menatapnya diam. Dan untuk pertama kalinya, ia sadar. Ia tidak sedang melihat tubuh mereka. Ia sedang melihat <strong>kekuatan</strong> mereka.</p>
+                <p>Pria itu melangkah maju. Namun sebelum ia sempat menyerang, Archeon menarik Lyria mundur. Pisau kecil melesat tepat melewati tempat mereka berdiri.</p>
+                <p>Lyria membelalak. "Kau tahu?" Archeon juga terkejut. Ia tidak melihat gerakan tangan pria itu. Tapi tubuhnya tahu lebih dulu. Seolah refleksnya mulai berubah.</p>
+                <p>Pria berjubah itu menyipitkan mata. "Menarik."</p>
+                <p>Archeon menatap tangannya sendiri. Masih belum kuat. Masih belum mengerti. Namun untuk pertama kalinya, ia mulai sadar. Sesuatu dalam dirinya tidak sedang bangun. Sesuatu itu <strong>sedang mengingat</strong>.</p>
+                <p><em>— Bab 6 selesai —</em></p>`
+        },
+        { id: 7, title: "Pertarungan Pertama", isAvailable: false, content: "<p><em>Bab 7 akan segera hadir. Pertarungan di toko buku tua dimulai...</em></p>" },
+        { id: 8, title: "Rahasia Eldric", isAvailable: false, content: "<p><em>Bab 8 segera menyusul.</em></p>" },
+        { id: 9, title: "Lari dari Astera", isAvailable: false, content: "<p><em>Bab 9 segera menyusul.</em></p>" },
+        { id: 10, title: "Jalan ke Utara", isAvailable: false, content: "<p><em>Bab 10 segera menyusul.</em></p>" }
+    ];
+
+    // Tambahkan placeholder untuk chapter 11-20
+    for (let i = 11; i <= 20; i++) {
+        chaptersData.push({
+            id: i,
+            title: `Bab ${i}`,
+            isAvailable: false,
+            content: `<p><em>Bab ${i} akan segera hadir di Arc 1.</em></p>`
+        });
+    }
+
+    function renderChapterList() {
+        const container = document.getElementById('chapter-list-container');
+        if (!container) return;
+        container.innerHTML = '';
+        chaptersData.forEach(ch => {
+            const div = document.createElement('div');
+            div.className = 'chapter-item';
+            div.innerHTML = `
+                <div><span class="chapter-num">Bab ${ch.id}</span> — ${ch.title}</div>
+                <div class="read-badge">${ch.isAvailable ? '📖 Baca' : '🔒 Segera'}</div>
+            `;
+            if (ch.isAvailable) {
+                div.style.cursor = 'pointer';
+                div.addEventListener('click', () => openChapterReader(ch.id, ch.title, ch.content));
+            } else {
+                div.style.opacity = '0.6';
+            }
+            container.appendChild(div);
+        });
+    }
+
+    function openChapterReader(id, title, contentHtml) {
+        let readerPage = document.getElementById('reader-page');
+        if (!readerPage) {
+            const container = document.querySelector('.container');
+            const newDiv = document.createElement('div');
+            newDiv.id = 'reader-page';
+            newDiv.className = 'page';
+            container.appendChild(newDiv);
+            readerPage = newDiv;
+        }
+        
+        const currentIndex = chaptersData.findIndex(ch => ch.id === id);
+        const prevChapter = currentIndex > 0 ? chaptersData[currentIndex - 1] : null;
+        const nextChapter = currentIndex < chaptersData.length - 1 ? chaptersData[currentIndex + 1] : null;
+        
+        let prevButtonHtml = '';
+        let nextButtonHtml = '';
+        
+        if (prevChapter && prevChapter.isAvailable) {
+            prevButtonHtml = `<button class="nav-chapter-btn" id="prevChapterBtn">← Bab ${prevChapter.id}: ${prevChapter.title}</button>`;
+        } else {
+            prevButtonHtml = `<button class="nav-chapter-btn" disabled>← Bab Sebelumnya</button>`;
+        }
+        
+        if (nextChapter && nextChapter.isAvailable) {
+            nextButtonHtml = `<button class="nav-chapter-btn" id="nextChapterBtn">Bab ${nextChapter.id}: ${nextChapter.title} →</button>`;
+        } else if (nextChapter && !nextChapter.isAvailable) {
+            nextButtonHtml = `<button class="nav-chapter-btn" disabled>Bab ${nextChapter.id}: Segera →</button>`;
+        } else {
+            nextButtonHtml = `<button class="nav-chapter-btn" disabled>Bab Selanjutnya →</button>`;
+        }
+        
+        readerPage.innerHTML = `
+            <div class="chapter-content">
+                <div class="chapter-title">Bab ${id} — ${title}</div>
+                <div class="chapter-text">
+                    ${contentHtml}
+                </div>
+                <div class="nav-button-group">
+                    ${prevButtonHtml}
+                    <button id="backToChaptersBtn" class="nav-chapter-btn" style="background:#5a3e2e;">📚 Daftar Bab</button>
+                    ${nextButtonHtml}
+                </div>
+            </div>
+        `;
+        
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+        readerPage.classList.add('active-page');
+        
+        document.getElementById('backToChaptersBtn')?.addEventListener('click', () => {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+            document.getElementById('chapters').classList.add('active-page');
+            document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('nav-active'));
+            document.querySelector('nav button[data-page="chapters"]').classList.add('nav-active');
+            const reader = document.getElementById('reader-page');
+            if (reader) reader.remove();
+        });
+        
+        if (prevChapter && prevChapter.isAvailable) {
+            document.getElementById('prevChapterBtn')?.addEventListener('click', () => {
+                openChapterReader(prevChapter.id, prevChapter.title, prevChapter.content);
+            });
+        }
+        
+        if (nextChapter && nextChapter.isAvailable) {
+            document.getElementById('nextChapterBtn')?.addEventListener('click', () => {
+                openChapterReader(nextChapter.id, nextChapter.title, nextChapter.content);
+            });
+        }
+    }
+
+    function initNavigation() {
+        const navBtns = document.querySelectorAll('nav button');
+        navBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const pageId = btn.getAttribute('data-page');
+                if (!pageId) return;
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+                const targetPage = document.getElementById(pageId);
+                if (targetPage) targetPage.classList.add('active-page');
+                navBtns.forEach(b => b.classList.remove('nav-active'));
+                btn.classList.add('nav-active');
+                if (pageId === 'chapters') renderChapterList();
+                const readerPage = document.getElementById('reader-page');
+                if (readerPage && pageId !== 'reader') readerPage.remove();
+            });
+        });
+    }
+
+    function initDarkMode() {
+        const btn = document.getElementById('darkModeBtn');
+        btn.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+        });
+    }
+
+    function initHomeButton() {
+        const homeStartBtn = document.querySelector('.chapter-content button[data-page="chapters"]');
+        if (homeStartBtn) {
+            homeStartBtn.addEventListener('click', () => {
+                document.querySelector('nav button[data-page="chapters"]').click();
+            });
+        }
+    }
+
+    renderChapterList();
+    initNavigation();
+    initDarkMode();
+    initHomeButton();
+</script>
+</body>
+</html>
