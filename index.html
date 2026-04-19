@@ -509,6 +509,32 @@
             margin-left: 0.5rem;
         }
 
+        /* Dark Mode Button di kiri bawah */
+        .dark-toggle {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            background: #b87c4f;
+            border: none;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+        .dark-toggle:hover {
+            background: #9a623d;
+            transform: scale(1.05);
+        }
+
         @media (max-width: 600px) {
             .chapter-title { font-size: 1.5rem; }
             .chapter-content, .chapter-list { padding: 1.3rem; }
@@ -516,6 +542,7 @@
             .nav-chapter-btn { font-size: 0.7rem; padding: 0.4rem 0.8rem; }
             .header-buttons { top: 0.5rem; right: 0.8rem; }
             .icon-btn { width: 32px; height: 32px; font-size: 1rem; }
+            .dark-toggle { width: 40px; height: 40px; font-size: 1.2rem; bottom: 15px; left: 15px; }
         }
     </style>
 </head>
@@ -531,7 +558,6 @@
                 <div id="dropdownContent"></div>
             </div>
         </div>
-        <button class="icon-btn" id="darkModeHeaderBtn">🌙</button>
     </div>
 </header>
 
@@ -587,6 +613,9 @@
     </div>
 </div>
 
+<!-- Dark Mode Button di kiri bawah -->
+<button class="dark-toggle" id="darkModeBtn">🌙</button>
+
 <!-- Modal Login/Register -->
 <div id="authModal" class="modal">
     <div class="modal-content">
@@ -635,8 +664,8 @@
     ];
 
     // ==================== GLOBAL VARIABLES ====================
-    let currentUser = null;
-    let currentUserId = null;
+    let currentUser = localStorage.getItem('currentUser') || null;
+    let currentUserId = localStorage.getItem('currentUserId') || null;
     let currentChapterId = null;
 
     // ==================== AUTH FUNCTIONS ====================
@@ -678,6 +707,7 @@
         localStorage.setItem('currentUser', currentUser);
         localStorage.setItem('currentUserId', currentUserId);
         
+        updateUserDropdown();
         return { success: true, message: `Selamat datang, ${username}!` };
     }
 
@@ -691,12 +721,6 @@
             const chapter = chaptersData.find(c => c.id === currentChapterId);
             if (chapter) openChapterReader(chapter.id, chapter.title, chapter.content);
         }
-    }
-
-    function checkSession() {
-        currentUser = localStorage.getItem('currentUser');
-        currentUserId = localStorage.getItem('currentUserId');
-        updateUserDropdown();
     }
 
     // ==================== COMMENTS FUNCTIONS ====================
@@ -844,7 +868,7 @@
                 const msg = document.getElementById('modalMessage');
                 msg.textContent = result.message;
                 if (result.success) {
-                    setTimeout(() => { modal.classList.remove('active'); updateUserDropdown(); location.reload(); }, 1000);
+                    setTimeout(() => { modal.classList.remove('active'); updateUserDropdown(); }, 1000);
                 }
             });
             document.getElementById('switchToRegister')?.addEventListener('click', (e) => { e.preventDefault(); openAuthModal('register'); });
@@ -874,6 +898,20 @@
         }
     }
 
+    // ==================== DARK MODE ====================
+    function initDarkMode() {
+        const btn = document.getElementById('darkModeBtn');
+        const isDark = localStorage.getItem('darkMode') === 'true';
+        if (isDark) document.body.classList.add('dark');
+        btn.textContent = isDark ? '☀️' : '🌙';
+        btn.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            const dark = document.body.classList.contains('dark');
+            localStorage.setItem('darkMode', dark);
+            btn.textContent = dark ? '☀️' : '🌙';
+        });
+    }
+
     // ==================== NAVIGATION ====================
     function initNavigation() {
         document.querySelectorAll('nav button').forEach(btn => {
@@ -888,45 +926,52 @@
                 document.getElementById('reader-page')?.remove();
             });
         });
-        document.querySelectorAll('.chapter-content button[data-page="chapters"]').forEach(btn => {
-            btn.addEventListener('click', () => document.querySelector('nav button[data-page="chapters"]').click());
-        });
-    }
-
-    function initDarkMode() {
-        const btn = document.getElementById('darkModeHeaderBtn');
-        const isDark = localStorage.getItem('darkMode') === 'true';
-        if (isDark) document.body.classList.add('dark');
-        btn.textContent = isDark ? '☀️' : '🌙';
-        btn.addEventListener('click', () => {
-            document.body.classList.toggle('dark');
-            const dark = document.body.classList.contains('dark');
-            localStorage.setItem('darkMode', dark);
-            btn.textContent = dark ? '☀️' : '🌙';
-        });
+        
+        const startBtn = document.querySelector('.chapter-content button[data-page="chapters"]');
+        if (startBtn) {
+            startBtn.addEventListener('click', () => {
+                document.querySelector('nav button[data-page="chapters"]').click();
+            });
+        }
     }
 
     function initUserMenu() {
         const accountBtn = document.getElementById('accountBtn');
         const dropdown = document.getElementById('userDropdown');
-        accountBtn?.addEventListener('click', (e) => { e.stopPropagation(); dropdown.classList.toggle('active'); });
-        document.addEventListener('click', () => dropdown.classList.remove('active'));
-        dropdown?.addEventListener('click', (e) => e.stopPropagation());
+        if (accountBtn) {
+            accountBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dropdown.classList.toggle('active');
+            });
+        }
+        document.addEventListener('click', () => {
+            if (dropdown) dropdown.classList.remove('active');
+        });
+        if (dropdown) {
+            dropdown.addEventListener('click', (e) => e.stopPropagation());
+        }
     }
 
     function initModalClose() {
         const modal = document.getElementById('authModal');
-        document.getElementById('closeModalBtn')?.addEventListener('click', () => modal.classList.remove('active'));
-        modal?.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
+        const closeBtn = document.getElementById('closeModalBtn');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+        }
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) modal.classList.remove('active');
+            });
+        }
     }
 
     // ==================== INIT ====================
-    checkSession();
     renderChapterList();
     initNavigation();
     initDarkMode();
     initUserMenu();
     initModalClose();
+    updateUserDropdown();
 </script>
 </body>
 </html>
