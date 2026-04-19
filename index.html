@@ -500,16 +500,6 @@
             text-align: center;
         }
 
-        .admin-badge {
-            background: #b87c4f;
-            color: white;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            margin-left: 0.5rem;
-        }
-
-        /* Dark Mode Button di kiri bawah */
         .dark-toggle {
             position: fixed;
             bottom: 25px;
@@ -527,7 +517,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: 0.2s;
         }
 
         .dark-toggle:hover {
@@ -562,9 +551,9 @@
 </header>
 
 <nav>
-    <button data-page="home" class="nav-active">📖 Beranda</button>
-    <button data-page="chapters">📚 Daftar Bab</button>
-    <button data-page="about">🖋️ Tentang Novel</button>
+    <button class="nav-btn" data-page="home">📖 Beranda</button>
+    <button class="nav-btn" data-page="chapters">📚 Daftar Bab</button>
+    <button class="nav-btn" data-page="about">🖋️ Tentang Novel</button>
 </nav>
 
 <div class="container">
@@ -578,7 +567,7 @@
                 <p style="font-style: italic; margin-top: 1.5rem;">"Dia lahir dalam keheningan. Tapi keheningan itu sedang memanggil badai."</p>
             </div>
             <div style="margin-top: 2rem; text-align: center;">
-                <button data-page="chapters" style="background: #b87c4f; color: white; border: none; padding: 0.6rem 1.8rem; border-radius: 40px; cursor: pointer;">📖 Mulai Membaca</button>
+                <button id="startReadingBtn" style="background: #b87c4f; color: white; border: none; padding: 0.6rem 1.8rem; border-radius: 40px; cursor: pointer;">📖 Mulai Membaca</button>
             </div>
         </div>
     </div>
@@ -613,10 +602,8 @@
     </div>
 </div>
 
-<!-- Dark Mode Button di kiri bawah -->
 <button class="dark-toggle" id="darkModeBtn">🌙</button>
 
-<!-- Modal Login/Register -->
 <div id="authModal" class="modal">
     <div class="modal-content">
         <button class="close-modal" id="closeModalBtn">&times;</button>
@@ -757,7 +744,7 @@
             div.className = 'chapter-item';
             div.innerHTML = `<div><span class="chapter-num">Bab ${ch.id}</span> — ${ch.title} <span style="font-size:0.7rem; color:#b87c4f;">(Arc ${ch.arc})</span></div><div class="read-badge">📖 Baca</div>`;
             div.style.cursor = 'pointer';
-            div.addEventListener('click', () => openChapterReader(ch.id, ch.title, ch.content));
+            div.onclick = () => openChapterReader(ch.id, ch.title, ch.content);
             container.appendChild(div);
         });
     }
@@ -774,7 +761,6 @@
             container.appendChild(newDiv);
             readerPage = newDiv;
         }
-        readerPage.dataset.chapterId = id;
         
         const currentIndex = chaptersData.findIndex(ch => ch.id === id);
         const prevChapter = currentIndex > 0 ? chaptersData[currentIndex - 1] : null;
@@ -816,21 +802,43 @@
         document.getElementById('backToChaptersBtn')?.addEventListener('click', () => {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
             document.getElementById('chapters').classList.add('active-page');
-            document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('nav-active'));
-            document.querySelector('nav button[data-page="chapters"]').classList.add('nav-active');
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('nav-active'));
+            document.querySelector('.nav-btn[data-page="chapters"]').classList.add('nav-active');
             document.getElementById('reader-page')?.remove();
         });
-        if (prevChapter) document.getElementById('prevChapterBtn')?.addEventListener('click', () => openChapterReader(prevChapter.id, prevChapter.title, prevChapter.content));
-        if (nextChapter) document.getElementById('nextChapterBtn')?.addEventListener('click', () => openChapterReader(nextChapter.id, nextChapter.title, nextChapter.content));
-        document.getElementById('submitCommentBtn')?.addEventListener('click', async () => {
-            const text = document.getElementById('commentText').value;
-            if (await addComment(id, text)) {
-                document.getElementById('commentText').value = '';
-                openChapterReader(id, title, contentHtml);
-            }
-        });
-        document.getElementById('loginPromptBtn')?.addEventListener('click', (e) => { e.preventDefault(); openAuthModal('login'); });
-        document.getElementById('registerPromptBtn')?.addEventListener('click', (e) => { e.preventDefault(); openAuthModal('register'); });
+        
+        if (prevChapter) {
+            document.getElementById('prevChapterBtn')?.addEventListener('click', () => {
+                openChapterReader(prevChapter.id, prevChapter.title, prevChapter.content);
+            });
+        }
+        
+        if (nextChapter) {
+            document.getElementById('nextChapterBtn')?.addEventListener('click', () => {
+                openChapterReader(nextChapter.id, nextChapter.title, nextChapter.content);
+            });
+        }
+        
+        const submitBtn = document.getElementById('submitCommentBtn');
+        if (submitBtn) {
+            submitBtn.addEventListener('click', async () => {
+                const text = document.getElementById('commentText').value;
+                if (await addComment(id, text)) {
+                    document.getElementById('commentText').value = '';
+                    openChapterReader(id, title, contentHtml);
+                }
+            });
+        }
+        
+        const loginPrompt = document.getElementById('loginPromptBtn');
+        if (loginPrompt) {
+            loginPrompt.onclick = (e) => { e.preventDefault(); openAuthModal('login'); };
+        }
+        
+        const registerPrompt = document.getElementById('registerPromptBtn');
+        if (registerPrompt) {
+            registerPrompt.onclick = (e) => { e.preventDefault(); openAuthModal('register'); };
+        }
     }
 
     // ==================== MODAL AUTH ====================
@@ -861,27 +869,39 @@
         modal.classList.add('active');
         
         if (tab === 'login') {
-            document.getElementById('modalLoginBtn')?.addEventListener('click', async () => {
-                const username = document.getElementById('modalUsername').value;
-                const password = document.getElementById('modalPassword').value;
-                const result = await login(username, password);
-                const msg = document.getElementById('modalMessage');
-                msg.textContent = result.message;
-                if (result.success) {
-                    setTimeout(() => { modal.classList.remove('active'); updateUserDropdown(); }, 1000);
-                }
-            });
-            document.getElementById('switchToRegister')?.addEventListener('click', (e) => { e.preventDefault(); openAuthModal('register'); });
+            const loginBtn = document.getElementById('modalLoginBtn');
+            if (loginBtn) {
+                loginBtn.onclick = async () => {
+                    const username = document.getElementById('modalUsername').value;
+                    const password = document.getElementById('modalPassword').value;
+                    const result = await login(username, password);
+                    const msg = document.getElementById('modalMessage');
+                    msg.textContent = result.message;
+                    if (result.success) {
+                        setTimeout(() => { modal.classList.remove('active'); location.reload(); }, 1000);
+                    }
+                };
+            }
+            const switchBtn = document.getElementById('switchToRegister');
+            if (switchBtn) {
+                switchBtn.onclick = (e) => { e.preventDefault(); openAuthModal('register'); };
+            }
         } else {
-            document.getElementById('modalRegisterBtn')?.addEventListener('click', async () => {
-                const username = document.getElementById('modalRegUsername').value;
-                const password = document.getElementById('modalRegPassword').value;
-                const result = await register(username, password);
-                const msg = document.getElementById('modalMessage');
-                msg.textContent = result.message;
-                if (result.success) setTimeout(() => openAuthModal('login'), 1500);
-            });
-            document.getElementById('switchToLogin')?.addEventListener('click', (e) => { e.preventDefault(); openAuthModal('login'); });
+            const registerBtn = document.getElementById('modalRegisterBtn');
+            if (registerBtn) {
+                registerBtn.onclick = async () => {
+                    const username = document.getElementById('modalRegUsername').value;
+                    const password = document.getElementById('modalRegPassword').value;
+                    const result = await register(username, password);
+                    const msg = document.getElementById('modalMessage');
+                    msg.textContent = result.message;
+                    if (result.success) setTimeout(() => openAuthModal('login'), 1500);
+                };
+            }
+            const switchBtn = document.getElementById('switchToLogin');
+            if (switchBtn) {
+                switchBtn.onclick = (e) => { e.preventDefault(); openAuthModal('login'); };
+            }
         }
     }
 
@@ -891,10 +911,12 @@
         if (currentUser) {
             const isAdmin = currentUser === 'Varen';
             dropdown.innerHTML = `<a class="user-name">👤 ${currentUser} ${isAdmin ? '👑' : ''}</a><a id="dropdownLogout">🚪 Logout</a>`;
-            document.getElementById('dropdownLogout')?.addEventListener('click', logout);
+            const logoutBtn = document.getElementById('dropdownLogout');
+            if (logoutBtn) logoutBtn.onclick = logout;
         } else {
             dropdown.innerHTML = `<a id="dropdownLogin">🔐 Login / Daftar</a>`;
-            document.getElementById('dropdownLogin')?.addEventListener('click', () => openAuthModal('login'));
+            const loginBtn = document.getElementById('dropdownLogin');
+            if (loginBtn) loginBtn.onclick = () => openAuthModal('login');
         }
     }
 
@@ -904,34 +926,37 @@
         const isDark = localStorage.getItem('darkMode') === 'true';
         if (isDark) document.body.classList.add('dark');
         btn.textContent = isDark ? '☀️' : '🌙';
-        btn.addEventListener('click', () => {
+        btn.onclick = () => {
             document.body.classList.toggle('dark');
             const dark = document.body.classList.contains('dark');
             localStorage.setItem('darkMode', dark);
             btn.textContent = dark ? '☀️' : '🌙';
-        });
+        };
     }
 
     // ==================== NAVIGATION ====================
     function initNavigation() {
-        document.querySelectorAll('nav button').forEach(btn => {
-            btn.addEventListener('click', () => {
+        const navBtns = document.querySelectorAll('.nav-btn');
+        navBtns.forEach(btn => {
+            btn.onclick = () => {
                 const pageId = btn.getAttribute('data-page');
                 if (!pageId) return;
                 document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
-                document.getElementById(pageId)?.classList.add('active-page');
-                document.querySelectorAll('nav button').forEach(b => b.classList.remove('nav-active'));
+                const targetPage = document.getElementById(pageId);
+                if (targetPage) targetPage.classList.add('active-page');
+                navBtns.forEach(b => b.classList.remove('nav-active'));
                 btn.classList.add('nav-active');
                 if (pageId === 'chapters') renderChapterList();
-                document.getElementById('reader-page')?.remove();
-            });
+                const readerPage = document.getElementById('reader-page');
+                if (readerPage) readerPage.remove();
+            };
         });
         
-        const startBtn = document.querySelector('.chapter-content button[data-page="chapters"]');
+        const startBtn = document.getElementById('startReadingBtn');
         if (startBtn) {
-            startBtn.addEventListener('click', () => {
-                document.querySelector('nav button[data-page="chapters"]').click();
-            });
+            startBtn.onclick = () => {
+                document.querySelector('.nav-btn[data-page="chapters"]').click();
+            };
         }
     }
 
@@ -939,16 +964,16 @@
         const accountBtn = document.getElementById('accountBtn');
         const dropdown = document.getElementById('userDropdown');
         if (accountBtn) {
-            accountBtn.addEventListener('click', (e) => {
+            accountBtn.onclick = (e) => {
                 e.stopPropagation();
                 dropdown.classList.toggle('active');
-            });
+            };
         }
-        document.addEventListener('click', () => {
+        document.onclick = () => {
             if (dropdown) dropdown.classList.remove('active');
-        });
+        };
         if (dropdown) {
-            dropdown.addEventListener('click', (e) => e.stopPropagation());
+            dropdown.onclick = (e) => e.stopPropagation();
         }
     }
 
@@ -956,12 +981,12 @@
         const modal = document.getElementById('authModal');
         const closeBtn = document.getElementById('closeModalBtn');
         if (closeBtn) {
-            closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+            closeBtn.onclick = () => modal.classList.remove('active');
         }
         if (modal) {
-            modal.addEventListener('click', (e) => {
+            modal.onclick = (e) => {
                 if (e.target === modal) modal.classList.remove('active');
-            });
+            };
         }
     }
 
