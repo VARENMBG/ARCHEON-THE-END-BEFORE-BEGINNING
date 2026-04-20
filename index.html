@@ -1,1005 +1,608 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>The End Before Beginning | Novel - Arc 1,2,3</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            transition: background 0.3s, color 0.2s;
-        }
-
-        body {
-            font-family: 'Georgia', 'Times New Roman', serif;
-            background: #fefaf5;
-            color: #2e241f;
-            line-height: 1.8;
-        }
-
-        body.dark {
-            background: #1a1a1a;
-            color: #e0e0e0;
-        }
-
-        body.dark .chapter-content, body.dark .chapter-list {
-            background: #2a2a2a;
-        }
-
-        body.dark header {
-            background: #0f0f0f;
-            color: #e0b07f;
-        }
-
-        body.dark nav {
-            background: #0a0a0a;
-        }
-
-        body.dark nav button {
-            color: #ccc;
-        }
-
-        body.dark nav button:hover, body.dark .nav-active {
-            background: #e0b07f;
-            color: #1a1a1a;
-        }
-
-        body.dark .chapter-item {
-            border-bottom-color: #444;
-        }
-
-        body.dark .chapter-item:hover {
-            background: #3a3a3a;
-        }
-
-        body.dark .comment {
-            background: #333;
-        }
-
-        body.dark .modal-content {
-            background: #2a2a2a;
-        }
-
-        body.dark .modal-content input {
-            background: #1a1a1a;
-            border-color: #444;
-            color: white;
-        }
-
-        .arc-badge {
-            background: #b87c4f20;
-            border: 1px solid #b87c4f;
-            color: #b87c4f;
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            display: inline-block;
-            margin-left: 1rem;
-        }
-
-        header {
-            background: #2c241a;
-            color: #f0dbc0;
-            padding: 2rem 1.5rem;
-            text-align: center;
-            position: relative;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            letter-spacing: 2px;
-            font-weight: normal;
-        }
-
-        header p {
-            font-style: italic;
-            margin-top: 0.5rem;
-            opacity: 0.8;
-        }
-
-        .header-buttons {
-            position: absolute;
-            top: 1rem;
-            right: 1.5rem;
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .icon-btn {
-            background: #b87c4f;
-            border: none;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.2s;
-        }
-
-        .icon-btn:hover {
-            background: #9a623d;
-            transform: scale(1.05);
-        }
-
-        .user-menu {
-            position: relative;
-            display: inline-block;
-        }
-
-        .user-dropdown {
-            position: absolute;
-            top: 45px;
-            right: 0;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            min-width: 180px;
-            z-index: 200;
-            display: none;
-            overflow: hidden;
-        }
-
-        body.dark .user-dropdown {
-            background: #2a2a2a;
-            border: 1px solid #444;
-        }
-
-        .user-dropdown.active {
-            display: block;
-        }
-
-        .user-dropdown a {
-            display: block;
-            padding: 0.8rem 1rem;
-            text-decoration: none;
-            color: #2e241f;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        body.dark .user-dropdown a {
-            color: #e0e0e0;
-        }
-
-        .user-dropdown a:hover {
-            background: #f5ede4;
-        }
-
-        body.dark .user-dropdown a:hover {
-            background: #3a3a3a;
-        }
-
-        .user-dropdown .user-name {
-            font-weight: bold;
-            color: #b87c4f;
-            border-bottom: 1px solid #eee;
-        }
-
-        nav {
-            background: #3e2e24;
-            padding: 0.8rem;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        nav button {
-            background: none;
-            border: none;
-            color: #f0dbc0;
-            font-size: 1rem;
-            padding: 0.4rem 1.2rem;
-            cursor: pointer;
-            font-family: inherit;
-            border-radius: 30px;
-            font-weight: bold;
-        }
-
-        nav button:hover, .nav-active {
-            background: #b87c4f;
-            color: white;
-        }
-
-        .container {
-            max-width: 850px;
-            margin: 2rem auto;
-            padding: 0 1.5rem;
-        }
-
-        .page {
-            display: none;
-            animation: fade 0.3s ease;
-        }
-
-        .active-page {
-            display: block;
-        }
-
-        @keyframes fade {
-            from { opacity: 0; transform: translateY(12px);}
-            to { opacity: 1; transform: translateY(0);}
-        }
-
-        .chapter-content, .chapter-list {
-            background: white;
-            padding: 2.2rem;
-            border-radius: 24px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
-        }
-
-        .chapter-title {
-            font-size: 2rem;
-            margin-bottom: 0.2rem;
-            color: #b87c4f;
-            border-left: 5px solid #b87c4f;
-            padding-left: 1rem;
-        }
-
-        .chapter-text p {
-            margin-bottom: 1.5rem;
-            text-indent: 2em;
-        }
-
-        .chapter-list {
-            padding: 1.5rem;
-        }
-
-        .chapter-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
-            border-bottom: 1px solid #eee;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .chapter-item:hover {
-            background: #f5ede4;
-            padding-left: 1.5rem;
-        }
-
-        .chapter-num {
-            font-weight: bold;
-            color: #b87c4f;
-        }
-
-        .read-badge {
-            background: #2c241a;
-            color: #f0dbc0;
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-        }
-
-        body.dark .read-badge {
-            background: #b87c4f;
-            color: #1a1a1a;
-        }
-
-        .nav-button-group {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 2rem;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .nav-chapter-btn {
-            background: #b87c4f;
-            border: none;
-            color: white;
-            padding: 0.6rem 1.2rem;
-            border-radius: 40px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 0.9rem;
-        }
-
-        .nav-chapter-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .social-link {
-            background: #b87c4f20;
-            border: 1px solid #b87c4f;
-            padding: 0.5rem 1.2rem;
-            border-radius: 40px;
-            text-decoration: none;
-            color: #b87c4f;
-            font-size: 0.9rem;
-            transition: 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .social-link:hover {
-            background: #b87c4f;
-            color: white;
-        }
-
-        .comment-section {
-            margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 2px solid #eee;
-        }
-
-        body.dark .comment-section {
-            border-top-color: #444;
-        }
-
-        .comment-section h4 {
-            color: #b87c4f;
-            margin-bottom: 1rem;
-        }
-
-        .comment-input {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .comment-input textarea {
-            flex: 1;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 16px;
-            font-family: inherit;
-            resize: vertical;
-            background: #fefaf5;
-        }
-
-        body.dark .comment-input textarea {
-            background: #1a1a1a;
-            border-color: #444;
-            color: white;
-        }
-
-        .comment-input button {
-            background: #b87c4f;
-            color: white;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 30px;
-            cursor: pointer;
-        }
-
-        .comment {
-            background: #f5ede4;
-            padding: 1rem;
-            border-radius: 16px;
-            margin-bottom: 0.8rem;
-        }
-
-        .comment-user {
-            font-weight: bold;
-            color: #b87c4f;
-            margin-bottom: 0.3rem;
-        }
-
-        .comment-date {
-            font-size: 0.7rem;
-            opacity: 0.6;
-            margin-left: 0.5rem;
-        }
-
-        .comment-text {
-            margin-top: 0.3rem;
-        }
-
-        .login-to-comment {
-            text-align: center;
-            padding: 1rem;
-            background: #f5ede4;
-            border-radius: 16px;
-            color: #666;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 24px;
-            max-width: 400px;
-            width: 90%;
-            position: relative;
-        }
-
-        .modal-content h3 {
-            color: #b87c4f;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .modal-content input {
-            width: 100%;
-            padding: 0.8rem;
-            margin-bottom: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            font-family: inherit;
-        }
-
-        .modal-content button {
-            background: #b87c4f;
-            color: white;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 30px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 1rem;
-        }
-
-        .modal-content .close-modal {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #999;
-            width: auto;
-        }
-
-        .auth-switch {
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .auth-switch a {
-            color: #b87c4f;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .auth-message {
-            margin-top: 0.5rem;
-            font-size: 0.8rem;
-            text-align: center;
-        }
-
-        .dark-toggle {
-            position: fixed;
-            bottom: 25px;
-            left: 25px;
-            background: #b87c4f;
-            border: none;
-            color: white;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            font-size: 1.4rem;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            z-index: 200;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .dark-toggle:hover {
-            background: #9a623d;
-            transform: scale(1.05);
-        }
-
-        @media (max-width: 600px) {
-            .chapter-title { font-size: 1.5rem; }
-            .chapter-content, .chapter-list { padding: 1.3rem; }
-            nav button { padding: 0.3rem 0.8rem; font-size: 0.9rem; }
-            .nav-chapter-btn { font-size: 0.7rem; padding: 0.4rem 0.8rem; }
-            .header-buttons { top: 0.5rem; right: 0.8rem; }
-            .icon-btn { width: 32px; height: 32px; font-size: 1rem; }
-            .dark-toggle { width: 40px; height: 40px; font-size: 1.2rem; bottom: 15px; left: 15px; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>ARCHEON: THE END BEGINNING · Novel by Muhammad Alfarel Hafizh</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: background-color 0.25s ease, color 0.2s ease, border-color 0.2s;
+    }
+
+    :root {
+      --bg-body: #faf8f5;
+      --bg-card: #ffffff;
+      --bg-header: #ffffffcc;
+      --text-primary: #1e1b1a;
+      --text-secondary: #5b4b3e;
+      --accent: #8b3c2c;
+      --accent-light: #c97e5d;
+      --border: #e6ddd3;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+      --star-active: #f5b342;
+      --star-inactive: #ddd2c5;
+      --footer-bg: #f2ede8;
+      --progress-bg: #e0d6cc;
+      --progress-fill: #8b3c2c;
+    }
+
+    body.dark {
+      --bg-body: #121212;
+      --bg-card: #1e1e2a;
+      --bg-header: #1e1e2acc;
+      --text-primary: #f0ede9;
+      --text-secondary: #bcafa2;
+      --accent: #e09d7c;
+      --accent-light: #b56a48;
+      --border: #2c2c38;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+      --star-inactive: #4a3f36;
+      --footer-bg: #18181f;
+      --progress-bg: #2c2c38;
+      --progress-fill: #e09d7c;
+    }
+
+    body {
+      background-color: var(--bg-body);
+      color: var(--text-primary);
+      font-family: 'Cormorant Garamond', 'Georgia', 'Times New Roman', serif;
+      line-height: 1.7;
+      padding: 0 1rem 3rem 1rem;
+      font-size: 1.1rem;
+    }
+
+    .container {
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
+    .novel-header {
+      backdrop-filter: blur(12px);
+      background: var(--bg-header);
+      border-radius: 2rem;
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0 1.8rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .title-section h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, var(--accent), #b95f3a);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      font-family: 'Cormorant Garamond', 'Georgia', serif;
+    }
+
+    .title-section p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      letter-spacing: 1px;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    .theme-toggle {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 3rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-primary);
+      transition: all 0.2s;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.9rem;
+    }
+
+    .theme-toggle:hover {
+      background: var(--accent-light);
+      color: #1e1b1a;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 1.2rem;
+      gap: 12px;
+    }
+
+    .rating-box {
+      background: var(--bg-card);
+      border-radius: 2rem;
+      padding: 0.4rem 1.2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--border);
+      font-weight: 600;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    .stars {
+      display: inline-flex;
+      gap: 4px;
+      letter-spacing: 2px;
+    }
+
+    .star-filled {
+      color: var(--star-active);
+    }
+
+    .star-empty {
+      color: var(--star-inactive);
+    }
+
+    .author-chip {
+      background: var(--bg-card);
+      border-radius: 2rem;
+      padding: 0.4rem 1.2rem;
+      border: 1px solid var(--border);
+      font-size: 0.9rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    .progress-container {
+      background: var(--bg-card);
+      border-radius: 2rem;
+      padding: 0.5rem 1.2rem;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .progress-bar-wrapper {
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .progress-bar {
+      background: var(--progress-bg);
+      border-radius: 1rem;
+      height: 8px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      background: var(--progress-fill);
+      width: 0%;
+      height: 100%;
+      border-radius: 1rem;
+      transition: width 0.3s ease;
+    }
+
+    .progress-text {
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    .sinopsis {
+      background: var(--bg-card);
+      border-radius: 1.5rem;
+      padding: 1.3rem 1.6rem;
+      margin-bottom: 2rem;
+      border-left: 6px solid var(--accent);
+      box-shadow: var(--shadow);
+    }
+
+    .sinopsis h3 {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Cormorant Garamond', 'Georgia', serif;
+    }
+
+    .chapter-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .chapter-card {
+      background: var(--bg-card);
+      border-radius: 1.2rem;
+      padding: 1.2rem 1.5rem;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.2s;
+      box-shadow: var(--shadow);
+    }
+
+    .chapter-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent-light);
+    }
+
+    .chapter-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-family: 'Cormorant Garamond', 'Georgia', serif;
+    }
+
+    .chapter-date {
+      font-size: 0.7rem;
+      font-weight: normal;
+      color: var(--text-secondary);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    .chapter-preview {
+      color: var(--text-secondary);
+      margin-top: 6px;
+      font-size: 0.95rem;
+      font-family: 'Cormorant Garamond', 'Georgia', serif;
+    }
+
+    .chapter-detail {
+      background: var(--bg-card);
+      border-radius: 1.8rem;
+      padding: 2rem 2.2rem;
+      margin-bottom: 2rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      display: none;
+    }
+
+    .chapter-detail.active {
+      display: block;
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    .detail-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px dashed var(--border);
+      padding-bottom: 0.8rem;
+    }
+
+    .detail-header h2 {
+      font-family: 'Cormorant Garamond', 'Georgia', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    .back-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      padding: 0.4rem 1rem;
+      border-radius: 2rem;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    .back-btn:hover {
+      background: var(--accent-light);
+      color: #1e1b1a;
+    }
+
+    .novel-content {
+      font-size: 1.12rem;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      text-align: justify;
+      font-family: 'Cormorant Garamond', 'Georgia', 'Times New Roman', serif;
+    }
+
+    .footer-social {
+      background: var(--footer-bg);
+      border-radius: 1.8rem;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      border: 1px solid var(--border);
+      text-align: center;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 1rem 0 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      text-decoration: none;
+      font-weight: 600;
+      background: var(--bg-card);
+      padding: 0.4rem 1.2rem;
+      border-radius: 3rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    .social-link:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .coming-soon-note {
+      text-align: center;
+      padding: 1.5rem;
+      background: var(--bg-card);
+      border-radius: 1.5rem;
+      border: 1px dashed var(--border);
+      color: var(--text-secondary);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .novel-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .chapter-title {
+        font-size: 1.2rem;
+      }
+      .detail-header h2 {
+        font-size: 1.4rem;
+      }
+      .novel-content {
+        font-size: 1rem;
+      }
+      .chapter-detail {
+        padding: 1.2rem;
+      }
+      .progress-container {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-<header>
-    <h1>The End Before Beginning</h1>
-    <p>Arc 1, 2 & 3 — Awal Takdir Retak · Kota Pertama Astera · Desa yang Mengingat <span class="arc-badge">25 Chapter</span></p>
-    <div class="header-buttons">
-        <div class="user-menu">
-            <button class="icon-btn" id="accountBtn">👤</button>
-            <div class="user-dropdown" id="userDropdown">
-                <div id="dropdownContent"></div>
-            </div>
-        </div>
-    </div>
-</header>
-
-<nav>
-    <button class="nav-btn" data-page="home">📖 Beranda</button>
-    <button class="nav-btn" data-page="chapters">📚 Daftar Bab</button>
-    <button class="nav-btn" data-page="about">🖋️ Tentang Novel</button>
-</nav>
-
 <div class="container">
-    <div id="home" class="page active-page">
-        <div class="chapter-content">
-            <div class="chapter-title">Sinopsis</div>
-            <div class="chapter-text">
-                <p>Di desa Elaris, setiap anak yang lahir membawa mana — <em>kecuali satu</em>. Archeon lahir dalam keheningan, tanpa jejak sihir sedikit pun. Kosong. Tapi kehampaan itu mulai mengguncang dunia ketika Crystal of Origin, penjaga keseimbangan selama ribuan tahun, mulai retak tanpa suara.</p>
-                <p>Di usianya yang ke-17, ia diusir dari desa. Namun takdir justru membawanya lebih dekat pada rahasia yang tertidur: <strong>sesuatu di dalam dirinya belum bangun</strong>. Dan saat ia bermimpi tentang sosok di ruang gelap, dunia mulai berguncang.</p>
-                <p>Lyria, Rhen, Mira, Kaien, dan Selene — mereka yang tak pernah pergi — akan menjadi saksi dari akhir yang sesungguhnya adalah awal.</p>
-                <p style="font-style: italic; margin-top: 1.5rem;">"Dia lahir dalam keheningan. Tapi keheningan itu sedang memanggil badai."</p>
-            </div>
-            <div style="margin-top: 2rem; text-align: center;">
-                <button id="startReadingBtn" style="background: #b87c4f; color: white; border: none; padding: 0.6rem 1.8rem; border-radius: 40px; cursor: pointer;">📖 Mulai Membaca</button>
-            </div>
-        </div>
+  <div class="novel-header">
+    <div class="title-section">
+      <h1>⚔️ ARCHEON: THE END BEGINNING</h1>
+      <p>novel epik · cahaya dalam kehampaan · takdir tanpa mana</p>
     </div>
+    <button class="theme-toggle" id="darkModeToggle">
+      <span>🌙</span> <span id="modeText">Mode Gelap</span>
+    </button>
+  </div>
 
-    <div id="chapters" class="page">
-        <div class="chapter-list">
-            <h2 style="color:#b87c4f; margin-bottom: 1rem;">Daftar Bab — Arc 1, 2 & 3</h2>
-            <div id="chapter-list-container"></div>
-        </div>
+  <div class="meta-row">
+    <div class="rating-box">
+      <span>⭐ 4.9</span>
+      <div class="stars" id="starRating"></div>
     </div>
+    <div class="author-chip">
+      ✍️ Penulis: <strong>MUHAMMAD ALFAREL HAFIZH</strong>
+    </div>
+  </div>
 
-    <div id="about" class="page">
-        <div class="chapter-content">
-            <div class="chapter-title">Tentang Novel</div>
-            <div class="chapter-text">
-                <p><strong>The End Before Beginning</strong> adalah serial novel fantasi epik tentang identitas, kehampaan, dan takdir yang tak terlihat di permukaan.</p>
-                <p>Archeon, anak tanpa mana, justru menjadi pusat krisis dunia karena dalam kehampaannya tersegel kekuatan yang bahkan para dewa takut membangunkannya.</p>
-                <p>📖 <strong>Status:</strong> Sedang berlangsung<br>
-                📍 <strong>Progress:</strong> Arc 1, 2 & 3 (25 Chapter)<br>
-                🖋️ <strong>Penulis:</strong> Muhammad Alfarel Hafizh<br>
-                ✨ <strong>Update:</strong> Berkala</p>
-                <p style="margin-top: 1rem;">"Kau tidak lemah karena kau kosong. Kau kosong karena kau menyimpan sesuatu yang terlalu besar untuk diukur."</p>
-            </div>
-            <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee;">
-                <h3 style="color: #b87c4f; margin-bottom: 1rem;">📱 Ikuti Penulis</h3>
-                <div class="social-links">
-                    <a href="https://www.tiktok.com/@varenpenikmatmbgdannaspd" target="_blank" class="social-link">🎵 TikTok: @varenpenikmatmbgdannaspd</a>
-                    <a href="https://www.instagram.com/varenemci" target="_blank" class="social-link">📸 Instagram: @varenemci</a>
-                </div>
-            </div>
-        </div>
+  <div class="progress-container">
+    <span>📖 Progress Novel</span>
+    <div class="progress-bar-wrapper">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
     </div>
+    <div class="progress-text" id="progressText">0 / 200 chapter</div>
+  </div>
+
+  <div class="sinopsis">
+    <h3>📖 Tentang Novel</h3>
+    <p><strong>ARCHEON: THE END BEGINNING</strong> — Seorang anak lahir tanpa setitik pun mana di dunia yang semua orang memiliki sihir. Dianggap kosong dan dikucilkan, Archeon tumbuh dalam keheningan. Tapi di dalam kehampaan yang tak tersentuh itu, tersimpan sesuatu yang lebih tua dari sihir itu sendiri. Sementara Crystal of Origin mulai retak dan mimpi-mimpi aneh datang, Archeon harus memilih: menjadi debu yang terlupakan — atau menjadi awal dari akhir yang baru. Sebuah kisah tentang anak yang tak pernah dipilih, seorang gadis yang tak pernah pergi, dan takdir yang bahkan takdir sendiri takut menulisnya.</p>
+  </div>
+
+  <div id="chaptersList" class="chapter-list"></div>
+
+  <div id="chapterDetail" class="chapter-detail">
+    <div class="detail-header">
+      <h2 id="detailTitle">Judul Chapter</h2>
+      <button class="back-btn" id="closeDetailBtn">← Kembali ke Daftar Chapter</button>
+    </div>
+    <div id="detailContent" class="novel-content"></div>
+  </div>
+
+  <div class="footer-social">
+    <p>📚 <strong>MUHAMMAD ALFAREL HAFIZH</strong> — Penulis ARCHEON: THE END BEGINNING</p>
+    <div class="social-links">
+      <a href="https://www.tiktok.com/@varenpenikmatmbgdannaspd" target="_blank" class="social-link">🎵 TikTok · @varenpenikmatmbgdannaspd</a>
+      <a href="https://www.instagram.com/varenemci" target="_blank" class="social-link">📸 Instagram · @varenemci</a>
+    </div>
+    <p style="font-size: 0.75rem; margin-top: 12px;">✨ Rating 4.9 dari 1.240 pembaca | The Beginning of The End</p>
+  </div>
 </div>
-
-<button class="dark-toggle" id="darkModeBtn">🌙</button>
-
-<div id="authModal" class="modal">
-    <div class="modal-content">
-        <button class="close-modal" id="closeModalBtn">&times;</button>
-        <div id="modalFormContainer"></div>
-    </div>
-</div>
-
-<footer>
-    © 2026 The End Before Beginning — Muhammad Alfarel Hafizh
-</footer>
 
 <script>
-    // ==================== SUPABASE CONFIG ====================
-    const SUPABASE_URL = 'https://lyhqlhqrazxhjpxxllqg.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx5aHFsaHFyYXp4aGpweHhsbHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1NTk0NTMsImV4cCI6MjA5MjEzNTQ1M30.r4PXoKM15VBItcKH7VhmabzwwXPSVy9uN3nGB8b9rCQ';
-    
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const TARGET_CHAPTERS = 200;
+  
+  const chaptersData = [
+    {id:1, title:"Chapter 1 — Anak Tanpa Cahaya", date:"20 Apr 2026", preview:"Malam itu desa Elaris diselimuti kabut tebal. Dan seorang bayi lahir tanpa setitik pun mana.",
+      content:`Malam itu desa Elaris diselimuti kabut yang lebih tebal dari biasanya. Di sebuah rumah sederhana, seorang wanita muda melahirkan seorang bayi laki-laki. Tabib desa, Sera, memeriksa bayi itu dan menemukan sesuatu yang mengerikan — tidak ada mana. Kosong. Elena memeluknya erat. "Dia tetap anakku." "Namanya... Archeon." Jauh di pusat desa, Crystal of Origin meredup sesaat. Retakan tipis muncul. Beberapa jam kemudian, seorang bayi perempuan lahir. Saat matanya terbuka, bunga-bunga putih mekar. "Lyria." Dua anak lahir di bawah langit yang sama. Satu membawa cahaya. Satu membawa kehampaan.`},
+    {id:2, title:"Chapter 2 — Hari Pengukuran", date:"23 Apr 2026", preview:"Tahun berlalu. Kini usianya tujuh belas tahun. Hari Pengukuran tiba.",
+      content:`Archeon kini berusia tujuh belas tahun. Hari Pengukuran tiba. Satu per satu dipanggil. Lalu giliran terakhir. "Archeon." Archeon berdiri di depan Crystal of Origin. Pantulan wajahnya — namun pantulan itu tidak mengikuti gerakannya. Sosok di dalam crystal menatap balik dan tersenyum. Archeon menyentuh crystal. Tidak ada reaksi. Namun jauh di dalam — sesuatu bergerak. Retakan hitam kecil muncul. KRAK. Wajah Ketua Rowan berubah. Ketakutan.`},
+    {id:4, title:"Chapter 4 — Mimpi yang Sama", date:"25 Apr 2026", preview:"Archeon tidak tidur. Kata-kata itu terus berulang. '...aku adalah dirimu...'",
+      content:`Archeon tidak tidur malam itu. Kata-kata itu terus berulang. "...aku adalah dirimu..." Suara itu seperti suaranya sendiri. Malam itu, Archeon bermimpi. Dunia hitam tanpa ujung. Seseorang berdiri di kejauhan. "Sudah lama aku menunggumu." Archeon terbangun. KRAK. Retakan bertambah.`},
+    {id:5, title:"Chapter 5 — Cahaya di Tepi Sungai", date:"27 Apr 2026", preview:"Sejak malam itu, Archeon mulai takut untuk tidur.",
+      content:`Sejak malam itu, Archeon mulai takut untuk tidur. Lyria mengajaknya ke tepi sungai. "Aku melihat diriku sendiri. Tapi dia menatap balik. Dan tersenyum." Di permukaan sungai, Archeon melihat bayangan seseorang dengan wajahnya sendiri berdiri di belakang Lyria. "Maaf." Ia pergi. Malam itu, retakan bertambah. "Belum. Dia belum siap mengingat."`},
+    {id:6, title:"Chapter 6 — Retakan Pertama", date:"29 Apr 2026", preview:"Archeon mulai menjauh. Bukan hanya dari desa.",
+      content:`Setelah hari di tepi sungai, Archeon mulai menjauh. Malam keempat, ia terbangun. KRAK. "...waktunya hampir tiba..." "Siapa kau?" "...aku adalah yang kau tinggalkan..." Pagi berikutnya, crystal berubah. Cahayanya hitam.`},
+    {id:7, title:"Chapter 7 — Rahasia Ketua Rowan", date:"30 Apr 2026", preview:"Sejak retakan itu muncul, desa tidak pernah tenang.",
+      content:`Malam itu, Archeon melihat Ketua Rowan berdiri sendirian di depan crystal. "Kalau dia sadar siapa dirinya... desa ini akan musnah." Di pantulan air, suara itu muncul. "Aku adalah dirimu... sebelum dunia ini melupakan namamu."`},
+    {id:8, title:"Chapter 8 — Suara dari Dalam Crystal", date:"2 Mei 2026", preview:"Cahaya hitam mulai merambat. Suara itu tidak lagi hanya di kepalanya.",
+      content:`Keesokan harinya, crystal berdenyut. Suara itu bergema. "Aku lelah menunggu." Suara itu berbisik hanya untuk Archeon. "Mereka semua akan meninggalkanmu. Seperti dulu." "Tidak. Tidak semua."`},
+    {id:9, title:"Chapter 9 — Cahaya Hitam", date:"4 Mei 2026", preview:"Lonceng darurat berbunyi. Cahaya crystal berubah menjadi hitam.",
+      content:`Lonceng darurat berbunyi. Cahaya crystal menjadi hitam. Crystal berdenyut. Di permukaan crystal, bayangan manusia muncul. Siluet hitam dengan bentuk tubuh Archeon. "Akhirnya... aku menemukanmu lagi." "Aku adalah akhir... yang kau lupakan."`},
+    {id:10, title:"Chapter 10 — Nama yang Terkubur", date:"6 Mei 2026", preview:"Retakan hitam menjalar. Sosok dengan wajah Archeon keluar.",
+      content:`KRAAAK. Sosok dengan wajah Archeon keluar. Ketua Rowan mengungkapkan kebenaran: sebelum Archeon lahir, seseorang mencoba mengendalikan Origin. Ia gagal, terpecah. Separuhnya disegel di crystal. Separuh lainnya lahir sebagai Archeon. "Selamat datang kembali... Origin."`},
+    {id:11, title:"Chapter 11 — Nama yang Terbangun", date:"8 Mei 2026", preview:"Nama itu menggema. 'Origin.' Dan Archeon mulai mengingat.",
+      content:`"Origin." Nama itu terasa menyusup ke tulangnya. Sosok itu keluar sepenuhnya. "Dulu, kaulah yang mencoba mengendalikan Origin. Kau membelah dirimu sendiri." Lyria menggenggam tangannya. "Kau bukan dia." "Pilihanmu sederhana. Kembalilah padaku. Atau biarkan semuanya hancur."`},
+    {id:12, title:"Chapter 12 — Pilihan yang Tidak Adil", date:"10 Mei 2026", preview:"Aula bergetar. Crystal berdenyut liar. Archeon harus memilih.",
+      content:`Aula bergetar. Lyria memegang wajah Archeon. "Bagiku... kau tetap Archeon." Ketua Rowan mengaku salah. "Sekarang kau harus memilih sendiri." Lantai mulai pecah.`},
+    {id:13, title:"Chapter 13 — Masa Depan yang Retak", date:"12 Mei 2026", preview:"Lantai pecah. Archeon melihat masa depan yang mengerikan.",
+      content:`Cahaya hitam menelan pandangan. Archeon melihat desa Elaris yang hancur — langit merah, tulang berserakan, pita ungu Lyria di antara tulang. "Semua yang mendekatimu akan mati lebih dulu." "Pada akhirnya... kau harus memilih. Dirimu... atau mereka."`},
+    {id:14, title:"Chapter 14 — Orang yang Memilih Tinggal", date:"14 Mei 2026", preview:"Gelap pecah. Lyria masih menggenggam tangan Archeon.",
+      content:`Gelap itu pecah. Lyria masih menggenggam tangannya. "Aku takut kehilanganmu." Rhen, Kaien, Mira, Selene berdiri di depan Archeon. Mereka memilih tinggal. Lyria menatap Archeon. "Biarkan satu orang memilih tinggal."`},
+    {id:15, title:"Chapter 15 — Luka yang Memilih", date:"16 Mei 2026", preview:"Untuk pertama kalinya, Archeon merasakan sakit di dadanya sendiri.",
+      content:`Lyria menyentuh pipi Archeon. "Kalau suatu hari kau akan menghancurkan dunia, izinkan aku berdiri di sisimu." Crystal berdenyut. Pilar runtuh ke arah Lyria. Archeon menariknya ke pelukan. Lapisan gelap muncul — perisai. "Kau memilih dia di atas segalanya."`},
+    {id:16, title:"Chapter 16 — Retakan yang Tidak Bisa Disembunyikan", date:"18 Mei 2026", preview:"Retakan terakhir muncul. Bukan karena kekuatan. Karena pilihan.",
+      content:`Retakan terakhir muncul. Bukan karena kekuatan. Karena pilihan. "Kalau aku hancur, maka sebagian dirimu akan ikut mati."`},
+    {id:17, title:"Chapter 17 — Langkah Pertama Menuju Gelap", date:"20 Mei 2026", preview:"'...apakah kau rela mengorbankan dirimu sendiri.'",
+      content:`Lyria menggenggam bajunya. "Kalau kau pergi ke sana... aku takut kau tidak akan kembali." Archeon sadar — langkah pertama menuju gelap bukan saat seseorang kehilangan dirinya. Tetapi saat seseorang mulai mempertimbangkan untuk menyerah. Perlahan — Archeon mengangkat tangannya.`},
+    {id:18, title:"Chapter 18 — Tangan yang Tidak Jadi Menyentuh", date:"22 Mei 2026", preview:"Perlahan. Sangat perlahan. Archeon mengangkat tangannya.",
+      content:`Jarak di antara mereka tinggal beberapa inci. Namun Lyria menggenggam pergelangan Archeon. "Kalau kau menyentuh dia... aku merasa kau akan menghilang." Archeon menurunkan tangannya. "Kau menolak?" "Aku belum memilih." Crystal berdenyut. Retakan besar membelah crystal. Dari retakan, bayangan-bayangan muncul — Echoes. "Kembalilah."`},
+    {id:19, title:"Chapter 19 — Bisikan dari Dalam Kegelapan", date:"24 Mei 2026", preview:"Echoes mulai bergerak. Bisikan mereka semakin keras.",
+      content:`Echoes mulai bergerak mendekat. Bisikan mereka memenuhi aula. "Kembali... kembali..." Archeon memegang kepalanya. Lyria menggenggam tangannya erat. "Archeon! Dengarkan suaraku!" Namun suara Echoes terlalu kuat. Dan dari dalam crystal, suara lain terdengar — lebih tua, lebih dalam. "Kita sudah lama menunggu. Jangan lari lagi."`},
+    {id:20, title:"Chapter 20 — Kota yang Mulai Tidur", date:"26 Mei 2026", preview:"Malam turun lebih cepat di Elaris. Desa mulai tertidur.",
+      content:`Malam turun lebih cepat di Elaris. Langit kehilangan warna. Di seluruh desa, warga mulai lupa. Seorang ibu berdiri di depan sumur tanpa ingatan. Seorang anak kecil menangis karena tidak mengenali rumahnya sendiri. Elaris mulai tertidur. Di aula utama, Archeon bisa merasakannya. Setiap benang yang menghubungkan warga ke crystal — perlahan putus. Beberapa warga jatuh tidak sadar. "Bukan tidur. Desa ini sedang melupakan dirinya." Lyria menggenggam tangannya. "Kalau kau terus melihat semuanya sendiri... kau akan hancur." "Aku belum siap kehilanganmu."`},
+    {id:21, title:"Chapter 21 — Nama yang Terdengar dari Dalam Crystal", date:"28 Mei 2026", preview:"'Aku menunggumu.' Suara dari dalam crystal memanggil nama lama.",
+      content:`Crystal of Origin berdenyut keras. Dari dalam retakan — suara lain terdengar. Bukan suara sosok itu. Bukan suara Archeon. Suara yang jauh lebih tua. "Archeon... Sudah lama kau tidak pulang." Tubuh Archeon membeku. Kalimat itu adalah kalimat yang sama dari mimpinya sejak kecil. Sosok itu menatap crystal. "Jadi... dia bangun." Dari dalam inti crystal, bayangan samar mulai terlihat. Siluet seorang pria berambut hitam panjang, bermata gelap. Pria itu membuka mata di dalam crystal. Lalu menatap langsung ke arah Archeon. "Aku menunggumu." Ketua Rowan jatuh berlutut. Dengan suara yang hampir tak terdengar, ia mengucapkan nama yang tak pernah berani disebut siapa pun di Elaris. "Aetherion..." "Nama pertama yang pernah kau miliki."`},
+    {id:22, title:"Chapter 22 — Dua Wajah dalam Satu Jiwa", date:"30 Mei 2026", preview:"Dua sosok berdiri di hadapan Archeon. Dua bagian dari dirinya.",
+      content:`Aetherion di dalam crystal. Sosok bermata hitam di luar crystal. Keduanya menatap Archeon. Dua wajah. Dua suara. Dua kebenaran. "Kau harus kembali padaku." kata Aetherion. "Kau harus menerima kegelapanmu." kata sosok itu. Archeon berdiri di antara mereka. Tidak bisa bergerak. Tidak bisa memilih. Karena keduanya adalah dirinya.`},
+    {id:23, title:"Chapter 23 — Kenangan yang Bukan Miliknya", date:"1 Jun 2026", preview:"Nama Aetherion masih menggantung. Archeon mulai melihat potongan-potongan masa lalu.",
+      content:`Nama itu masih menggantung di udara. Aetherion. Archeon berdiri membeku. Karena tepat saat nama itu masuk ke telinganya — sesuatu pecah di dalam kepalanya. Bukan rasa sakit. Bukan suara. Melainkan potongan-potongan yang bukan miliknya. Langit merah. Laut hitam. Ribuan pilar putih di tengah dunia kosong. Dan seseorang berdiri sendirian di tengah semuanya. Pria berambut hitam panjang. Wajah yang sama dengan pria di dalam crystal. Archeon jatuh berlutut. Dunia di sekelilingnya mulai menghilang. Ia berdiri di tempat lain. Langit retak seperti kaca. Tanah hitam seperti abu. Aetherion berdiri membelakanginya. "Kau akhirnya melihatnya. Kenangan. Yang dunia paksa kau lupakan." Aetherion berjalan mendekat. "Sejak lahir kau merasa berbeda. Kau selalu merasa ada sesuatu yang hilang. Dan kau selalu bermimpi tentang tempat yang tak pernah kau lihat." "Siapa kau?" "Aku adalah dirimu sebelum dunia ini mengenal nama Archeon. Dulu, aku adalah penjaga yang memilih melawan Origin. Aku menang. Tapi kemenangan itu menghancurkan segalanya. Jadi waktu mengulang diriku. Dan kau adalah aku yang dilempar kembali ke awal."`},
+    {id:24, title:"Chapter 24 — Separuh Kebenaran", date:"3 Jun 2026", preview:"Dua suara. Dua kebenaran. Dan Archeon mulai sadar bahwa ia tidak bisa mempercayai keduanya.",
+      content:`Archeon masih terengah ketika kesadarannya kembali penuh. Lyria masih berada di depannya, menggenggam lengannya erat. "Archeon. Kau dengar aku?" Archeon akhirnya berkata pelan. "...aku mendengar." Sosok bermata hitam tersenyum kecil. "Kau melihatnya. Dan sekarang kau tahu." Aetherion di dalam crystal langsung berbicara. "Tidak. Dia baru melihat sebagian." Archeon menatap keduanya. "Kalian berdua mengaku bagian dariku. Tapi kalian terus saling menyalahkan." Sosok gelap tertawa kecil. "Karena dia pembohong." Aetherion menatap datar. "Karena dia hanya sisa kehancuran." Tekanan di aula langsung meningkat. Lantai retak. Crystal berdenyut. Ketua Rowan berbicara cepat. "Jangan biarkan mereka terus bicara. Semakin lama keduanya terhubung dengan kesadarannya, semakin cepat jiwa Archeon akan terbelah." Lyria langsung menegang. "Apa maksudnya?" "Kalau dia gagal menentukan siapa dirinya, maka tubuhnya akan hancur karena menampung dua masa yang berbeda." Archeon menatap Aetherion, lalu sosok gelap. "Kalau dia adalah aku sebelum semuanya, lalu kau siapa?" Sosok gelap menyeringai. "Aku adalah semua yang kau lakukan setelah kau kalah. Kau tidak menghancurkan Origin sepenuhnya. Kau menyerapnya. Dan saat kau sadar apa yang sudah kau lakukan, kau membelah dirimu sendiri." Aetherion membuka mata. "Karena itu satu-satunya cara." Sosok gelap tertawa kecil. "Dan lihat hasilnya. Manusia rapuh. Desa sekarat. Dan kau terlahir kembali tanpa tahu siapa dirimu. Semua karena dia tidak berani menghabisi semuanya." Lyria tiba-tiba melangkah di depan Archeon. "Aku tidak peduli siapa kalian. Aku hanya peduli siapa dia sekarang." Sosok gelap menatap Lyria. "Dan itulah masalahnya. Karena dia juga mulai peduli padamu. Dan semakin dia peduli, semakin besar kemungkinan semuanya terulang." Sosok itu menunjuk ke retakan crystal. Dari dalam retakan, potongan bayangan baru muncul. Seorang gadis. Rambut panjang. Mata ungu. Berdiri di tengah lautan api hitam. Lalu sosok gelap berkata dengan suara nyaris berbisik — "Orang yang paling kau cintai adalah orang pertama yang akan mati."`},
+    {id:25, title:"Chapter 25 — Orang yang Seharusnya Sudah Mati", date:"5 Jun 2026", preview:"Desa mulai bangkit. Bukan sebagai manusia. Sebagai sesuatu yang seharusnya sudah lama mati.",
+      content:`Kalimat itu membelah udara lebih tajam daripada retakan crystal. "Orang yang paling kau cintai adalah orang pertama yang akan mati." Archeon berdiri membeku. Tatapannya masih tertuju pada bayangan di dalam retakan crystal. Siluet seorang gadis. Rambut panjang. Mata ungu. "Berhenti." Suara Archeon rendah. Sosok gelap tersenyum tipis. "Kenapa?" Archeon menatapnya. Matanya perlahan berubah. Bukan hitam. Belum. Namun cahaya abu gelap mulai muncul di balik pupilnya. "Aku bilang berhenti." Lantai di bawah kaki Archeon retak pelan. Kabut di sekeliling aula langsung bergetar. Lyria langsung menatapnya. "Archeon." Tangannya mencari tangan Archeon. Namun sebelum ia menyentuh — kabut hitam tipis muncul sendiri di antara mereka. Bukan menyerang. Bukan melukai. Namun seperti dinding. Tipis. Hampir tak terlihat. Tetapi cukup membuat Lyria membeku. Sosok gelap tertawa pelan. "Nah. Itu dia." Aetherion di dalam crystal menatap dengan dingin. "Itulah sebabnya aku menyegelnya. Semakin emosimu terguncang, semakin dia keluar." "Dia?" "Bagian dari Origin yang masih ada di dalam dirimu." Ruangan langsung sunyi. Archeon bukan hanya terhubung dengan Origin. Ia membawa sebagian darinya. "Kalau begitu... kenapa aku masih hidup?" "Karena aku tidak bisa membunuh diriku sendiri. Jadi aku membelahnya. Sisa manusia. Sisa Origin. Sisa ingatan." Archeon bukan satu jiwa. Ia adalah tiga bagian dari satu keberadaan yang terpecah. Tiba-tiba — suara dari luar terdengar lagi. TOK... TOK... TOK... Bayangan muncul di luar pintu. Satu orang. Tubuh kurus. Jubah lama. Rambut putih panjang. Ketika sosok itu masuk ke aula — Ketua Rowan langsung membeku. Tongkatnya jatuh ke lantai batu. Matanya melebar. Karena ia mengenali wajah itu. Wajah seseorang yang sudah ia kubur dengan tangannya sendiri bertahun-tahun lalu. "...Master Elric?" Sosok tua itu mengangkat wajahnya perlahan. Matanya kosong hitam. Namun di bibirnya — ada senyum kecil. Lalu ia berkata dengan suara yang seharusnya tak pernah terdengar lagi. "Sudah lama, muridku." Dan untuk pertama kalinya, Ketua Rowan terlihat benar-benar takut pada seseorang yang seharusnya sudah lama mati.`}
+  ];
 
-    // ==================== DATA CHAPTER (VERSI SINGKAT AGAR KODE TIDAK KEPANJANGAN) ====================
-    const chaptersData = [
-        { id: 1, title: "Anak yang Lahir dalam Keheningan", arc: 1, content: `<p>Malam itu desa Elaris diselimuti kabut lebih tebal dari biasanya. Tidak ada hujan. Tidak ada angin. Tidak ada suara malam. Bahkan hutan di sekitar desa terasa diam, seolah seluruh dunia sedang menunggu sesuatu. Di sebuah rumah kayu sederhana di pinggir desa, seorang bayi laki-laki akhirnya lahir. Tangisannya kecil. Pelan. Hampir tidak terdengar. <em>— Bab 1 selesai —</em></p>` },
-        { id: 2, title: "Hari yang Tidak Memilihnya", arc: 1, content: `<p>Tahun-tahun berlalu dengan cepat. Anak kecil yang dulu selalu duduk sendirian di bawah pohon kini telah tumbuh menjadi seorang remaja berusia tujuh belas tahun. <em>— Bab 2 selesai —</em></p>` },
-        { id: 3, title: "Yang Dibuang Oleh Cahaya", arc: 1, content: `<p>Keheningan menyelimuti alun-alun desa. Setelah tangan Archeon terlepas dari Crystal of Origin, tak ada satu pun cahaya yang muncul. <em>— Bab 3 selesai —</em></p>` },
-        { id: 4, title: "Langkah Pertama di Luar Cahaya", arc: 1, content: `<p>Malam pertama di luar desa terasa jauh lebih sunyi. Tidak ada suara lonceng malam. <em>— Bab 4 selesai —</em></p>` },
-        { id: 5, title: "Kota di Ujung Hutan", arc: 1, content: `<p>Jalan batu tua itu membawa mereka keluar dari hutan. Setelah dua hari berjalan, pepohonan mulai menipis. <em>— Bab 5 selesai —</em></p>` },
-        { id: 6, title: "Nama yang Dicari Kegelapan", arc: 1, content: `<p>Archeon terbangun dengan napas tertahan. Cahaya bulan masih masuk melalui jendela. <em>— Bab 6 selesai —</em></p>` },
-        { id: 7, title: "Nama yang Bukan Miliknya", arc: 1, content: `<p>Suasana di dalam penginapan membeku. Tak ada yang bergerak. Tak ada yang berbicara. <em>— Bab 7 selesai —</em></p>` },
-        { id: 8, title: "Jejak yang Mulai Terbuka", arc: 1, content: `<p>Pagi di Astera terasa berbeda. Langit masih cerah. <em>— Bab 8 selesai —</em></p>` },
-        { id: 9, title: "Reruntuhan yang Mengenalnya", arc: 1, content: `<p>Pecahan Stone Hollow masih berserakan di tanah. Kabut tipis perlahan turun kembali. <em>— Bab 9 selesai —</em></p>` },
-        { id: 10, title: "Pintu Kedua", arc: 1, content: `<p>Suara batu bergeser memenuhi lorong. Di balik Guardian yang masih berlutut, pintu kedua perlahan terbuka. <em>— Bab 10 selesai —</em></p>` },
-        { id: 11, title: "Runtuhan yang Memilih", arc: 2, content: `<p>Suara retakan memenuhi ruangan. Langit-langit batu mulai runtuh. <em>— Bab 11 selesai —</em></p>` },
-        { id: 12, title: "Suara dari Dalam Diri", arc: 2, content: `<p>Lorong batu itu kembali sunyi. Hanya suara napas Archeon dan Lyria yang terdengar pelan. <em>— Bab 12 selesai —</em></p>` },
-        { id: 13, title: "Cahaya yang Tetap Tinggal", arc: 2, content: `<p>Ruangan itu kembali sunyi. Hanya napas Archeon yang masih tidak teratur. <em>— Bab 13 selesai —</em></p>` },
-        { id: 14, title: "Luka Pertama", arc: 2, content: `<p>Debu masih memenuhi ruangan. Pecahan batu jatuh dari langit-langit. <em>— Bab 14 selesai —</em></p>` },
-        { id: 15, title: "Simbol Kedua", arc: 2, content: `<p>Ruangan itu mendadak sunyi. Pedang hitam milik sosok bertopeng berhenti hanya beberapa inci di depan leher Archeon. <em>— Bab 15 selesai —</em></p>` },
-        { id: 16, title: "Nama yang Dibisikkan", arc: 2, content: `<p>Ruangan reruntuhan masih dipenuhi debu. Tak ada lagi musuh. <em>— Bab 16 selesai —</em></p>` },
-        { id: 17, title: "Kota yang Menolak", arc: 2, content: `<p>Malam mulai turun saat mereka kembali ke Astera. Lampu-lampu kota mulai menyala. <em>— Bab 17 selesai —</em></p>` },
-        { id: 18, title: "Pedang Tanpa Mana", arc: 2, content: `<p>Pagi di Astera terasa lebih sunyi. Bukan karena kota berubah. <em>— Bab 18 selesai —</em></p>` },
-        { id: 19, title: "Malam Berdarah Astera", arc: 2, content: `<p>Angin malam berhembus pelan di halaman belakang penginapan. <em>— Bab 19 selesai —</em></p>` },
-        { id: 20, title: "Nama yang Mulai Bangkit", arc: 2, content: `<p>Makhluk raksasa itu berdiri di tengah kota Astera. Tubuhnya hitam pekat. <em>— Bab 20 selesai —</em></p>` },
-        { id: 21, title: "Setelah Nama Itu Bangkit", arc: 3, content: `<p>Malam di Astera mendadak sunyi. Api masih menyala di beberapa sudut kota. <em>— Bab 21 selesai —</em></p>` },
-        { id: 22, title: "Mata di Dalam Bayangan", arc: 3, content: `<p>Malam di Astera belum benar-benar berakhir. Meski monster telah menghilang, rasa takut masih tertinggal. <em>— Bab 22 selesai —</em></p>` },
-        { id: 24, title: "Kota Abu yang Sunyi", arc: 3, content: `<p>Lorong bawah tanah itu akhirnya berakhir saat cahaya samar terlihat di depan. <em>— Bab 24 selesai —</em></p>` },
-        { id: 25, title: "Desa yang Mengingat", arc: 3, content: `<p>Angin dingin berhembus pelan melewati rumah-rumah kosong. Desa tua itu tetap sunyi. <em>— Bab 25 selesai —</em></p>` }
-    ];
+  const sortedChapters = chaptersData.sort((a,b) => a.id - b.id);
+  const CURRENT_CHAPTER_COUNT = sortedChapters.length;
+  const PROGRESS_PERCENT = (CURRENT_CHAPTER_COUNT / TARGET_CHAPTERS) * 100;
 
-    // ==================== GLOBAL VARIABLES ====================
-    let currentUser = localStorage.getItem('currentUser') || null;
-    let currentUserId = localStorage.getItem('currentUserId') || null;
-    let currentChapterId = null;
+  function renderStars(rating) {
+    const starContainer = document.getElementById('starRating');
+    if (!starContainer) return;
+    const fullStars = Math.floor(rating);
+    const hasHalf = (rating - fullStars) >= 0.25;
+    let starsHtml = '';
+    for (let i = 0; i < fullStars; i++) starsHtml += '<span class="star-filled">★</span>';
+    if (hasHalf) starsHtml += `<span class="star-filled" style="position:relative; display:inline-block;">★<span style="position:absolute; left:0; top:0; width:50%; overflow:hidden; color:var(--star-inactive);">★</span></span>`;
+    let remaining = 5 - (fullStars + (hasHalf ? 1 : 0));
+    for (let i = 0; i < remaining; i++) starsHtml += '<span class="star-empty">☆</span>';
+    starContainer.innerHTML = starsHtml + ` <span style="margin-left:6px; font-weight:600;">${rating.toFixed(1)}</span>`;
+  }
 
-    // ==================== AUTH FUNCTIONS ====================
-    async function register(username, password) {
-        if (username.length < 3) return { success: false, message: 'Username minimal 3 karakter!' };
-        if (password.length < 4) return { success: false, message: 'Password minimal 4 karakter!' };
-        
-        const { data: existing } = await supabase
-            .from('users')
-            .select('username')
-            .eq('username', username)
-            .single();
-        
-        if (existing) return { success: false, message: 'Username sudah digunakan!' };
-        
-        const { error } = await supabase
-            .from('users')
-            .insert([{ username, password, created_at: new Date() }]);
-        
-        if (error) return { success: false, message: error.message };
-        return { success: true, message: 'Registrasi berhasil! Silakan login.' };
+  function updateProgressBar() {
+    const fill = document.getElementById('progressFill');
+    const text = document.getElementById('progressText');
+    if (fill) fill.style.width = PROGRESS_PERCENT + '%';
+    if (text) text.innerText = `${CURRENT_CHAPTER_COUNT} / ${TARGET_CHAPTERS} chapter`;
+  }
+
+  function renderChapterList() {
+    const container = document.getElementById('chaptersList');
+    if (!container) return;
+    container.innerHTML = '';
+    sortedChapters.forEach(ch => {
+      const card = document.createElement('div');
+      card.className = 'chapter-card';
+      card.innerHTML = `
+        <div class="chapter-title">
+          <span>📖 ${ch.title}</span>
+          <span class="chapter-date">${ch.date}</span>
+        </div>
+        <div class="chapter-preview">${ch.preview}</div>
+      `;
+      card.addEventListener('click', () => showChapterDetail(ch.id));
+      container.appendChild(card);
+    });
+    const note = document.createElement('div');
+    note.className = 'coming-soon-note';
+    note.innerHTML = '✨ Perjalanan Archeon menuju 200 chapter baru saja dimulai. Chapter berikutnya segera hadir. ✨';
+    container.appendChild(note);
+  }
+
+  function showChapterDetail(chapterId) {
+    const chapter = sortedChapters.find(ch => ch.id === chapterId);
+    if (!chapter) return;
+    document.getElementById('detailTitle').innerHTML = `${chapter.title} <span style="font-size:0.8rem;">✨ ${chapter.date}</span>`;
+    document.getElementById('detailContent').innerText = chapter.content;
+    document.getElementById('chaptersList').style.display = 'none';
+    document.getElementById('chapterDetail').classList.add('active');
+    document.getElementById('chapterDetail').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function closeDetail() {
+    document.getElementById('chaptersList').style.display = 'flex';
+    document.getElementById('chapterDetail').classList.remove('active');
+    document.getElementById('chaptersList').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function initDarkMode() {
+    const toggleBtn = document.getElementById('darkModeToggle');
+    const modeSpan = document.getElementById('modeText');
+    const isDark = localStorage.getItem('novelTheme') === 'dark';
+    if (isDark) {
+      document.body.classList.add('dark');
+      modeSpan.innerText = 'Mode Terang';
+    } else {
+      document.body.classList.remove('dark');
+      modeSpan.innerText = 'Mode Gelap';
     }
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      const nowDark = document.body.classList.contains('dark');
+      localStorage.setItem('novelTheme', nowDark ? 'dark' : 'light');
+      modeSpan.innerText = nowDark ? 'Mode Terang' : 'Mode Gelap';
+    });
+  }
 
-    async function login(username, password) {
-        const { data, error } = await supabase
-            .from('users')
-            .select('id, username')
-            .eq('username', username)
-            .eq('password', password)
-            .single();
-        
-        if (error || !data) return { success: false, message: 'Username atau password salah!' };
-        
-        await supabase.from('users').update({ last_login: new Date() }).eq('id', data.id);
-        
-        currentUser = data.username;
-        currentUserId = data.id;
-        
-        localStorage.setItem('currentUser', currentUser);
-        localStorage.setItem('currentUserId', currentUserId);
-        
-        updateUserDropdown();
-        return { success: true, message: `Selamat datang, ${username}!` };
-    }
-
-    function logout() {
-        currentUser = null;
-        currentUserId = null;
-        localStorage.removeItem('currentUser');
-        localStorage.removeItem('currentUserId');
-        updateUserDropdown();
-        if (currentChapterId) {
-            const chapter = chaptersData.find(c => c.id === currentChapterId);
-            if (chapter) openChapterReader(chapter.id, chapter.title, chapter.content);
-        }
-    }
-
-    // ==================== COMMENTS FUNCTIONS ====================
-    async function loadComments(chapterId) {
-        try {
-            const { data, error } = await supabase
-                .from('comments')
-                .select('*')
-                .eq('chapter_id', chapterId)
-                .order('created_at', { ascending: true });
-            if (error) return [];
-            return data || [];
-        } catch (e) {
-            console.error('Error loading comments:', e);
-            return [];
-        }
-    }
-
-    async function addComment(chapterId, content) {
-        if (!currentUserId || !content.trim()) return false;
-        try {
-            const { error } = await supabase.from('comments').insert([{
-                chapter_id: chapterId,
-                user_id: currentUserId,
-                user_name: currentUser,
-                content: content.trim(),
-                created_at: new Date()
-            }]);
-            if (error) { console.error(error); return false; }
-            return true;
-        } catch (e) {
-            console.error('Error adding comment:', e);
-            return false;
-        }
-    }
-
-    // ==================== RENDER FUNCTIONS ====================
-    function renderChapterList() {
-        const container = document.getElementById('chapter-list-container');
-        if (!container) return;
-        container.innerHTML = '';
-        chaptersData.forEach(ch => {
-            const div = document.createElement('div');
-            div.className = 'chapter-item';
-            div.innerHTML = `<div><span class="chapter-num">Bab ${ch.id}</span> — ${ch.title} <span style="font-size:0.7rem; color:#b87c4f;">(Arc ${ch.arc})</span></div><div class="read-badge">📖 Baca</div>`;
-            div.onclick = () => openChapterReader(ch.id, ch.title, ch.content);
-            container.appendChild(div);
-        });
-    }
-
-    async function openChapterReader(id, title, contentHtml) {
-        currentChapterId = id;
-        
-        let readerPage = document.getElementById('reader-page');
-        if (!readerPage) {
-            const containerDiv = document.querySelector('.container');
-            const newDiv = document.createElement('div');
-            newDiv.id = 'reader-page';
-            newDiv.className = 'page';
-            containerDiv.appendChild(newDiv);
-            readerPage = newDiv;
-        }
-        
-        const currentIndex = chaptersData.findIndex(ch => ch.id === id);
-        const prevChapter = currentIndex > 0 ? chaptersData[currentIndex - 1] : null;
-        const nextChapter = currentIndex < chaptersData.length - 1 ? chaptersData[currentIndex + 1] : null;
-        const comments = await loadComments(id);
-        
-        let commentsHtml = '';
-        if (comments.length > 0) {
-            commentsHtml = comments.map(c => `
-                <div class="comment">
-                    <div class="comment-user">${c.user_name === 'Varen' ? '👑' : '👤'} ${c.user_name}<span class="comment-date">${new Date(c.created_at).toLocaleString()}</span>${c.user_name === 'Varen' ? ' <span style="color:#b87c4f;font-size:0.7rem;">(Penulis)</span>' : ''}</div>
-                    <div class="comment-text">${c.content.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>
-                </div>
-            `).join('');
-        } else {
-            commentsHtml = '<p style="opacity:0.6;">Belum ada komentar. Jadilah yang pertama!</p>';
-        }
-        
-        readerPage.innerHTML = `
-            <div class="chapter-content">
-                <div class="chapter-title">Bab ${id} — ${title}</div>
-                <div class="chapter-text">${contentHtml}</div>
-                <div class="nav-button-group">
-                    ${prevChapter ? `<button class="nav-chapter-btn" id="prevChapterBtn">← Bab ${prevChapter.id}: ${prevChapter.title}</button>` : '<button class="nav-chapter-btn" disabled>← Bab Sebelumnya</button>'}
-                    <button id="backToChaptersBtn" class="nav-chapter-btn" style="background:#5a3e2e;">📚 Daftar Bab</button>
-                    ${nextChapter ? `<button class="nav-chapter-btn" id="nextChapterBtn">Bab ${nextChapter.id}: ${nextChapter.title} →</button>` : '<button class="nav-chapter-btn" disabled>Bab Selanjutnya →</button>'}
-                </div>
-                <div class="comment-section">
-                    <h4>💬 Komentar Pembaca (${comments.length})</h4>
-                    <div id="commentsList">${commentsHtml}</div>
-                    ${currentUser ? `<div class="comment-input"><textarea id="commentText" rows="3" placeholder="Tulis komentar..."></textarea><button id="submitCommentBtn">Kirim Komentar</button></div>` : `<div class="login-to-comment">🔐 <a href="#" id="loginPromptBtn">Login</a> atau <a href="#" id="registerPromptBtn">Daftar</a> untuk berkomentar</div>`}
-                </div>
-            </div>
-        `;
-        
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
-        readerPage.classList.add('active-page');
-        
-        const backBtn = document.getElementById('backToChaptersBtn');
-        if (backBtn) {
-            backBtn.onclick = () => {
-                document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
-                document.getElementById('chapters').classList.add('active-page');
-                document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('nav-active'));
-                const chaptersBtn = document.querySelector('.nav-btn[data-page="chapters"]');
-                if (chaptersBtn) chaptersBtn.classList.add('nav-active');
-                const reader = document.getElementById('reader-page');
-                if (reader) reader.remove();
-            };
-        }
-        
-        const prevBtn = document.getElementById('prevChapterBtn');
-        if (prevBtn && prevChapter) {
-            prevBtn.onclick = () => openChapterReader(prevChapter.id, prevChapter.title, prevChapter.content);
-        }
-        
-        const nextBtn = document.getElementById('nextChapterBtn');
-        if (nextBtn && nextChapter) {
-            nextBtn.onclick = () => openChapterReader(nextChapter.id, nextChapter.title, nextChapter.content);
-        }
-        
-        const submitBtn = document.getElementById('submitCommentBtn');
-        if (submitBtn) {
-            submitBtn.onclick = async () => {
-                const text = document.getElementById('commentText').value;
-                if (await addComment(id, text)) {
-                    document.getElementById('commentText').value = '';
-                    openChapterReader(id, title, contentHtml);
-                }
-            };
-        }
-        
-        const loginPrompt = document.getElementById('loginPromptBtn');
-        if (loginPrompt) loginPrompt.onclick = (e) => { e.preventDefault(); openAuthModal('login'); };
-        
-        const registerPrompt = document.getElementById('registerPromptBtn');
-        if (registerPrompt) registerPrompt.onclick = (e) => { e.preventDefault(); openAuthModal('register'); };
-    }
-
-    // ==================== MODAL AUTH ====================
-    function openAuthModal(tab = 'login') {
-        const modal = document.getElementById('authModal');
-        const container = document.getElementById('modalFormContainer');
-        container.innerHTML = '';
-        
-        const loginForm = `
-            <h3>🔐 Login</h3>
-            <input type="text" id="modalUsername" placeholder="Username">
-            <input type="password" id="modalPassword" placeholder="Password">
-            <button id="modalLoginBtn">Login</button>
-            <div class="auth-switch">Belum punya akun? <a id="switchToRegister">Daftar di sini</a></div>
-            <div id="modalMessage" class="auth-message"></div>
-        `;
-        
-        const registerForm = `
-            <h3>📝 Daftar Akun Baru</h3>
-            <input type="text" id="modalRegUsername" placeholder="Username (min 3 karakter)">
-            <input type="password" id="modalRegPassword" placeholder="Password (min 4 karakter)">
-            <button id="modalRegisterBtn">Daftar</button>
-            <div class="auth-switch">Sudah punya akun? <a id="switchToLogin">Login di sini</a></div>
-            <div id="modalMessage" class="auth-message"></div>
-        `;
-        
-        container.innerHTML = tab === 'login' ? loginForm : registerForm;
-        modal.classList.add('active');
-        
-        if (tab === 'login') {
-            const loginBtn = document.getElementById('modalLoginBtn');
-            if (loginBtn) {
-                loginBtn.onclick = async () => {
-                    const username = document.getElementById('modalUsername').value;
-                    const password = document.getElementById('modalPassword').value;
-                    const result = await login(username, password);
-                    const msg = document.getElementById('modalMessage');
-                    msg.textContent = result.message;
-                    if (result.success) {
-                        setTimeout(() => { modal.classList.remove('active'); location.reload(); }, 1000);
-                    }
-                };
-            }
-            const switchBtn = document.getElementById('switchToRegister');
-            if (switchBtn) switchBtn.onclick = (e) => { e.preventDefault(); openAuthModal('register'); };
-        } else {
-            const registerBtn = document.getElementById('modalRegisterBtn');
-            if (registerBtn) {
-                registerBtn.onclick = async () => {
-                    const username = document.getElementById('modalRegUsername').value;
-                    const password = document.getElementById('modalRegPassword').value;
-                    const result = await register(username, password);
-                    const msg = document.getElementById('modalMessage');
-                    msg.textContent = result.message;
-                    if (result.success) setTimeout(() => openAuthModal('login'), 1500);
-                };
-            }
-            const switchBtn = document.getElementById('switchToLogin');
-            if (switchBtn) switchBtn.onclick = (e) => { e.preventDefault(); openAuthModal('login'); };
-        }
-    }
-
-    function updateUserDropdown() {
-        const dropdown = document.getElementById('dropdownContent');
-        if (!dropdown) return;
-        if (currentUser) {
-            const isAdmin = currentUser === 'Varen';
-            dropdown.innerHTML = `<a class="user-name">👤 ${currentUser} ${isAdmin ? '👑' : ''}</a><a id="dropdownLogout">🚪 Logout</a>`;
-            const logoutBtn = document.getElementById('dropdownLogout');
-            if (logoutBtn) logoutBtn.onclick = logout;
-        } else {
-            dropdown.innerHTML = `<a id="dropdownLogin">🔐 Login / Daftar</a>`;
-            const loginBtn = document.getElementById('dropdownLogin');
-            if (loginBtn) loginBtn.onclick = () => openAuthModal('login');
-        }
-    }
-
-    // ==================== DARK MODE ====================
-    function initDarkMode() {
-        const btn = document.getElementById('darkModeBtn');
-        const isDark = localStorage.getItem('darkMode') === 'true';
-        if (isDark) document.body.classList.add('dark');
-        btn.textContent = isDark ? '☀️' : '🌙';
-        btn.onclick = () => {
-            document.body.classList.toggle('dark');
-            const dark = document.body.classList.contains('dark');
-            localStorage.setItem('darkMode', dark);
-            btn.textContent = dark ? '☀️' : '🌙';
-        };
-    }
-
-    // ==================== NAVIGATION ====================
-    function initNavigation() {
-        const navBtns = document.querySelectorAll('.nav-btn');
-        navBtns.forEach(btn => {
-            btn.onclick = () => {
-                const pageId = btn.getAttribute('data-page');
-                if (!pageId) return;
-                document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
-                const targetPage = document.getElementById(pageId);
-                if (targetPage) targetPage.classList.add('active-page');
-                navBtns.forEach(b => b.classList.remove('nav-active'));
-                btn.classList.add('nav-active');
-                if (pageId === 'chapters') renderChapterList();
-                const readerPage = document.getElementById('reader-page');
-                if (readerPage) readerPage.remove();
-            };
-        });
-        
-        const startBtn = document.getElementById('startReadingBtn');
-        if (startBtn) {
-            startBtn.onclick = () => {
-                const chaptersNavBtn = document.querySelector('.nav-btn[data-page="chapters"]');
-                if (chaptersNavBtn) chaptersNavBtn.click();
-            };
-        }
-    }
-
-    function initUserMenu() {
-        const accountBtn = document.getElementById('accountBtn');
-        const dropdown = document.getElementById('userDropdown');
-        if (accountBtn) {
-            accountBtn.onclick = (e) => {
-                e.stopPropagation();
-                dropdown.classList.toggle('active');
-            };
-        }
-        document.onclick = () => {
-            if (dropdown) dropdown.classList.remove('active');
-        };
-        if (dropdown) {
-            dropdown.onclick = (e) => e.stopPropagation();
-        }
-    }
-
-    function initModalClose() {
-        const modal = document.getElementById('authModal');
-        const closeBtn = document.getElementById('closeModalBtn');
-        if (closeBtn) closeBtn.onclick = () => modal.classList.remove('active');
-        if (modal) {
-            modal.onclick = (e) => {
-                if (e.target === modal) modal.classList.remove('active');
-            };
-        }
-    }
-
-    // ==================== INIT ====================
+  function init() {
+    renderStars(4.9);
+    updateProgressBar();
     renderChapterList();
-    initNavigation();
     initDarkMode();
-    initUserMenu();
-    initModalClose();
-    updateUserDropdown();
+    document.getElementById('closeDetailBtn').addEventListener('click', closeDetail);
+    document.getElementById('chaptersList').style.display = 'flex';
+    document.getElementById('chapterDetail').classList.remove('active');
+  }
+
+  init();
 </script>
 </body>
 </html>
