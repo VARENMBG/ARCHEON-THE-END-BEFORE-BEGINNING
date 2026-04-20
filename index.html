@@ -310,13 +310,12 @@
       margin-bottom: 1rem;
     }
 
-    /* Tombol Daftar Chapter */
-    .chapter-toggle-btn {
-      background: var(--accent);
+    .btn-start {
+      background: linear-gradient(135deg, var(--accent), #b56a48);
       color: white;
       border: none;
-      padding: 0.9rem 2rem;
-      font-size: 1.1rem;
+      padding: 0.9rem 2.5rem;
+      font-size: 1.2rem;
       font-weight: bold;
       border-radius: 3rem;
       cursor: pointer;
@@ -329,9 +328,33 @@
       box-shadow: var(--shadow);
     }
 
-    .chapter-toggle-btn:hover {
+    .btn-start:hover {
       opacity: 0.9;
       transform: scale(1.02);
+    }
+
+    /* Tombol Daftar Chapter (secondary) */
+    .btn-chapter-list {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      padding: 0.7rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border-radius: 3rem;
+      cursor: pointer;
+      font-family: 'Segoe UI', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      margin-top: 0.8rem;
+    }
+
+    .btn-chapter-list:hover {
+      background: var(--accent-light);
+      color: #1e1b1a;
+      border-color: var(--accent-light);
     }
 
     /* Panel Chapter */
@@ -432,7 +455,7 @@
       overflow: visible;
     }
 
-    /* Footer dengan Media Sosial (tanpa Tentang Penulis) */
+    /* Footer dengan Media Sosial */
     .footer-social {
       background: var(--footer-bg);
       border-radius: 1.5rem;
@@ -504,6 +527,10 @@
       .start-reading h2 {
         font-size: 1.4rem;
       }
+      .btn-start {
+        padding: 0.7rem 1.8rem;
+        font-size: 1rem;
+      }
     }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -553,8 +580,11 @@
   <!-- Memulai Membaca Section -->
   <div class="start-reading">
     <h2>📖 Memulai Membaca</h2>
-    <p>Pilih chapter di bawah untuk mulai membaca kisah Archeon</p>
-    <button class="chapter-toggle-btn" id="chapterToggleBtn">📚 Buka Daftar Semua Chapter ▼</button>
+    <p>Klik tombol di bawah untuk memulai perjalanan Archeon dari awal</p>
+    <button class="btn-start" id="startReadingBtn">✨ Mulai Membaca (Chapter 1) ✨</button>
+    <div>
+      <button class="btn-chapter-list" id="chapterListBtn">📚 Atau lihat daftar semua chapter ▼</button>
+    </div>
   </div>
 
   <!-- Panel Semua Chapter -->
@@ -571,7 +601,7 @@
     <div id="detailContent" class="novel-content"></div>
   </div>
 
-  <!-- Footer dengan Media Sosial (tanpa Tentang Penulis) -->
+  <!-- Footer dengan Media Sosial -->
   <div class="footer-social">
     <div class="social-links">
       <a href="https://www.tiktok.com/@varenpenikmatmbgdannaspd" target="_blank" class="social-link">🎵 TikTok · @varenpenikmatmbgdannaspd</a>
@@ -698,6 +728,11 @@ Tahun-tahun berlalu. Archeon tumbuh menjadi anak yang aneh. Ia terlalu tenang. S
     document.getElementById('chapterDetail').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
+  // Fungsi khusus untuk memulai membaca dari Chapter 1
+  function startReading() {
+    showChapterDetail(1);
+  }
+
   function closeDetail() {
     document.getElementById('chapterDetail').classList.remove('active');
     document.getElementById('chapterPanel').classList.add('active');
@@ -750,11 +785,21 @@ Tahun-tahun berlalu. Archeon tumbuh menjadi anak yang aneh. Ia terlalu tenang. S
     renderChapterList();
     initDarkMode();
     setupModal();
-    const btn = document.getElementById('chapterToggleBtn');
-    btn.onclick = toggleChapterPanel;
+    
+    // Tombol Mulai Membaca -> langsung Chapter 1
+    const startBtn = document.getElementById('startReadingBtn');
+    startBtn.onclick = startReading;
+    
+    // Tombol Daftar Chapter (buka panel)
+    const chapterListBtn = document.getElementById('chapterListBtn');
+    chapterListBtn.onclick = toggleChapterPanel;
+    
+    // Tombol close detail
     document.getElementById('closeDetailBtn').onclick = closeDetail;
-    document.getElementById('chapterPanel').classList.add('active');
-    panelActive = true;
+    
+    // Panel tidak aktif awal (biar tidak langsung kebuka)
+    document.getElementById('chapterPanel').classList.remove('active');
+    panelActive = false;
   }
   init();
 </script>
