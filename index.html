@@ -59,7 +59,7 @@
       margin: 0 auto;
     }
 
-    /* Header dengan tombol di pojok kanan atas */
+    /* Header */
     .novel-header {
       backdrop-filter: blur(12px);
       background: var(--bg-header);
@@ -93,7 +93,6 @@
       font-family: 'Segoe UI', system-ui, sans-serif;
     }
 
-    /* Group tombol di pojok kanan */
     .header-buttons {
       display: flex;
       gap: 0.7rem;
@@ -138,50 +137,6 @@
       transition: all 0.2s;
       font-family: 'Segoe UI', system-ui, sans-serif;
       font-size: 0.85rem;
-    }
-
-    /* Cover Section - hanya preview, tanpa tombol upload */
-    .cover-section {
-      background: var(--bg-card);
-      border-radius: 1.5rem;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .cover-preview {
-      width: 100px;
-      height: 130px;
-      background: var(--progress-bg);
-      border-radius: 0.8rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      border: 1px solid var(--border);
-    }
-
-    .cover-preview img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .cover-placeholder {
-      color: var(--text-secondary);
-      font-size: 0.75rem;
-      text-align: center;
-      font-family: 'Segoe UI', sans-serif;
-    }
-
-    .cover-info {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      font-family: 'Segoe UI', sans-serif;
     }
 
     /* Modal Tentang Novel */
@@ -335,27 +290,48 @@
       gap: 6px;
     }
 
-    /* Tombol Daftar Chapter - besar di tengah */
+    /* Memulai Membaca Section */
+    .start-reading {
+      text-align: center;
+      margin: 2rem 0 1.5rem 0;
+    }
+
+    .start-reading h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent);
+    }
+
+    .start-reading p {
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    /* Tombol Daftar Chapter */
     .chapter-toggle-btn {
-      width: 100%;
       background: var(--accent);
       color: white;
       border: none;
-      padding: 0.9rem;
+      padding: 0.9rem 2rem;
       font-size: 1.1rem;
       font-weight: bold;
-      border-radius: 2rem;
+      border-radius: 3rem;
       cursor: pointer;
-      margin-bottom: 1.5rem;
       font-family: 'Segoe UI', sans-serif;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
+      transition: all 0.2s;
+      box-shadow: var(--shadow);
     }
 
     .chapter-toggle-btn:hover {
       opacity: 0.9;
+      transform: scale(1.02);
     }
 
     /* Panel Chapter */
@@ -365,7 +341,7 @@
       border: 1px solid var(--border);
       margin-bottom: 2rem;
       display: none;
-      max-height: 500px;
+      max-height: 550px;
       overflow-y: auto;
     }
 
@@ -378,7 +354,7 @@
     }
 
     .chapter-item {
-      padding: 0.8rem;
+      padding: 0.9rem;
       border-bottom: 1px solid var(--border);
       cursor: pointer;
       transition: background 0.2s;
@@ -400,11 +376,11 @@
       margin-top: 4px;
     }
 
-    /* Detail Chapter */
+    /* Detail Chapter - FULL TANPA POTONGAN */
     .chapter-detail {
       background: var(--bg-card);
       border-radius: 1.5rem;
-      padding: 1.5rem;
+      padding: 1.8rem;
       margin-bottom: 2rem;
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
@@ -449,31 +425,21 @@
 
     .novel-content {
       font-size: 1rem;
-      line-height: 1.7;
+      line-height: 1.8;
       white-space: pre-wrap;
       text-align: justify;
+      max-height: none;
+      overflow: visible;
     }
 
-    /* Footer dengan Tentang Penulis & Medsos */
-    .footer-about {
+    /* Footer dengan Media Sosial (tanpa Tentang Penulis) */
+    .footer-social {
       background: var(--footer-bg);
       border-radius: 1.5rem;
-      padding: 1.5rem;
-      margin-top: 1.5rem;
+      padding: 1.2rem;
+      margin-top: 2rem;
       text-align: center;
       font-family: 'Segoe UI', sans-serif;
-    }
-
-    .footer-about h4 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
-      margin-bottom: 0.8rem;
-      color: var(--accent);
-    }
-
-    .footer-about p {
-      margin-bottom: 0.5rem;
-      font-size: 0.85rem;
     }
 
     .social-links {
@@ -505,12 +471,12 @@
     }
 
     .rating-footer {
-      margin-top: 0.8rem;
+      margin-top: 0.5rem;
       font-size: 0.75rem;
       color: var(--text-secondary);
     }
 
-    /* Responsive Handphone */
+    /* Responsive */
     @media (max-width: 650px) {
       .novel-header {
         flex-direction: column;
@@ -535,15 +501,8 @@
       .novel-content {
         font-size: 0.95rem;
       }
-      .cover-preview {
-        width: 80px;
-        height: 105px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .header-buttons {
-        justify-content: space-between;
+      .start-reading h2 {
+        font-size: 1.4rem;
       }
     }
   </style>
@@ -551,14 +510,13 @@
 </head>
 <body>
 <div class="container">
-  <!-- Header dengan tombol di pojok kanan atas -->
+  <!-- Header -->
   <div class="novel-header">
     <div class="title-section">
       <h1>⚔️ ARCHEON: THE END BEGINNING</h1>
       <p>novel epik · cahaya dalam kehampaan · takdir tanpa mana</p>
     </div>
     <div class="header-buttons">
-      <button class="btn" id="chapterToggleBtn">📚 Daftar Chapter</button>
       <button class="btn" id="aboutBtn">📖 Tentang Novel</button>
       <button class="theme-toggle" id="darkModeToggle">
         <span>🌙</span> <span id="modeText">Mode Gelap</span>
@@ -566,17 +524,7 @@
     </div>
   </div>
 
-  <!-- Cover Preview - otomatis dari GitHub (tanpa tombol upload) -->
-  <div class="cover-section">
-    <div class="cover-preview" id="coverPreview">
-      <div class="cover-placeholder" id="coverPlaceholder">📘 Cover</div>
-    </div>
-    <div class="cover-info">
-      <strong>ARCHEON: THE END BEGINNING</strong><br>
-      Cover novel · Official artwork
-    </div>
-  </div>
-
+  <!-- Meta & Rating -->
   <div class="meta-row">
     <div class="rating-box">
       <span>⭐ 4.9</span>
@@ -587,6 +535,7 @@
     </div>
   </div>
 
+  <!-- Progress -->
   <div class="progress-container">
     <span>📖 Progress Novel</span>
     <div class="progress-bar-wrapper">
@@ -595,20 +544,25 @@
     <div class="progress-text" id="progressText">0 / 200 chapter</div>
   </div>
 
+  <!-- Sinopsis -->
   <div class="sinopsis">
     <h3>📖 Tentang Novel</h3>
     <p><strong>ARCHEON: THE END BEGINNING</strong> — Seorang anak lahir tanpa setitik pun mana di dunia yang semua orang memiliki sihir. Dianggap kosong dan dikucilkan, Archeon tumbuh dalam keheningan. Tapi di dalam kehampaan yang tak tersentuh itu, tersimpan sesuatu yang lebih tua dari sihir itu sendiri. Sementara Crystal of Origin mulai retak dan mimpi-mimpi aneh datang, Archeon harus memilih: menjadi debu yang terlupakan — atau menjadi awal dari akhir yang baru.</p>
   </div>
 
-  <!-- Tombol Daftar Chapter (dua untuk kemudahan) -->
-  <button class="chapter-toggle-btn" id="chapterToggleBtn2">📚 Buka Daftar Semua Chapter ▼</button>
+  <!-- Memulai Membaca Section -->
+  <div class="start-reading">
+    <h2>📖 Memulai Membaca</h2>
+    <p>Pilih chapter di bawah untuk mulai membaca kisah Archeon</p>
+    <button class="chapter-toggle-btn" id="chapterToggleBtn">📚 Buka Daftar Semua Chapter ▼</button>
+  </div>
 
   <!-- Panel Semua Chapter -->
   <div id="chapterPanel" class="chapter-panel">
     <div id="chapterListContainer" class="chapter-panel-list"></div>
   </div>
 
-  <!-- Detail Chapter -->
+  <!-- Detail Chapter (Full Konten) -->
   <div id="chapterDetail" class="chapter-detail">
     <div class="detail-header">
       <h2 id="detailTitle">Judul Chapter</h2>
@@ -617,10 +571,8 @@
     <div id="detailContent" class="novel-content"></div>
   </div>
 
-  <!-- Footer dengan Tentang Penulis & Media Sosial -->
-  <div class="footer-about">
-    <h4>📚 Tentang Penulis</h4>
-    <p><strong>MUHAMMAD ALFAREL HAFIZH</strong> — Penulis novel fantasi epik <em>ARCHEON: THE END BEGINNING</em>. Berdedikasi menciptakan dunia dengan karakter yang hidup dan cerita yang menyentuh hati.</p>
+  <!-- Footer dengan Media Sosial (tanpa Tentang Penulis) -->
+  <div class="footer-social">
     <div class="social-links">
       <a href="https://www.tiktok.com/@varenpenikmatmbgdannaspd" target="_blank" class="social-link">🎵 TikTok · @varenpenikmatmbgdannaspd</a>
       <a href="https://www.instagram.com/varenemci" target="_blank" class="social-link">📸 Instagram · @varenemci</a>
@@ -631,7 +583,7 @@
   </div>
 </div>
 
-<!-- Modal Tentang Novel dengan Media Sosial & Penulis -->
+<!-- Modal Tentang Novel -->
 <div id="aboutModal" class="modal">
   <div class="modal-content">
     <span class="modal-close" id="closeModal">&times;</span>
@@ -652,80 +604,63 @@
 <script>
   const TARGET_CHAPTERS = 200;
   
-  // ==================== COVER OTOMATIS DARI GITHUB ====================
-  // GANTI URL INI dengan lokasi file Archeon.png Anda di GitHub
-  // Contoh: https://raw.githubusercontent.com/username/repo/main/Archeon.png
-  // Atau jika di folder yang sama: "Archeon.png"
-  const COVER_URL = "Archeon.png";  // <-- GANTI dengan path cover Anda di GitHub
-  
-  // Data Chapter (1-25)
+  // ==================== FULL CHAPTER 1 - 25 (TIDAK DIPOTONG) ====================
   const chaptersData = [
     {id:1, title:"Chapter 1 — Anak Tanpa Cahaya", preview:"Malam itu desa Elaris diselimuti kabut tebal. Dan seorang bayi lahir tanpa setitik pun mana.",
-      content:`Malam itu desa Elaris diselimuti kabut yang lebih tebal dari biasanya. Di sebuah rumah sederhana, seorang wanita muda melahirkan seorang bayi laki-laki. Tabib desa, Sera, memeriksa bayi itu dan menemukan sesuatu yang mengerikan — tidak ada mana. Kosong. Elena memeluknya erat. "Dia tetap anakku." "Namanya... Archeon." Jauh di pusat desa, Crystal of Origin meredup sesaat. Retakan tipis muncul. Beberapa jam kemudian, seorang bayi perempuan lahir. Saat matanya terbuka, bunga-bunga putih mekar. "Lyria." Dua anak lahir di bawah langit yang sama. Satu membawa cahaya. Satu membawa kehampaan.`},
+      content:`Malam itu desa Elaris diselimuti kabut yang lebih tebal dari biasanya. Di sebuah rumah sederhana, seorang wanita muda melahirkan seorang bayi laki-laki. Tabib desa, Sera, memeriksa bayi itu dan menemukan sesuatu yang mengerikan — tidak ada mana. Kosong. Elena memeluknya erat. "Dia tetap anakku." "Namanya... Archeon." Jauh di pusat desa, Crystal of Origin meredup sesaat. Retakan tipis muncul. Beberapa jam kemudian, seorang bayi perempuan lahir. Saat matanya terbuka, bunga-bunga putih mekar. "Lyria." Dua anak lahir di bawah langit yang sama. Satu membawa cahaya. Satu membawa kehampaan.
+
+Tahun-tahun berlalu. Archeon tumbuh menjadi anak yang aneh. Ia terlalu tenang. Saat anak-anak lain belajar menggunakan mana, Archeon tidak bisa. Sama sekali. Anak-anak mulai menjauh. Suatu sore, Archeon duduk sendirian. Lyria datang. "Kenapa kau selalu di sini?" "Karena kau selalu sendiri." Lyria tersenyum. "Kau bukan kosong. Kau hanya belum bersinar." Malam itu, retakan di Crystal of Origin bertambah sedikit. Sesuatu di dalam kegelapan perlahan mulai bangun.`},
     {id:2, title:"Chapter 2 — Hari Pengukuran", preview:"Tahun berlalu. Kini usianya tujuh belas tahun. Hari Pengukuran tiba.",
-      content:`Archeon kini berusia tujuh belas tahun. Hari Pengukuran tiba. Satu per satu dipanggil. Lalu giliran terakhir. "Archeon." Archeon berdiri di depan Crystal of Origin. Pantulan wajahnya — namun pantulan itu tidak mengikuti gerakannya. Sosok di dalam crystal menatap balik dan tersenyum. Archeon menyentuh crystal. Tidak ada reaksi. Namun jauh di dalam — sesuatu bergerak. Retakan hitam kecil muncul. KRAK. Wajah Ketua Rowan berubah. Ketakutan.`},
+      content:`Archeon kini berusia tujuh belas tahun. Ia tidak lagi sendiri. Lyria, Rhen, Mira, Kaien, Selene menjadi teman-temannya. Hari Pengukuran tiba. Satu per satu dipanggil. Rhen mendapat angin. Mira cahaya. Kaien tanah. Selene kabut. Lyria mendapat berkah. Lalu giliran terakhir. "Archeon." Archeon berdiri di depan Crystal of Origin. Pantulan wajahnya — namun pantulan itu tidak mengikuti gerakannya. Sosok di dalam crystal menatap balik dan tersenyum. "Sentuh crystal." Archeon menyentuhnya. Tidak ada reaksi. Namun jauh di dalam — sesuatu bergerak. Retakan hitam kecil muncul. KRAK. Wajah Ketua Rowan berubah. Ketakutan. Dan Archeon menyadari — bukan crystal yang sedang mengukur dirinya. Melainkan sesuatu di dalam crystal yang baru saja mengenali dirinya.`},
     {id:4, title:"Chapter 4 — Mimpi yang Sama", preview:"Archeon tidak tidur. Kata-kata itu terus berulang. '...aku adalah dirimu...'",
-      content:`Archeon tidak tidur malam itu. Kata-kata itu terus berulang. "...aku adalah dirimu..." Suara itu seperti suaranya sendiri. Malam itu, Archeon bermimpi. Dunia hitam tanpa ujung. Seseorang berdiri di kejauhan. "Sudah lama aku menunggumu." Archeon terbangun. KRAK. Retakan bertambah.`},
+      content:`Archeon tidak tidur malam itu. Kata-kata itu terus berulang. "...aku adalah dirimu..." Suara itu seperti suaranya sendiri. Keesokan paginya, desas-desus menyebar. Corvin menghadang. "Dulu mereka cuma menganggapmu aneh. Sekarang mereka menganggapmu monster." Lyria dan yang lain datang. Siang itu mereka berkumpul. "Ada suara. Dari crystal. 'aku adalah dirimu.'" Malam itu, Archeon bermimpi. Dunia hitam tanpa ujung. Seseorang berdiri di kejauhan. "Sudah lama aku menunggumu." Archeon terbangun. KRAK. Retakan bertambah. Dan sesuatu di dalam kegelapan tersenyum untuk pertama kalinya.`},
     {id:5, title:"Chapter 5 — Cahaya di Tepi Sungai", preview:"Sejak malam itu, Archeon mulai takut untuk tidur.",
-      content:`Sejak malam itu, Archeon mulai takut untuk tidur. Lyria mengajaknya ke tepi sungai. "Aku melihat diriku sendiri. Tapi dia menatap balik. Dan tersenyum." Di permukaan sungai, Archeon melihat bayangan seseorang dengan wajahnya sendiri berdiri di belakang Lyria. "Maaf." Ia pergi. Malam itu, retakan bertambah. "Belum. Dia belum siap mengingat."`},
+      content:`Sejak malam itu, Archeon mulai takut untuk tidur. Lyria mengajaknya ke tepi sungai. "Apa yang kau lihat?" "Aku melihat diriku sendiri. Tapi dia menatap balik. Dan tersenyum." Lyria mengulurkan tangan. Namun suara di dalam kepalanya berbisik. "Jangan terlalu dekat. Dia akan hancur." Archeon berdiri. Di permukaan sungai, ia melihat bayangan seseorang dengan wajahnya sendiri berdiri di belakang Lyria. "Maaf." Ia pergi. Malam itu, retakan bertambah. "Belum. Dia belum siap mengingat."`},
     {id:6, title:"Chapter 6 — Retakan Pertama", preview:"Archeon mulai menjauh. Bukan hanya dari desa.",
-      content:`Setelah hari di tepi sungai, Archeon mulai menjauh. Malam keempat, ia terbangun. KRAK. "...waktunya hampir tiba..." "Siapa kau?" "...aku adalah yang kau tinggalkan..." Pagi berikutnya, crystal berubah. Cahayanya hitam.`},
+      content:`Setelah hari di tepi sungai, Archeon mulai menjauh. Malam keempat, ia terbangun. KRAK. "...waktunya hampir tiba..." "Siapa kau?" "...aku adalah yang kau tinggalkan..." Pagi berikutnya, crystal berubah. Cahayanya hitam. Retakan hitam menyala seperti urat gelap. Sesuatu di dalamnya sedang mencoba keluar. Ketua Rowan berdiri pucat. Dan untuk pertama kalinya, semua orang melihat ketakutan di matanya.`},
     {id:7, title:"Chapter 7 — Rahasia Ketua Rowan", preview:"Sejak retakan itu muncul, desa tidak pernah tenang.",
-      content:`Malam itu, Archeon melihat Ketua Rowan berdiri sendirian di depan crystal. "Kalau dia sadar siapa dirinya... desa ini akan musnah." Di pantulan air, suara itu muncul. "Aku adalah dirimu... sebelum dunia ini melupakan namamu."`},
+      content:`Malam itu, Archeon melihat Ketua Rowan berdiri sendirian di depan crystal. "Kenapa sekarang... kenapa harus anak itu? Aku pikir segelnya akan bertahan lebih lama... Kalau dia sadar siapa dirinya... desa ini akan musnah." Archeon lari ke sungai. Di pantulan air, suara itu muncul. "Akhirnya... kau mulai mendengar kebenaran." "Siapa kau?" Sosok di air tersenyum. "Aku adalah dirimu... sebelum dunia ini melupakan namamu." Lyria datang. Archeon menunduk. "Tak apa." Namun ia sadar — orang pertama yang akan terluka mungkin adalah Lyria.`},
     {id:8, title:"Chapter 8 — Suara dari Dalam Crystal", preview:"Cahaya hitam mulai merambat. Suara itu tidak lagi hanya di kepalanya.",
-      content:`Keesokan harinya, crystal berdenyut. Suara itu bergema. "Aku lelah menunggu." Suara itu berbisik hanya untuk Archeon. "Mereka semua akan meninggalkanmu. Seperti dulu." "Tidak. Tidak semua."`},
+      content:`Keesokan harinya, crystal berdenyut. Suara itu bergema. "Aku lelah menunggu." Warga panik. Archeon berdiri di depan aula. Lyria di sampingnya. "Kau tidak sendirian." Suara itu berbisik hanya untuk Archeon. "Mereka semua akan meninggalkanmu. Seperti dulu." "Tidak. Tidak semua." Suara itu tertawa. "Kita lihat nanti."`},
     {id:9, title:"Chapter 9 — Cahaya Hitam", preview:"Lonceng darurat berbunyi. Cahaya crystal berubah menjadi hitam.",
-      content:`Lonceng darurat berbunyi. Cahaya crystal menjadi hitam. Crystal berdenyut. Di permukaan crystal, bayangan manusia muncul. Siluet hitam dengan bentuk tubuh Archeon. "Akhirnya... aku menemukanmu lagi." "Aku adalah akhir... yang kau lupakan."`},
+      content:`Lonceng darurat berbunyi. Cahaya crystal menjadi hitam. Warga berlarian. Crystal berdenyut. DUM. Di permukaan crystal, bayangan manusia muncul. Siluet hitam dengan bentuk tubuh Archeon. "Akhirnya... aku menemukanmu lagi." "Siapa kau?" "Aku adalah akhir... yang kau lupakan." Crystal retak besar. Dan tepat di depan semua orang — Crystal of Origin retak.`},
     {id:10, title:"Chapter 10 — Nama yang Terkubur", preview:"Retakan hitam menjalar. Sosok dengan wajah Archeon keluar.",
-      content:`KRAAAK. Sosok dengan wajah Archeon keluar. Ketua Rowan mengungkapkan kebenaran: sebelum Archeon lahir, seseorang mencoba mengendalikan Origin. Ia gagal, terpecah. Separuhnya disegel di crystal. Separuh lainnya lahir sebagai Archeon. "Selamat datang kembali... Origin."`},
+      content:`KRAAAK. Retakan hitam menjalar. Sosok dengan wajah Archeon keluar. "Aku adalah akhir... yang kau kubur." Ketua Rowan mengungkapkan kebenaran: sebelum Archeon lahir, seseorang mencoba mengendalikan Origin. Ia gagal, terpecah. Separuhnya disegel di crystal. Separuh lainnya lahir sebagai Archeon. Sosok itu berbisik — "Selamat datang kembali... Origin."`},
     {id:11, title:"Chapter 11 — Nama yang Terbangun", preview:"Nama itu menggema. 'Origin.' Dan Archeon mulai mengingat.",
-      content:`"Origin." Nama itu terasa menyusup ke tulangnya. Sosok itu keluar sepenuhnya. "Dulu, kaulah yang mencoba mengendalikan Origin. Kau membelah dirimu sendiri." Lyria menggenggam tangannya. "Kau bukan dia." "Pilihanmu sederhana. Kembalilah padaku. Atau biarkan semuanya hancur."`},
+      content:`"Origin." Nama itu terasa menyusup ke tulangnya. Sosok itu keluar sepenuhnya. "Dulu, kaulah yang mencoba mengendalikan Origin. Kau berhasil. Tapi kekuatan itu terlalu besar. Kau membelah dirimu sendiri." Archeon memegang kepalanya. Kenangan asing muncul. Lyria menggenggam tangannya. "Kau bukan dia." Sosok itu tersenyum. "Kalau crystal hancur, desa akan ikut hancur." "Pilihanmu sederhana. Kembalilah padaku. Atau biarkan semuanya hancur."`},
     {id:12, title:"Chapter 12 — Pilihan yang Tidak Adil", preview:"Aula bergetar. Crystal berdenyut liar. Archeon harus memilih.",
-      content:`Aula bergetar. Lyria memegang wajah Archeon. "Bagiku... kau tetap Archeon." Ketua Rowan mengaku salah. "Sekarang kau harus memilih sendiri." Lantai mulai pecah.`},
+      content:`Aula bergetar. Crystal berdenyut liar. Tangan Lyria masih menggenggamnya. Sosok itu berkata, "Kembalilah padaku... atau biarkan desa ini mati." Rhen, Kaien, Mira, Selene berdiri di depan Archeon. Mereka memilih tinggal. Ketua Rowan mengaku salah menyembunyikan kebenaran. "Sekarang kau harus memilih sendiri." Lyria memegang wajah Archeon. "Bagiku... kau tetap Archeon." Sosok itu tersenyum sedih. Crystal berdenyut. Lantai mulai pecah.`},
     {id:13, title:"Chapter 13 — Masa Depan yang Retak", preview:"Lantai pecah. Archeon melihat masa depan yang mengerikan.",
-      content:`Cahaya hitam menelan pandangan. Archeon melihat desa Elaris yang hancur — langit merah, tulang berserakan, pita ungu Lyria di antara tulang. "Semua yang mendekatimu akan mati lebih dulu." "Pada akhirnya... kau harus memilih. Dirimu... atau mereka."`},
+      content:`Lantai pecah. Cahaya hitam menelan pandangan. Archeon melihat desa Elaris yang hancur — langit merah, tulang berserakan, pita ungu Lyria di antara tulang. "Ini masa depan yang kau pilih." Sosok itu menunjuk Archeon. "Semua yang mendekatimu akan mati lebih dulu." Lyria menggenggam tangannya. "Itu belum terjadi." Sosok itu tersenyum. "Belum. Tapi akan." Crystal berdenyut. "Pada akhirnya... kau harus memilih. Dirimu... atau mereka." Dunia runtuh menjadi gelap.`},
     {id:14, title:"Chapter 14 — Orang yang Memilih Tinggal", preview:"Gelap pecah. Lyria masih menggenggam tangan Archeon.",
-      content:`Gelap itu pecah. Lyria masih menggenggam tangannya. "Aku takut kehilanganmu." Rhen, Kaien, Mira, Selene berdiri di depan Archeon. Mereka memilih tinggal. Lyria menatap Archeon. "Biarkan satu orang memilih tinggal."`},
+      content:`Gelap itu pecah. Archeon membuka mata. Lyria masih menggenggam tangannya. Erat. Meskipun baru saja melihat masa depan mengerikan, ia tetap tidak melepaskan. "Kenapa? Kau melihat semuanya. Kau seharusnya takut." "Aku memang takut. Aku takut kehilanganmu." Sosok itu menatap mereka. "Semakin dia dekat denganmu, semakin cepat takdirnya datang." Archeon menarik tangannya. Rhen, Kaien, Mira, Selene berdiri di depannya. Mereka memilih tinggal. Sosok itu tersenyum. "Manusia memang aneh." Ketua Rowan berkata, "Hanya ada dua cara. Archeon menerima dirinya, atau salah satu dari mereka harus dihancurkan." Lyria menatap Archeon. "Biarkan satu orang memilih tinggal."`},
     {id:15, title:"Chapter 15 — Luka yang Memilih", preview:"Untuk pertama kalinya, Archeon merasakan sakit di dadanya sendiri.",
-      content:`Lyria menyentuh pipi Archeon. "Kalau suatu hari kau akan menghancurkan dunia, izinkan aku berdiri di sisimu." Crystal berdenyut. Pilar runtuh ke arah Lyria. Archeon menariknya ke pelukan. Lapisan gelap muncul — perisai. "Kau memilih dia di atas segalanya."`},
+      content:`Untuk pertama kalinya, Archeon merasakan sesuatu yang lebih menakutkan daripada suara di dalam dirinya. Bukan crystal. Bukan Origin. Bukan masa depan yang dipenuhi tulang. Melainkan rasa sakit di dadanya sendiri. Karena ada seseorang yang tetap memilih tinggal. Sosok itu menatap mereka. "Jadi ini alasannya. Alasan kau terus menolak. Kau takut melukai dia." Lyria melangkah lebih dekat. Ia menyentuh pipi Archeon. "Kalau memang suatu hari kau akan menghancurkan dunia, maka izinkan aku berdiri di sisimu sampai hari itu datang." Crystal berdenyut. Pilar runtuh ke arah Lyria. Archeon menariknya ke pelukan dan memutar tubuh. Lapisan gelap tipis muncul di sekelilingnya — perisai. Sosok itu tersenyum. "Akhirnya. Kau baru saja memilih. Kau memilih dia di atas segalanya."`},
     {id:16, title:"Chapter 16 — Retakan yang Tidak Bisa Disembunyikan", preview:"Retakan terakhir muncul. Bukan karena kekuatan. Karena pilihan.",
-      content:`Retakan terakhir muncul. Bukan karena kekuatan. Karena pilihan. "Kalau aku hancur, maka sebagian dirimu akan ikut mati."`},
+      content:`Retakan terakhir muncul perlahan. Sangat kecil. Hampir tidak terlihat. Tapi bagi Ketua Rowan, retakan itu lebih menakutkan dari seluruh cahaya hitam. Karena kali ini, retakan itu muncul bukan karena kekuatan. Bukan karena amarah. Bukan karena segel melemah. Melainkan karena pilihan. Dan pilihan itu baru saja dibuat Archeon sendiri. Lapisan gelap masih berputar di tangan Archeon. "Jangan gunakan kekuatan itu," kata Rowan. "Semakin sering kau memanggilnya, semakin cepat dia kembali." Sosok itu tersenyum. "Karena aku tidak pernah pergi." Lyria tetap berdiri di samping Archeon. "Kau harus menjauh," kata Archeon. "Kalau tadi aku terlambat, kau bisa mati." "Itu baru permulaan." Crystal berdenyut. Kabut hitam mulai masuk ke aula. Rowan berkata, "Hanya ada dua cara. Archeon menerima dirinya, atau salah satu dari mereka harus dihancurkan." Sosok itu menatap Archeon. "Kalau aku hancur, maka sebagian dirimu akan ikut mati. Dan tak seorang pun tahu apakah kau akan tetap hidup setelah itu."`},
     {id:17, title:"Chapter 17 — Langkah Pertama Menuju Gelap", preview:"'...apakah kau rela mengorbankan dirimu sendiri.'",
-      content:`Lyria menggenggam bajunya. "Kalau kau pergi ke sana... aku takut kau tidak akan kembali." Archeon sadar — langkah pertama menuju gelap bukan saat seseorang kehilangan dirinya. Tetapi saat seseorang mulai mempertimbangkan untuk menyerah. Perlahan — Archeon mengangkat tangannya.`},
+      content:`Kata-kata itu menggantung di udara. "...apakah kau rela mengorbankan dirimu sendiri." Tidak ada yang bicara. Semua mata tertuju pada Archeon. Lyria menggenggam bajunya. "Kalau kau pergi ke sana... aku takut kau tidak akan kembali." Archeon sadar — langkah pertama menuju gelap bukan saat seseorang kehilangan dirinya. Tetapi saat seseorang mulai mempertimbangkan untuk menyerah. Perlahan — Archeon mengangkat tangannya.`},
     {id:18, title:"Chapter 18 — Tangan yang Tidak Jadi Menyentuh", preview:"Perlahan. Sangat perlahan. Archeon mengangkat tangannya.",
-      content:`Jarak di antara mereka tinggal beberapa inci. Namun Lyria menggenggam pergelangan Archeon. "Kalau kau menyentuh dia... aku merasa kau akan menghilang." Archeon menurunkan tangannya. "Kau menolak?" "Aku belum memilih." Crystal berdenyut. Retakan besar membelah crystal.`},
+      content:`Perlahan. Sangat perlahan. Archeon mengangkat tangannya. Jarak di antara mereka tinggal beberapa inci. Namun Lyria menggenggam pergelangan Archeon. "Kalau kau menyentuh dia... aku merasa kau akan menghilang." Archeon menurunkan tangannya. "Kau menolak?" "Aku belum memilih." Crystal berdenyut. Retakan besar membelah crystal. Dari retakan, bayangan-bayangan muncul — Echoes. "Kembalilah."`},
     {id:19, title:"Chapter 19 — Bisikan dari Dalam Kegelapan", preview:"Echoes mulai bergerak. Bisikan mereka semakin keras.",
-      content:`Echoes mulai bergerak mendekat. Bisikan mereka memenuhi aula. "Kembali... kembali..." Archeon memegang kepalanya. Lyria menggenggam tangannya erat. "Archeon! Dengarkan suaraku!" Namun suara Echoes terlalu kuat.`},
+      content:`Echoes mulai bergerak mendekat. Bisikan mereka memenuhi aula. "Kembali... kembali... kembali..." Archeon memegang kepalanya. Lyria menggenggam tangannya erat. "Archeon! Dengarkan suaraku!" Namun suara Echoes terlalu kuat. Archeon berlutut. Dan dari dalam crystal, suara lain terdengar — lebih tua, lebih dalam. "Kita sudah lama menunggu. Jangan lari lagi."`},
     {id:20, title:"Chapter 20 — Kota yang Mulai Tidur", preview:"Malam turun lebih cepat di Elaris. Desa mulai tertidur.",
-      content:`Malam turun lebih cepat di Elaris. Langit kehilangan warna. Elaris mulai tertidur. Lyria menggenggam tangannya. "Kalau kau terus melihat semuanya sendiri... kau akan hancur." "Aku belum siap kehilanganmu."`},
+      content:`Malam turun lebih cepat di Elaris. Langit kehilangan warna. Di seluruh desa, warga mulai lupa. Seorang ibu berdiri di depan sumur tanpa ingatan. Seorang anak kecil menangis karena tidak mengenali rumahnya sendiri. Elaris mulai tertidur. Di aula utama, Archeon bisa merasakannya. Setiap benang yang menghubungkan warga ke crystal — perlahan putus. Beberapa warga jatuh tidak sadar. "Bukan tidur. Desa ini sedang melupakan dirinya." Lyria menggenggam tangannya. "Kalau kau terus melihat semuanya sendiri... kau akan hancur." "Aku belum siap kehilanganmu."`},
     {id:21, title:"Chapter 21 — Nama yang Terdengar dari Dalam Crystal", preview:"'Aku menunggumu.' Suara dari dalam crystal memanggil nama lama.",
-      content:`Crystal of Origin berdenyut keras. Dari dalam retakan — suara lain terdengar. "Archeon... Sudah lama kau tidak pulang." Ketua Rowan mengucapkan nama yang tak pernah berani disebut siapa pun di Elaris. "Aetherion..." "Nama pertama yang pernah kau miliki."`},
+      content:`Crystal of Origin berdenyut keras. Dari dalam retakan — suara lain terdengar. Bukan suara sosok itu. Bukan suara Archeon. Suara yang jauh lebih tua. "Archeon... Sudah lama kau tidak pulang." Tubuh Archeon membeku. Kalimat itu adalah kalimat yang sama dari mimpinya sejak kecil. Sosok itu menatap crystal. "Jadi... dia bangun." Dari dalam inti crystal, bayangan samar mulai terlihat. Siluet seorang pria berambut hitam panjang, bermata gelap. Pria itu membuka mata di dalam crystal. Lalu menatap langsung ke arah Archeon. "Aku menunggumu." Ketua Rowan jatuh berlutut. Dengan suara yang hampir tak terdengar, ia mengucapkan nama yang tak pernah berani disebut siapa pun di Elaris. "Aetherion..." "Nama pertama yang pernah kau miliki."`},
     {id:22, title:"Chapter 22 — Dua Wajah dalam Satu Jiwa", preview:"Dua sosok berdiri di hadapan Archeon.",
-      content:`Aetherion di dalam crystal. Sosok bermata hitam di luar crystal. Keduanya menatap Archeon. Dua wajah. Dua suara. Dua kebenaran. Archeon berdiri di antara mereka.`},
+      content:`Aetherion di dalam crystal. Sosok bermata hitam di luar crystal. Keduanya menatap Archeon. Dua wajah. Dua suara. Dua kebenaran. "Kau harus kembali padaku." kata Aetherion. "Kau harus menerima kegelapanmu." kata sosok itu. Archeon berdiri di antara mereka. Tidak bisa bergerak. Tidak bisa memilih. Karena keduanya adalah dirinya.`},
     {id:23, title:"Chapter 23 — Kenangan yang Bukan Miliknya", preview:"Archeon mulai melihat potongan-potongan masa lalu.",
-      content:`Aetherion berjalan mendekat. "Aku adalah dirimu sebelum dunia ini mengenal nama Archeon. Dulu, aku adalah penjaga yang memilih melawan Origin. Aku menang. Tapi kemenangan itu menghancurkan segalanya."`},
+      content:`Nama itu masih menggantung di udara. Aetherion. Archeon berdiri membeku. Karena tepat saat nama itu masuk ke telinganya — sesuatu pecah di dalam kepalanya. Potongan-potongan yang bukan miliknya. Langit merah. Laut hitam. Ribuan pilar putih di tengah dunia kosong. Dan seseorang berdiri sendirian di tengah semuanya. Archeon jatuh berlutut. Dunia di sekelilingnya mulai menghilang. Ia berdiri di tempat lain. Aetherion berdiri membelakanginya. "Kau akhirnya melihatnya. Kenangan yang dunia paksa kau lupakan." "Aku adalah dirimu sebelum dunia ini mengenal nama Archeon. Dulu, aku adalah penjaga yang memilih melawan Origin. Aku menang. Tapi kemenangan itu menghancurkan segalanya. Jadi waktu mengulang diriku. Dan kau adalah aku yang dilempar kembali ke awal."`},
     {id:24, title:"Chapter 24 — Separuh Kebenaran", preview:"Dua suara. Dua kebenaran. Archeon sadar ia tidak bisa mempercayai keduanya.",
-      content:`"Orang yang paling kau cintai adalah orang pertama yang akan mati." Archeon menatap bayangan di retakan crystal. Sosok gelap tersenyum. "Nah. Itu dia."`},
+      content:`Archeon masih terengah ketika kesadarannya kembali. Lyria masih menggenggam lengannya. "Archeon. Kau dengar aku?" "Aku mendengar." Sosok bermata hitam tersenyum. "Kau melihatnya. Dan sekarang kau tahu." Aetherion berkata, "Dia baru melihat sebagian." Archeon menatap keduanya. "Kalian berdua mengaku bagian dariku. Tapi kalian terus saling menyalahkan." Tekanan di aula meningkat. Ketua Rowan berkata, "Semakin lama keduanya terhubung dengan kesadarannya, semakin cepat jiwa Archeon akan terbelah." "Kalau dia gagal menentukan siapa dirinya, tubuhnya akan hancur." Archeon menatap Aetherion, lalu sosok gelap. "Kalau dia adalah aku sebelum semuanya, lalu kau siapa?" "Aku adalah semua yang kau lakukan setelah kau kalah. Kau tidak menghancurkan Origin sepenuhnya. Kau menyerapnya. Dan saat kau sadar apa yang sudah kau lakukan, kau membelah dirimu sendiri." Lyria melangkah di depan Archeon. "Aku tidak peduli siapa kalian. Aku hanya peduli siapa dia sekarang." Sosok gelap menatap Lyria. "Dan itulah masalahnya. Karena dia juga mulai peduli padamu. Dan semakin dia peduli, semakin besar kemungkinan semuanya terulang. Orang yang paling kau cintai adalah orang pertama yang akan mati."`},
     {id:25, title:"Chapter 25 — Orang yang Seharusnya Sudah Mati", preview:"Desa mulai bangkit sebagai sesuatu yang seharusnya sudah lama mati.",
-      content:`Sosok tua masuk ke aula. Matanya kosong hitam. Ketua Rowan gemetar. "...Master Elric?" "Sudah lama, muridku." Dan untuk pertama kalinya, Ketua Rowan terlihat benar-benar takut pada seseorang yang seharusnya sudah lama mati.`}
+      content:`Kalimat itu membelah udara. "Orang yang paling kau cintai adalah orang pertama yang akan mati." Archeon berdiri membeku. "Berhenti." Suara Archeon rendah. Matanya perlahan berubah. Cahaya abu gelap mulai muncul di balik pupilnya. "Aku bilang berhenti." Lantai retak. Kabut bergetar. Lyria mencari tangannya, namun kabut hitam tipis muncul di antara mereka. Sosok gelap tertawa. "Nah. Itu dia." Aetherion berkata, "Itulah sebabnya aku menyegelnya. Semakin emosimu terguncang, semakin dia keluar. Bagian dari Origin yang masih ada di dalam dirimu." Archeon bukan hanya terhubung dengan Origin. Ia membawa sebagian darinya. "Kalau begitu... kenapa aku masih hidup?" "Karena aku tidak bisa membunuh diriku sendiri. Jadi aku membelahnya. Sisa manusia. Sisa Origin. Sisa ingatan." Tiba-tiba — suara dari luar. TOK... TOK... TOK... Bayangan muncul di luar pintu. Satu orang. Tubuh kurus. Jubah lama. Rambut putih panjang. Ketika sosok itu masuk ke aula — Ketua Rowan membeku. Tongkatnya jatuh. Matanya melebar. "...Master Elric?" Sosok tua itu mengangkat wajahnya perlahan. Matanya kosong hitam. Namun di bibirnya — ada senyum kecil. Lalu ia berkata dengan suara yang seharusnya tak pernah terdengar lagi. "Sudah lama, muridku." Dan untuk pertama kalinya, Ketua Rowan terlihat benar-benar takut pada seseorang yang seharusnya sudah lama mati.`}
   ];
 
   const sortedChapters = [...chaptersData].sort((a,b) => a.id - b.id);
   const CURRENT_COUNT = sortedChapters.length;
   const PROGRESS_PERCENT = (CURRENT_COUNT / TARGET_CHAPTERS) * 100;
-
-  // Load cover dari GitHub
-  function loadCover() {
-    const preview = document.getElementById('coverPreview');
-    const img = new Image();
-    img.onload = function() {
-      preview.innerHTML = `<img src="${COVER_URL}" alt="Cover Archeon">`;
-    };
-    img.onerror = function() {
-      preview.innerHTML = `<div class="cover-placeholder">📘 Cover tidak ditemukan<br>Letakkan Archeon.png di folder yang sama</div>`;
-    };
-    img.src = COVER_URL;
-  }
 
   function renderStars() {
     const container = document.getElementById('starRating');
@@ -810,16 +745,13 @@
   }
 
   function init() {
-    loadCover();
     renderStars();
     updateProgress();
     renderChapterList();
     initDarkMode();
     setupModal();
-    const btn1 = document.getElementById('chapterToggleBtn');
-    const btn2 = document.getElementById('chapterToggleBtn2');
-    btn1.onclick = toggleChapterPanel;
-    btn2.onclick = toggleChapterPanel;
+    const btn = document.getElementById('chapterToggleBtn');
+    btn.onclick = toggleChapterPanel;
     document.getElementById('closeDetailBtn').onclick = closeDetail;
     document.getElementById('chapterPanel').classList.add('active');
     panelActive = true;
