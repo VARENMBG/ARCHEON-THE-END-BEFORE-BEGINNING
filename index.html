@@ -50,7 +50,6 @@
 
     .container { max-width: 1000px; margin: 0 auto; }
 
-    /* Header */
     .read-header {
       backdrop-filter: blur(12px);
       background: var(--bg-header);
@@ -97,7 +96,7 @@
       font-size: 0.85rem;
     }
 
-    /* Cover + Info Section - Cover di pinggir kiri */
+    /* Cover + Info Section */
     .cover-info-row {
       display: flex;
       flex-wrap: wrap;
@@ -134,9 +133,7 @@
       color: rgba(255,255,255,0.8);
     }
 
-    .info-side {
-      flex: 1;
-    }
+    .info-side { flex: 1; }
 
     .rating-box {
       background: var(--bg-card);
@@ -174,12 +171,8 @@
       margin-top: 0.5rem;
     }
 
-    .sinopsis-mini p {
-      font-size: 0.85rem;
-      line-height: 1.5;
-    }
+    .sinopsis-mini p { font-size: 0.85rem; line-height: 1.5; }
 
-    /* Progress */
     .progress-container {
       background: var(--bg-card);
       border-radius: 2rem;
@@ -198,7 +191,6 @@
     .progress-bar { background: var(--border); border-radius: 1rem; height: 6px; overflow: hidden; }
     .progress-fill { background: var(--accent); width: 0%; height: 100%; border-radius: 1rem; }
 
-    /* Tombol Chapter */
     .chapter-toggle-btn {
       background: var(--accent);
       color: white;
@@ -213,7 +205,6 @@
       width: 100%;
     }
 
-    /* Panel Daftar Chapter */
     .chapter-panel {
       background: var(--bg-card);
       border-radius: 1.5rem;
@@ -238,7 +229,6 @@
     .chapter-item-title { font-weight: 700; font-size: 1rem; }
     .chapter-item-preview { font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; }
 
-    /* Detail Chapter */
     .chapter-detail {
       background: var(--bg-card);
       border-radius: 1.5rem;
@@ -304,7 +294,6 @@
       cursor: not-allowed;
     }
 
-    /* Footer */
     .footer-social {
       background: var(--footer-bg);
       border-radius: 1.5rem;
@@ -328,7 +317,6 @@
       font-size: 0.8rem;
     }
 
-    /* Scroll to top button */
     .scroll-top {
       position: fixed;
       bottom: 20px;
@@ -371,13 +359,11 @@
 </head>
 <body>
 <div class="container">
-  <!-- Header -->
   <div class="read-header">
     <button class="back-home" id="backHomeBtn">🏠 Refresh</button>
     <button class="theme-toggle" id="darkModeToggle">🌙 Mode Gelap</button>
   </div>
 
-  <!-- Cover di pinggir kiri + Info -->
   <div class="cover-info-row">
     <div class="cover-side">
       <div class="cover-image" id="coverContainer">
@@ -396,22 +382,18 @@
     </div>
   </div>
 
-  <!-- Progress -->
   <div class="progress-container">
     <span>📖 Progress Novel</span>
     <div class="progress-bar-wrapper"><div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div></div>
     <div class="progress-text" id="progressText">0 / 200 chapter</div>
   </div>
 
-  <!-- Tombol Daftar Chapter -->
   <button class="chapter-toggle-btn" id="chapterToggleBtn">📚 Daftar Semua Chapter ▼</button>
 
-  <!-- Panel Daftar Chapter -->
   <div id="chapterPanel" class="chapter-panel">
     <div id="chapterListContainer" class="chapter-panel-list"></div>
   </div>
 
-  <!-- Detail Chapter -->
   <div id="chapterDetail" class="chapter-detail">
     <div class="detail-header">
       <h1 id="detailTitle">Chapter 1 — Anak Tanpa Cahaya</h1>
@@ -424,7 +406,6 @@
     </div>
   </div>
 
-  <!-- Footer -->
   <div class="footer-social">
     <div class="social-links">
       <a href="https://www.tiktok.com/@varenpenikmatmbgdannaspd" target="_blank" class="social-link">🎵 TikTok · @varenpenikmatmbgdannaspd</a>
@@ -439,568 +420,34 @@
 <script>
 const TARGET_CHAPTERS = 200;
 
-// ==================== GANTI URL COVER PNG ANDA DI SINI ====================
-// Ganti URL di bawah dengan link gambar cover PNG Anda dari GitHub
-const COVER_IMAGE_URL = "https://raw.githubusercontent.com/NAMA_USER/NAMA_REPO/main/Archeon.png";
-// Atau jika filenya langsung: "Archeon.png"
+// GANTI URL COVER PNG ANDA DI SINI
+const COVER_IMAGE_URL = "Archeon.png";
 
-// ==================== FULL CHAPTER 1-25 (TIDAK DIPOTONG) ====================
+// ==================== FULL CHAPTER 1-25 (URUT ID 1-25) ====================
 const chaptersData = [
 {
   id: 1,
   title: "Chapter 1 — Anak Tanpa Cahaya",
   preview: "Malam itu desa Elaris diselimuti kabut tebal. Dan seorang bayi lahir tanpa setitik pun mana.",
-  content: `Malam itu desa Elaris diselimuti kabut yang lebih tebal dari biasanya.
+  content: `Malam itu desa Elaris diselimuti kabut yang lebih tebal dari biasanya. Kabut putih turun perlahan dari lereng hutan, menyelimuti atap-atap rumah kayu, jalan batu kecil, dan ladang gandum yang mulai menguning. Tidak ada hujan. Tidak ada angin. Tidak ada suara serangga malam. Seolah seluruh dunia sedang menahan napas.
 
-Kabut putih turun perlahan dari lereng hutan,
-menyelimuti atap-atap rumah kayu,
-jalan batu kecil,
-dan ladang gandum yang mulai menguning.
+Di sebuah rumah sederhana di pinggir paling utara desa, seorang wanita muda melahirkan seorang bayi laki-laki. Tangisannya kecil. Elena menatap bayi itu. "Dia cantik." Tabib desa, Sera, memeriksa bayi itu dan menemukan sesuatu yang mengerikan — tidak ada mana. Kosong. Elena memeluknya erat. "Dia tetap anakku." "Namanya... Archeon." Jauh di pusat desa, Crystal of Origin meredup sesaat. Retakan tipis muncul.
 
-Tidak ada hujan.
+Beberapa jam kemudian, seorang bayi perempuan lahir. Saat matanya terbuka, bunga-bunga putih mekar. "Lyria." Dua anak lahir di bawah langit yang sama. Satu membawa cahaya. Satu membawa kehampaan.
 
-Tidak ada angin.
-
-Tidak ada suara serangga malam.
-
-Bahkan hutan tua di belakang desa
-yang biasanya dipenuhi suara binatang malam
-terasa sunyi.
-
-Seolah seluruh dunia
-sedang menahan napas.
-
-Di sebuah rumah sederhana
-di pinggir paling utara desa,
-cahaya lampu minyak masih menyala.
-
-Di dalam rumah itu,
-seorang wanita muda
-berbaring lemah di atas ranjang kayu.
-
-Keringat membasahi dahinya.
-
-Napasnya berat.
-
-Namun kedua tangannya
-memeluk sesuatu dengan lembut.
-
-Seorang bayi laki-laki.
-
-Tangisannya kecil.
-
-Terlalu kecil.
-
-Bukan tangisan keras
-seperti bayi pada umumnya.
-
-Melainkan suara pelan
-yang hampir terdengar
-seperti hembusan napas.
-
-Elena menatap bayi itu
-dengan mata berkaca-kaca.
-
-"Dia..."
-
-Suaranya bergetar.
-
-"...cantik."
-
-Daren,
-suaminya,
-yang sejak tadi berdiri gelisah
-di samping jendela,
-akhirnya mendekat.
-
-Ia menatap anak itu lama.
-
-Lalu perlahan,
-senyum kecil muncul di wajahnya.
-
-Untuk pertama kalinya
-dalam hidupnya,
-pria yang selalu terlihat kuat itu
-tak mampu berkata apa-apa.
-
-Namun suasana hangat itu
-tidak berlangsung lama.
-
-Karena seorang wanita tua
-yang berdiri di sudut ruangan
-melangkah maju.
-
-Rambutnya putih.
-Punggungnya sedikit membungkuk.
-Tatapannya tajam.
-
-Sera.
-
-Tabib tertua desa Elaris.
-
-Di desa itu,
-setiap bayi yang lahir
-harus diperiksa.
-
-Bukan untuk memastikan sehat.
-
-Tetapi untuk mengetahui
-seberapa besar mana
-yang mengalir di tubuh mereka.
-
-Karena di dunia itu,
-setiap manusia
-lahir dengan mana.
-
-Sekecil apa pun.
-
-Itulah hukum yang tak pernah berubah.
-
-Sera duduk di samping ranjang.
-
-Ia menatap bayi itu lama.
-
-Lalu meletakkan telapak tangannya
-di dada kecil sang bayi.
-
-Ruangan langsung sunyi.
-
-Elena menunggu.
-
-Daren menunggu.
-
-Malam menunggu.
-
-Beberapa detik berlalu.
-
-Sera memejamkan mata.
-
-Biasanya,
-dalam hitungan detik,
-ia bisa merasakan aliran mana.
-
-Hangat.
-
-Lembut.
-
-Kadang kuat.
-
-Kadang lemah.
-
-Namun malam itu,
-wajah Sera perlahan berubah.
-
-Kerutan di wajah tuanya
-terlihat semakin dalam.
-
-Alisnya berkerut.
-
-Lalu perlahan,
-matanya terbuka.
-
-Elena menelan ludah.
-
-"Bagaimana?"
-
-Sera tidak menjawab.
-
-Ia menatap bayi itu sekali lagi.
-
-Seolah ingin memastikan
-bahwa dirinya tidak salah.
-
-Lalu dengan suara sangat pelan,
-ia berkata,
-
-"...tidak ada."
-
-Daren mengernyit.
-
-"Tidak ada apa?"
-
-Sera menatapnya.
-
-"Mana."
-
-Ruangan menjadi dingin.
-
-Elena langsung memeluk bayinya
-lebih erat.
-
-"Itu tidak mungkin."
-
-Sera mengangguk kecil.
-
-"Aku tahu."
-
-"Tapi aku tidak merasakan apa pun."
-
-Daren mendekat.
-
-"Le—lemah?"
-
-Sera menggeleng.
-
-"Bukan lemah."
-
-Tatapan wanita tua itu
-beralih pada bayi kecil itu.
-
-"Kosong."
-
-Satu kata itu
-membuat seluruh ruangan
-terasa semakin sunyi.
-
-Di dunia itu,
-bahkan bayi yang lahir sakit
-tetap memiliki jejak mana.
-
-Namun bayi itu berbeda.
-
-Ia tidak terasa lemah.
-
-Ia tidak terasa rusak.
-
-Ia terasa seperti...
-
-kehampaan.
-
-Seolah ada ruang kosong
-di dalam dirinya
-yang bahkan dunia
-tidak bisa sentuh.
-
-Elena menggigit bibirnya.
-
-Matanya mulai basah.
-
-Namun ia menggeleng pelan.
-
-"Aku tidak peduli."
-
-Ia memeluk anaknya erat.
-
-"Dia tetap anakku."
-
-Daren menatap anak itu lama.
-
-Lalu perlahan mengangguk.
-
-"Namanya..."
-
-Elena tersenyum kecil.
-
-"Archeon."
-
-Dan malam itu,
-anak tanpa mana
-mendapatkan namanya.
-
----
-
-Tak seorang pun di rumah itu sadar.
-
-Jauh di pusat desa,
-di sebuah aula batu tua
-yang telah berdiri selama ratusan tahun,
-Crystal of Origin
-yang berdiri diam
-mendadak meredup.
-
-Hanya sesaat.
-
-Sangat singkat.
-
-Namun cukup
-untuk membuat retakan tipis
-muncul di bagian paling belakang crystal.
-
-Lalu crystal itu
-kembali bersinar normal.
-
-Seolah tidak terjadi apa-apa.
-
-Tak seorang pun melihatnya.
-
----
-
-Beberapa jam kemudian,
-di rumah lain
-yang tidak terlalu jauh,
-seorang bayi perempuan lahir.
-
-Tangisnya hangat.
-
-Lembut.
-
-Menenangkan.
-
-Saat matanya terbuka,
-bunga-bunga putih kecil
-di halaman rumah
-mekar perlahan.
-
-Ibunya tersenyum bahagia.
-
-"Lyria."
-
-Dan malam itu,
-dua anak lahir
-di bawah langit yang sama.
-
-Satu membawa cahaya.
-
-Satu membawa kehampaan.
-
-Tak seorang pun tahu,
-takdir mereka
-akan saling terikat.
-
----
-
-Tahun-tahun berlalu.
-
-Archeon tumbuh
-menjadi anak yang aneh.
-
-Bukan karena ia kasar.
-
-Bukan karena ia nakal.
-
-Justru sebaliknya.
-
-Ia terlalu tenang.
-
-Saat anak-anak lain menangis,
-Archeon hanya diam.
-
-Saat anak-anak lain berlari,
-Archeon lebih suka duduk sendiri.
-
-Kadang Elena terbangun di malam hari
-dan menemukan Archeon kecil
-berdiri di dekat jendela.
-
-Menatap langit.
-
-Diam.
-
-Seolah mendengar sesuatu
-yang tak bisa didengar
-orang lain.
-
-Saat usianya lima tahun,
-anak-anak desa mulai belajar
-menggunakan mana kecil mereka.
-
-Ada yang bisa
-menyalakan cahaya kecil.
-
-Ada yang bisa
-membuat daun melayang.
-
-Ada yang bisa
-menggerakkan air.
-
-Archeon tidak bisa.
-
-Sama sekali.
-
-Guru desa mencoba memeriksanya.
-
-Hasilnya tetap sama.
-
-Kosong.
-
-Dan sejak saat itu,
-anak-anak mulai menjauh.
-
----
-
-Suatu sore,
-Archeon berjalan
-melewati sumur desa.
-
-Beberapa anak seusianya
-sedang bermain di sana.
-
-Mereka berhenti
-saat melihatnya.
-
-"Itu dia."
-
-"Anak tanpa mana."
-
-"Jangan dekat-dekat."
-
-"Nanti kutukannya menular."
-
-Mereka tertawa kecil.
-
-Archeon mendengar semuanya.
-
-Namun seperti biasa,
-ia hanya diam.
-
-Ia terus berjalan
-tanpa menoleh.
-
-Padahal di dalam hatinya,
-kata-kata itu
-selalu terasa seperti batu kecil
-yang perlahan menumpuk.
-
-Hari demi hari.
-
-Sedikit demi sedikit.
-
----
-
-Beberapa minggu kemudian,
-anak-anak desa bermain
-di tepi sungai.
-
-Archeon berdiri tak jauh,
-melihat mereka.
-
-Untuk pertama kalinya,
-ia mencoba mendekat.
-
-Namun seorang anak
-mendorong bahunya.
-
-"Kau tidak boleh ikut."
-
-Archeon menatapnya.
-
-"Kenapa?"
-
-Anak itu menyeringai.
-
-"Karena kau aneh."
-
-Yang lain ikut tertawa.
-
-"Kau bahkan bukan seperti kami."
-
-Archeon terdiam.
-
-Tatapannya turun ke tanah.
-
-Lalu ia berbalik.
-
-Namun sebelum ia pergi,
-sebuah suara terdengar.
-
-"Kalau dia tidak boleh,
-aku juga tidak mau."
-
-Archeon menoleh.
-
-Seorang gadis kecil
-berdiri di sana.
-
-Rambut panjang.
-Mata ungu lembut.
-Wajah tenang.
-
-Lyria.
-
-Anak-anak lain terdiam.
-
-Salah satu dari mereka mendecak.
-
-"Kenapa kau selalu membelanya?"
-
-Lyria menjawab singkat.
-
-"Karena kalian jahat."
-
-Tidak ada yang membalas.
-
-Mereka pergi satu per satu.
-
-Meninggalkan Archeon
-dan Lyria
-di pinggir sungai.
-
-Lyria duduk di sampingnya.
-
-Ia mengeluarkan dua potong roti kecil.
-
-Menyerahkan satu padanya.
-
-Archeon menatap roti itu.
-
-Lalu menatap Lyria.
-
-"Kenapa?"
-
-Lyria menggigit roti kecilnya.
-
-"Karena kau selalu sendiri."
-
-Archeon diam.
-
-Lalu bertanya pelan.
-
-"Kau tidak takut padaku?"
-
-Lyria menatapnya.
-
-Mata ungunya
-terlihat tenang.
-
-"Tidak."
-
-"Kenapa?"
-
-Lyria berpikir sebentar.
-
-Lalu tersenyum kecil.
-
-"Karena menurutku..."
-
-Ia menatap langit sore.
-
-"...kau bukan kosong."
-
-Archeon terdiam.
-
-Lyria menoleh padanya.
-
-"Kau hanya belum bersinar."
-
-Dan untuk pertama kalinya
-dalam hidupnya,
-
-Archeon merasa
-mungkin
-ia tidak sepenuhnya sendirian.
-
----
-
-Malam itu,
-saat seluruh desa tertidur,
-retakan kecil
-di bagian belakang
-Crystal of Origin
-bertambah sedikit.
-
-Hampir tak terlihat.
-
-Namun cukup
-untuk menandai
-bahwa sesuatu
-di dalam kegelapan
-perlahan mulai bangun.`
+Tahun-tahun berlalu. Archeon tumbuh menjadi anak yang aneh. Ia terlalu tenang. Saat anak-anak lain belajar menggunakan mana, Archeon tidak bisa. Sama sekali. Anak-anak mulai menjauh. Suatu sore, Archeon duduk sendirian. Lyria datang. "Kenapa kau selalu di sini?" "Karena kau selalu sendiri." Lyria tersenyum. "Kau bukan kosong. Kau hanya belum bersinar." Malam itu, retakan di Crystal of Origin bertambah sedikit. Sesuatu di dalam kegelapan perlahan mulai bangun.`
 },
 {
   id: 2,
   title: "Chapter 2 — Hari Pengukuran",
   preview: "Tahun berlalu. Kini usianya tujuh belas tahun. Hari Pengukuran tiba.",
   content: `Archeon kini berusia tujuh belas tahun. Ia tidak lagi sendiri. Lyria, Rhen, Mira, Kaien, Selene menjadi teman-temannya. Hari Pengukuran tiba. Satu per satu dipanggil. Rhen mendapat angin. Mira cahaya. Kaien tanah. Selene kabut. Lyria mendapat berkah. Lalu giliran terakhir. "Archeon." Archeon berdiri di depan Crystal of Origin. Pantulan wajahnya — namun pantulan itu tidak mengikuti gerakannya. Sosok di dalam crystal menatap balik dan tersenyum. "Sentuh crystal." Archeon menyentuhnya. Tidak ada reaksi. Namun jauh di dalam — sesuatu bergerak. Retakan hitam kecil muncul. KRAK. Wajah Ketua Rowan berubah. Ketakutan. Dan Archeon menyadari — bukan crystal yang sedang mengukur dirinya. Melainkan sesuatu di dalam crystal yang baru saja mengenali dirinya.`
+},
+{
+  id: 3,
+  title: "Chapter 3 — Bisikan Pertama",
+  preview: "Archeon mulai mendengar suara aneh. Suara yang memanggil namanya dari dalam crystal.",
+  content: `Setelah Hari Pengukuran, desa mulai berbisik. Crystal of Origin yang selama ribuan tahun berdiri kokoh kini memiliki retakan. Dan semua mata tertuju pada Archeon. Malam itu, saat seluruh desa terlelap, Archeon mendengar suara. Suara yang memanggil namanya. Bukan dari luar. Dari dalam kepalanya sendiri. "Archeon..." Suara itu lembut namun menusuk. Archeon terbangun dengan keringat dingin. Jendela kamarnya terbuka sendiri. Angin malam membawa kabut tipis. Dan di kejauhan, Crystal of Origin bersinar aneh. Bukan biru. Bukan hitam. Tapi abu-abu gelap. Seperti sesuatu di dalamnya mulai terbangun.`
 },
 {
   id: 4,
@@ -1190,22 +637,23 @@ function showChapterDetail(id) {
 function updateNavButtons() {
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
-  const hasPrev = sortedChapters.some(c => c.id === currentChapterId - 1);
-  const hasNext = sortedChapters.some(c => c.id === currentChapterId + 1);
-  prevBtn.disabled = !hasPrev;
-  nextBtn.disabled = !hasNext;
+  const currentIndex = sortedChapters.findIndex(c => c.id === currentChapterId);
+  prevBtn.disabled = (currentIndex === 0);
+  nextBtn.disabled = (currentIndex === sortedChapters.length - 1);
 }
 
 function nextChapter() {
-  const nextId = currentChapterId + 1;
-  const nextExists = sortedChapters.find(c => c.id === nextId);
-  if(nextExists) showChapterDetail(nextId);
+  const currentIndex = sortedChapters.findIndex(c => c.id === currentChapterId);
+  if(currentIndex < sortedChapters.length - 1) {
+    showChapterDetail(sortedChapters[currentIndex + 1].id);
+  }
 }
 
 function prevChapter() {
-  const prevId = currentChapterId - 1;
-  const prevExists = sortedChapters.find(c => c.id === prevId);
-  if(prevExists) showChapterDetail(prevId);
+  const currentIndex = sortedChapters.findIndex(c => c.id === currentChapterId);
+  if(currentIndex > 0) {
+    showChapterDetail(sortedChapters[currentIndex - 1].id);
+  }
 }
 
 let panelActive = false;
