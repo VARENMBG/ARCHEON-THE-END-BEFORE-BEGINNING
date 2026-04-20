@@ -48,7 +48,7 @@
       font-size: 1.1rem;
     }
 
-    .container { max-width: 900px; margin: 0 auto; }
+    .container { max-width: 1000px; margin: 0 auto; }
 
     /* Header */
     .read-header {
@@ -97,54 +97,45 @@
       font-size: 0.85rem;
     }
 
-    /* Cover Section */
-    .cover-section {
-      background: var(--bg-card);
-      border-radius: 1.5rem;
-      padding: 1.5rem;
+    /* Cover + Info Section - Cover di pinggir kiri */
+    .cover-info-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
       margin-bottom: 1.5rem;
-      border: 1px solid var(--border);
-      text-align: center;
-      box-shadow: var(--shadow);
+      align-items: center;
+    }
+
+    .cover-side {
+      flex-shrink: 0;
+      width: 160px;
     }
 
     .cover-image {
-      width: 180px;
-      height: 240px;
-      margin: 0 auto 1rem auto;
+      width: 100%;
+      aspect-ratio: 2 / 3;
       background: linear-gradient(135deg, var(--accent), #2c1810);
       border-radius: 1rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      box-shadow: var(--shadow);
       overflow: hidden;
     }
 
+    .cover-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .cover-image span {
-      font-size: 4rem;
-      color: rgba(255,255,255,0.9);
+      font-size: 3rem;
+      color: rgba(255,255,255,0.8);
     }
 
-    .cover-title {
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin-bottom: 0.3rem;
-    }
-
-    .cover-subtitle {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-
-    /* Meta & Rating */
-    .meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 1.2rem;
-      gap: 12px;
+    .info-side {
+      flex: 1;
     }
 
     .rating-box {
@@ -158,6 +149,7 @@
       font-weight: 600;
       font-family: 'Segoe UI', sans-serif;
       font-size: 0.85rem;
+      margin-bottom: 0.8rem;
     }
 
     .stars { display: inline-flex; gap: 3px; }
@@ -170,6 +162,21 @@
       border: 1px solid var(--border);
       font-size: 0.85rem;
       font-family: 'Segoe UI', sans-serif;
+      display: inline-block;
+      margin-bottom: 0.8rem;
+    }
+
+    .sinopsis-mini {
+      background: var(--bg-card);
+      border-radius: 1rem;
+      padding: 0.8rem 1rem;
+      border-left: 4px solid var(--accent);
+      margin-top: 0.5rem;
+    }
+
+    .sinopsis-mini p {
+      font-size: 0.85rem;
+      line-height: 1.5;
     }
 
     /* Progress */
@@ -190,18 +197,6 @@
     .progress-bar-wrapper { flex: 1; min-width: 120px; }
     .progress-bar { background: var(--border); border-radius: 1rem; height: 6px; overflow: hidden; }
     .progress-fill { background: var(--accent); width: 0%; height: 100%; border-radius: 1rem; }
-
-    /* Sinopsis */
-    .sinopsis {
-      background: var(--bg-card);
-      border-radius: 1.5rem;
-      padding: 1.2rem 1.5rem;
-      margin-bottom: 1.5rem;
-      border-left: 5px solid var(--accent);
-      box-shadow: var(--shadow);
-    }
-
-    .sinopsis h3 { margin-bottom: 0.5rem; font-size: 1.2rem; }
 
     /* Tombol Chapter */
     .chapter-toggle-btn {
@@ -362,14 +357,14 @@
 
     @media (max-width: 600px) {
       body { padding: 0 0.8rem 2rem 0.8rem; font-size: 1rem; }
+      .cover-info-row { flex-direction: column; align-items: center; text-align: center; gap: 1rem; }
+      .cover-side { width: 130px; }
       .detail-header h1 { font-size: 1.2rem; }
       .novel-content { font-size: 0.95rem; }
       .chapter-detail { padding: 1rem; }
       .chapter-nav { flex-direction: column; }
       .nav-btn { width: 100%; }
       .read-header { padding: 0.8rem 1rem; }
-      .cover-image { width: 140px; height: 190px; }
-      .cover-image span { font-size: 3rem; }
     }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -382,22 +377,23 @@
     <button class="theme-toggle" id="darkModeToggle">🌙 Mode Gelap</button>
   </div>
 
-  <!-- Cover Section -->
-  <div class="cover-section">
-    <div class="cover-image">
-      <span>⚔️📖</span>
+  <!-- Cover di pinggir kiri + Info -->
+  <div class="cover-info-row">
+    <div class="cover-side">
+      <div class="cover-image" id="coverContainer">
+        <span>📖</span>
+      </div>
     </div>
-    <div class="cover-title">ARCHEON: THE END BEGINNING</div>
-    <div class="cover-subtitle">Novel Epik · Muhammad Alfarel Hafizh</div>
-  </div>
-
-  <!-- Meta & Rating -->
-  <div class="meta-row">
-    <div class="rating-box">
-      <span>⭐ 4.9</span>
-      <div class="stars" id="starRating"></div>
+    <div class="info-side">
+      <div class="rating-box">
+        <span>⭐ 4.9</span>
+        <div class="stars" id="starRating"></div>
+      </div>
+      <div class="author-chip">✍️ Penulis: <strong>MUHAMMAD ALFAREL HAFIZH</strong></div>
+      <div class="sinopsis-mini">
+        <p><strong>ARCHEON: THE END BEGINNING</strong> — Seorang anak lahir tanpa mana. Dianggap kosong, ia tumbuh dalam keheningan. Namun di dalam kehampaan itu tersimpan kekuatan kuno yang mengancam keseimbangan dunia.</p>
+      </div>
     </div>
-    <div class="author-chip">✍️ Penulis: <strong>MUHAMMAD ALFAREL HAFIZH</strong></div>
   </div>
 
   <!-- Progress -->
@@ -405,12 +401,6 @@
     <span>📖 Progress Novel</span>
     <div class="progress-bar-wrapper"><div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div></div>
     <div class="progress-text" id="progressText">0 / 200 chapter</div>
-  </div>
-
-  <!-- Sinopsis -->
-  <div class="sinopsis">
-    <h3>📖 Tentang Novel</h3>
-    <p><strong>ARCHEON: THE END BEGINNING</strong> — Seorang anak lahir tanpa setitik pun mana di dunia yang semua orang memiliki sihir. Dianggap kosong dan dikucilkan, Archeon tumbuh dalam keheningan. Tapi di dalam kehampaan yang tak tersentuh itu, tersimpan sesuatu yang lebih tua dari sihir itu sendiri. Sementara Crystal of Origin mulai retak dan mimpi-mimpi aneh datang, Archeon harus memilih: menjadi debu yang terlupakan — atau menjadi awal dari akhir yang baru.</p>
   </div>
 
   <!-- Tombol Daftar Chapter -->
@@ -449,7 +439,12 @@
 <script>
 const TARGET_CHAPTERS = 200;
 
-// ==================== FULL CHAPTER 1-25 (TIDAK DIPOTONG - LENGKAP) ====================
+// ==================== GANTI URL COVER PNG ANDA DI SINI ====================
+// Ganti URL di bawah dengan link gambar cover PNG Anda dari GitHub
+const COVER_IMAGE_URL = "https://raw.githubusercontent.com/NAMA_USER/NAMA_REPO/main/Archeon.png";
+// Atau jika filenya langsung: "Archeon.png"
+
+// ==================== FULL CHAPTER 1-25 (TIDAK DIPOTONG) ====================
 const chaptersData = [
 {
   id: 1,
@@ -1147,6 +1142,18 @@ const PROGRESS_PERCENT = (CURRENT_COUNT / TARGET_CHAPTERS) * 100;
 
 let currentChapterId = 1;
 
+function loadCover() {
+  const coverContainer = document.getElementById('coverContainer');
+  const img = new Image();
+  img.onload = function() {
+    coverContainer.innerHTML = `<img src="${COVER_IMAGE_URL}" alt="Cover Archeon">`;
+  };
+  img.onerror = function() {
+    coverContainer.innerHTML = `<span>📖</span>`;
+  };
+  img.src = COVER_IMAGE_URL;
+}
+
 function renderStars() {
   document.getElementById('starRating').innerHTML = '<span class="star-filled">★</span><span class="star-filled">★</span><span class="star-filled">★</span><span class="star-filled">★</span><span class="star-filled">★</span> <span style="margin-left:6px;">4.9</span>';
 }
@@ -1233,6 +1240,7 @@ function initDarkMode() {
 }
 
 function init() {
+  loadCover();
   renderStars();
   updateProgress();
   renderChapterList();
