@@ -59,7 +59,7 @@
       margin: 0 auto;
     }
 
-    /* Header & Tombol */
+    /* Header dengan tombol di pojok kanan atas */
     .novel-header {
       backdrop-filter: blur(12px);
       background: var(--bg-header);
@@ -76,7 +76,7 @@
     }
 
     .title-section h1 {
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: 700;
       letter-spacing: -0.5px;
       background: linear-gradient(135deg, var(--accent), #b95f3a);
@@ -87,32 +87,35 @@
     }
 
     .title-section p {
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       color: var(--text-secondary);
       letter-spacing: 1px;
       font-family: 'Segoe UI', system-ui, sans-serif;
     }
 
+    /* Group tombol di pojok kanan */
     .header-buttons {
       display: flex;
-      gap: 0.8rem;
+      gap: 0.7rem;
       flex-wrap: wrap;
+      align-items: center;
     }
 
     .btn {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 2.5rem;
-      padding: 0.5rem 1.2rem;
+      padding: 0.5rem 1rem;
       cursor: pointer;
       font-weight: 500;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       color: var(--text-primary);
       transition: all 0.2s;
       font-family: 'Segoe UI', system-ui, sans-serif;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+      white-space: nowrap;
     }
 
     .btn:hover {
@@ -124,17 +127,17 @@
     .theme-toggle {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 3rem;
+      border-radius: 2.5rem;
       padding: 0.5rem 1rem;
       cursor: pointer;
       font-weight: 500;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       color: var(--text-primary);
       transition: all 0.2s;
       font-family: 'Segoe UI', system-ui, sans-serif;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
 
     /* Cover Section */
@@ -151,8 +154,8 @@
     }
 
     .cover-preview {
-      width: 120px;
-      height: 160px;
+      width: 100px;
+      height: 130px;
       background: var(--progress-bg);
       border-radius: 0.8rem;
       display: flex;
@@ -170,7 +173,7 @@
 
     .cover-placeholder {
       color: var(--text-secondary);
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       text-align: center;
       font-family: 'Segoe UI', sans-serif;
     }
@@ -187,10 +190,11 @@
       padding: 0.5rem 1rem;
       border-radius: 2rem;
       cursor: pointer;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-family: 'Segoe UI', sans-serif;
       text-align: center;
       border: none;
+      display: inline-block;
     }
 
     .cover-label:hover {
@@ -224,24 +228,31 @@
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
       position: relative;
+      margin: 1rem;
     }
 
     .modal-content h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       margin-bottom: 1rem;
     }
 
     .modal-content p {
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
       line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .modal-content a {
+      color: var(--accent);
+      text-decoration: none;
     }
 
     .modal-close {
       position: absolute;
       top: 1rem;
       right: 1.5rem;
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       cursor: pointer;
       color: var(--text-secondary);
     }
@@ -263,19 +274,20 @@
     .rating-box {
       background: var(--bg-card);
       border-radius: 2rem;
-      padding: 0.4rem 1.2rem;
+      padding: 0.3rem 1rem;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       border: 1px solid var(--border);
       font-weight: 600;
       font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.85rem;
     }
 
     .stars {
       display: inline-flex;
-      gap: 4px;
-      letter-spacing: 2px;
+      gap: 3px;
+      letter-spacing: 1px;
     }
 
     .star-filled { color: var(--star-active); }
@@ -284,9 +296,9 @@
     .author-chip {
       background: var(--bg-card);
       border-radius: 2rem;
-      padding: 0.4rem 1.2rem;
+      padding: 0.3rem 1rem;
       border: 1px solid var(--border);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-family: 'Segoe UI', system-ui, sans-serif;
     }
 
@@ -294,26 +306,26 @@
     .progress-container {
       background: var(--bg-card);
       border-radius: 2rem;
-      padding: 0.5rem 1.2rem;
+      padding: 0.5rem 1rem;
       border: 1px solid var(--border);
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
       font-family: 'Segoe UI', system-ui, sans-serif;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       margin-bottom: 1rem;
     }
 
     .progress-bar-wrapper {
       flex: 1;
-      min-width: 150px;
+      min-width: 120px;
     }
 
     .progress-bar {
       background: var(--progress-bg);
       border-radius: 1rem;
-      height: 8px;
+      height: 6px;
       overflow: hidden;
     }
 
@@ -329,29 +341,29 @@
     .sinopsis {
       background: var(--bg-card);
       border-radius: 1.5rem;
-      padding: 1.3rem 1.6rem;
-      margin-bottom: 2rem;
-      border-left: 6px solid var(--accent);
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1.5rem;
+      border-left: 5px solid var(--accent);
       box-shadow: var(--shadow);
     }
 
     .sinopsis h3 {
       font-weight: 600;
       margin-bottom: 0.5rem;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
-    /* Tombol Daftar Chapter */
+    /* Tombol Daftar Chapter - besar di tengah */
     .chapter-toggle-btn {
       width: 100%;
       background: var(--accent);
       color: white;
       border: none;
-      padding: 1rem;
-      font-size: 1.2rem;
+      padding: 0.9rem;
+      font-size: 1.1rem;
       font-weight: bold;
       border-radius: 2rem;
       cursor: pointer;
@@ -374,7 +386,7 @@
       border: 1px solid var(--border);
       margin-bottom: 2rem;
       display: none;
-      max-height: 600px;
+      max-height: 500px;
       overflow-y: auto;
     }
 
@@ -383,11 +395,11 @@
     }
 
     .chapter-panel-list {
-      padding: 1rem;
+      padding: 0.8rem;
     }
 
     .chapter-item {
-      padding: 1rem;
+      padding: 0.8rem;
       border-bottom: 1px solid var(--border);
       cursor: pointer;
       transition: background 0.2s;
@@ -400,11 +412,11 @@
 
     .chapter-item-title {
       font-weight: 700;
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
 
     .chapter-item-preview {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: var(--text-secondary);
       margin-top: 4px;
     }
@@ -412,8 +424,8 @@
     /* Detail Chapter */
     .chapter-detail {
       background: var(--bg-card);
-      border-radius: 1.8rem;
-      padding: 2rem 2.2rem;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
       margin-bottom: 2rem;
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
@@ -435,39 +447,39 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
       border-bottom: 2px dashed var(--border);
-      padding-bottom: 0.8rem;
+      padding-bottom: 0.6rem;
     }
 
     .detail-header h2 {
       font-family: 'Cormorant Garamond', 'Georgia', serif;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       font-weight: 700;
     }
 
     .back-btn {
       background: transparent;
       border: 1px solid var(--border);
-      padding: 0.4rem 1rem;
+      padding: 0.3rem 0.8rem;
       border-radius: 2rem;
       cursor: pointer;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-family: 'Segoe UI', sans-serif;
     }
 
     .novel-content {
-      font-size: 1.12rem;
-      line-height: 1.8;
+      font-size: 1rem;
+      line-height: 1.7;
       white-space: pre-wrap;
       text-align: justify;
     }
 
     .footer-social {
       background: var(--footer-bg);
-      border-radius: 1.8rem;
-      padding: 1.5rem;
-      margin-top: 2rem;
+      border-radius: 1.5rem;
+      padding: 1.2rem;
+      margin-top: 1.5rem;
       text-align: center;
       font-family: 'Segoe UI', sans-serif;
     }
@@ -475,8 +487,8 @@
     .social-links {
       display: flex;
       justify-content: center;
-      gap: 2rem;
-      margin: 1rem 0 0.8rem;
+      gap: 1rem;
+      margin: 0.8rem 0 0.5rem;
       flex-wrap: wrap;
     }
 
@@ -484,14 +496,15 @@
       text-decoration: none;
       font-weight: 600;
       background: var(--bg-card);
-      padding: 0.4rem 1.2rem;
-      border-radius: 3rem;
+      padding: 0.3rem 1rem;
+      border-radius: 2rem;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       color: var(--text-primary);
       border: 1px solid var(--border);
       transition: all 0.2s;
+      font-size: 0.8rem;
     }
 
     .social-link:hover {
@@ -499,21 +512,59 @@
       color: white;
     }
 
-    @media (max-width: 600px) {
-      .chapter-detail { padding: 1.2rem; }
-      .detail-header h2 { font-size: 1.4rem; }
+    /* Responsive Handphone */
+    @media (max-width: 650px) {
+      .novel-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .header-buttons {
+        justify-content: flex-end;
+      }
+      .title-section h1 {
+        font-size: 1.5rem;
+      }
+      .btn, .theme-toggle {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+      }
+      .chapter-detail {
+        padding: 1rem;
+      }
+      .detail-header h2 {
+        font-size: 1.2rem;
+      }
+      .novel-content {
+        font-size: 0.95rem;
+      }
+      .cover-preview {
+        width: 80px;
+        height: 105px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header-buttons {
+        justify-content: space-between;
+      }
+      .btn, .theme-toggle {
+        white-space: normal;
+        text-align: center;
+      }
     }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="container">
+  <!-- Header dengan tombol di pojok kanan atas -->
   <div class="novel-header">
     <div class="title-section">
       <h1>⚔️ ARCHEON: THE END BEGINNING</h1>
       <p>novel epik · cahaya dalam kehampaan · takdir tanpa mana</p>
     </div>
     <div class="header-buttons">
+      <button class="btn" id="chapterToggleBtn">📚 Daftar Chapter</button>
       <button class="btn" id="aboutBtn">📖 Tentang Novel</button>
       <button class="theme-toggle" id="darkModeToggle">
         <span>🌙</span> <span id="modeText">Mode Gelap</span>
@@ -529,7 +580,7 @@
     <div class="cover-upload">
       <label class="cover-label" for="coverInput">📁 Pilih Cover (Archeon.png)</label>
       <input type="file" id="coverInput" accept="image/png, image/jpeg, image/jpg">
-      <small style="color: var(--text-secondary);">Upload cover novel Anda</small>
+      <small style="color: var(--text-secondary); font-size:0.7rem;">Upload cover novel Anda</small>
     </div>
   </div>
 
@@ -556,8 +607,8 @@
     <p><strong>ARCHEON: THE END BEGINNING</strong> — Seorang anak lahir tanpa setitik pun mana di dunia yang semua orang memiliki sihir. Dianggap kosong dan dikucilkan, Archeon tumbuh dalam keheningan. Tapi di dalam kehampaan yang tak tersentuh itu, tersimpan sesuatu yang lebih tua dari sihir itu sendiri. Sementara Crystal of Origin mulai retak dan mimpi-mimpi aneh datang, Archeon harus memilih: menjadi debu yang terlupakan — atau menjadi awal dari akhir yang baru.</p>
   </div>
 
-  <!-- Tombol Daftar Chapter -->
-  <button class="chapter-toggle-btn" id="chapterToggleBtn">📚 Daftar Chapter ▼</button>
+  <!-- Tombol Daftar Chapter (sudah di header, tapi biar tetap ada di tengah juga untuk kemudahan) -->
+  <button class="chapter-toggle-btn" id="chapterToggleBtn2">📚 Buka Daftar Semua Chapter ▼</button>
 
   <!-- Panel Semua Chapter -->
   <div id="chapterPanel" class="chapter-panel">
@@ -579,23 +630,25 @@
       <a href="https://www.tiktok.com/@varenpenikmatmbgdannaspd" target="_blank" class="social-link">🎵 TikTok · @varenpenikmatmbgdannaspd</a>
       <a href="https://www.instagram.com/varenemci" target="_blank" class="social-link">📸 Instagram · @varenemci</a>
     </div>
-    <p style="font-size: 0.75rem; margin-top: 12px;">✨ Rating 4.9 dari 1.240 pembaca | The Beginning of The End</p>
+    <p style="font-size: 0.7rem; margin-top: 8px;">✨ Rating 4.9 dari 1.240 pembaca | The Beginning of The End</p>
   </div>
 </div>
 
-<!-- Modal Tentang Novel -->
+<!-- Modal Tentang Novel dengan Media Sosial & Penulis -->
 <div id="aboutModal" class="modal">
   <div class="modal-content">
     <span class="modal-close" id="closeModal">&times;</span>
     <h3>📖 ARCHEON: THE END BEGINNING</h3>
     <p><strong>Penulis:</strong> MUHAMMAD ALFAREL HAFIZH</p>
     <p><strong>Genre:</strong> Fantasi Epik, Dark Fantasy, Drama</p>
-    <p><strong>Sinopsis:</strong> Seorang anak lahir tanpa mana di dunia yang semua orang memiliki sihir. Dianggap kosong, Archeon tumbuh dalam pengucilan. Namun di dalam kehampaan itu tersimpan kekuatan kuno yang mengancam keseimbangan dunia. Ketika Crystal of Origin mulai retak, ia harus memilih antara menerima takdirnya atau kehilangan semua yang ia cintai.</p>
-    <p><strong>Media Sosial Penulis:</strong><br>
+    <p><strong>Sinopsis Singkat:</strong> Seorang anak lahir tanpa mana di dunia yang semua orang memiliki sihir. Dianggap kosong, Archeon tumbuh dalam pengucilan. Namun di dalam kehampaan itu tersimpan kekuatan kuno yang mengancam keseimbangan dunia. Ketika Crystal of Origin mulai retak, ia harus memilih antara menerima takdirnya atau kehilangan semua yang ia cintai.</p>
+    <p><strong>⭐ Rating:</strong> 4.9 / 5.0 (1.240 pembaca)</p>
+    <p><strong>📱 Media Sosial Penulis:</strong><br>
     🎵 TikTok: <a href="https://www.tiktok.com/@varenpenikmatmbgdannaspd" target="_blank">@varenpenikmatmbgdannaspd</a><br>
     📸 Instagram: <a href="https://www.instagram.com/varenemci" target="_blank">@varenemci</a>
     </p>
-    <p><strong>Status:</strong> Ongoing (Target 200 chapter)</p>
+    <p><strong>📌 Status:</strong> Ongoing (Target 200 chapter)</p>
+    <p><em>"Kisah tentang anak yang tak pernah dipilih, seorang gadis yang tak pernah pergi, dan takdir yang bahkan takdir sendiri takut menulisnya."</em></p>
   </div>
 </div>
 
@@ -697,7 +750,6 @@
     document.getElementById('chapterPanel').classList.add('active');
   }
 
-  // Toggle panel chapter
   let panelActive = false;
   function toggleChapterPanel() {
     const panel = document.getElementById('chapterPanel');
@@ -707,16 +759,13 @@
     } else {
       panel.classList.add('active');
       panelActive = true;
-      // scroll sedikit ke panel
       panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 
-  // Cover Upload
   function setupCoverUpload() {
     const input = document.getElementById('coverInput');
     const preview = document.getElementById('coverPreview');
-    const placeholder = document.getElementById('coverPlaceholder');
     input.addEventListener('change', function(e) {
       const file = e.target.files[0];
       if(file) {
@@ -731,7 +780,6 @@
     });
   }
 
-  // Modal About
   function setupModal() {
     const modal = document.getElementById('aboutModal');
     const btn = document.getElementById('aboutBtn');
@@ -741,7 +789,6 @@
     window.onclick = (e) => { if(e.target === modal) modal.style.display = 'none'; };
   }
 
-  // Dark Mode
   function initDarkMode() {
     const toggleBtn = document.getElementById('darkModeToggle');
     const modeSpan = document.getElementById('modeText');
@@ -768,9 +815,11 @@
     initDarkMode();
     setupCoverUpload();
     setupModal();
-    document.getElementById('chapterToggleBtn').onclick = toggleChapterPanel;
+    const btn1 = document.getElementById('chapterToggleBtn');
+    const btn2 = document.getElementById('chapterToggleBtn2');
+    btn1.onclick = toggleChapterPanel;
+    btn2.onclick = toggleChapterPanel;
     document.getElementById('closeDetailBtn').onclick = closeDetail;
-    // Default tampilkan panel chapter (aktif)
     document.getElementById('chapterPanel').classList.add('active');
     panelActive = true;
   }
