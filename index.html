@@ -109,7 +109,6 @@
       font-size: 0.85rem;
     }
 
-    /* Modal */
     .modal {
       display: none;
       position: fixed;
@@ -133,62 +132,15 @@
       position: relative;
     }
 
-    .modal-content h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      font-family: 'Cormorant Garamond', serif;
-    }
+    .modal-content h3 { font-size: 1.5rem; margin-bottom: 1rem; font-family: 'Cormorant Garamond', serif; }
+    .modal-content p { margin-bottom: 0.8rem; line-height: 1.6; }
+    .modal-close { position: absolute; top: 1rem; right: 1.5rem; font-size: 1.8rem; cursor: pointer; }
 
-    .modal-content p {
-      margin-bottom: 0.8rem;
-      line-height: 1.6;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 1rem;
-      right: 1.5rem;
-      font-size: 1.8rem;
-      cursor: pointer;
-    }
-
-    /* Cover */
-    .cover-info-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      margin-bottom: 1.5rem;
-      align-items: center;
-    }
-
-    .cover-side {
-      flex-shrink: 0;
-      width: 160px;
-    }
-
-    .cover-image {
-      width: 100%;
-      aspect-ratio: 2 / 3;
-      background: linear-gradient(135deg, var(--accent), #2c1810);
-      border-radius: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .cover-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .cover-image span {
-      font-size: 3rem;
-      color: rgba(255,255,255,0.8);
-    }
-
+    .cover-info-row { display: flex; flex-wrap: wrap; gap: 2rem; margin-bottom: 1.5rem; align-items: center; }
+    .cover-side { flex-shrink: 0; width: 160px; }
+    .cover-image { width: 100%; aspect-ratio: 2 / 3; background: linear-gradient(135deg, var(--accent), #2c1810); border-radius: 1rem; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); overflow: hidden; }
+    .cover-image img { width: 100%; height: 100%; object-fit: cover; }
+    .cover-image span { font-size: 3rem; color: rgba(255,255,255,0.8); }
     .info-side { flex: 1; }
 
     .rating-box {
@@ -226,7 +178,6 @@
       border-left: 4px solid var(--accent);
       margin-top: 0.5rem;
     }
-
     .sinopsis-mini p { font-size: 0.85rem; line-height: 1.5; }
 
     .progress-container {
@@ -242,7 +193,6 @@
       font-size: 0.8rem;
       margin-bottom: 1rem;
     }
-
     .progress-bar-wrapper { flex: 1; min-width: 120px; }
     .progress-bar { background: var(--border); border-radius: 1rem; height: 6px; overflow: hidden; }
     .progress-fill { background: var(--accent); width: 0%; height: 100%; border-radius: 1rem; }
@@ -270,7 +220,6 @@
       max-height: 500px;
       overflow-y: auto;
     }
-
     .chapter-panel.active { display: block; }
     .chapter-panel-list { padding: 0.8rem; }
 
@@ -281,7 +230,6 @@
       transition: background 0.2s;
       border-radius: 0.5rem;
     }
-
     .chapter-item-title { font-weight: 700; font-size: 1rem; }
     .chapter-item-preview { font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; }
 
@@ -304,7 +252,6 @@
       padding-bottom: 0.8rem;
       gap: 10px;
     }
-
     .detail-header h1 { font-size: 1.5rem; font-weight: 700; }
 
     .btn-chapter-list {
@@ -332,7 +279,6 @@
       border-top: 1px solid var(--border);
       gap: 10px;
     }
-
     .nav-btn {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -344,11 +290,7 @@
       flex: 1;
       text-align: center;
     }
-
-    .nav-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+    .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
     .footer-social {
       background: var(--footer-bg);
@@ -358,7 +300,6 @@
       font-family: 'Segoe UI', sans-serif;
       font-size: 0.85rem;
     }
-
     .social-links { display: flex; justify-content: center; gap: 1rem; margin: 0.5rem 0; flex-wrap: wrap; }
     .social-link {
       text-decoration: none;
@@ -393,11 +334,7 @@
       font-size: 1.2rem;
       z-index: 99;
     }
-
-    .scroll-top.show {
-      opacity: 1;
-      visibility: visible;
-    }
+    .scroll-top.show { opacity: 1; visibility: visible; }
 
     @media (max-width: 600px) {
       body { padding: 0 0.8rem 2rem 0.8rem; font-size: 1rem; }
@@ -424,7 +361,6 @@
     </div>
   </div>
 
-  <!-- Modal Tentang Novel -->
   <div id="aboutModal" class="modal">
     <div class="modal-content">
       <span class="modal-close" id="closeModal">&times;</span>
@@ -471,7 +407,7 @@
 
   <div id="chapterDetail" class="chapter-detail">
     <div class="detail-header">
-      <h1 id="detailTitle">Chapter 1 — Anak Tanpa Cahaya</h1>
+      <h1 id="detailTitle">Chapter 1 — Anak Tanpa Mana</h1>
       <button class="btn-chapter-list" id="showListBtn">📋 Daftar Chapter</button>
     </div>
     <div id="detailContent" class="novel-content"></div>
@@ -496,9 +432,9 @@
 const TARGET_CHAPTERS = 200;
 const COVER_IMAGE_URL = "Archeon.png";
 
-// ==================== FULL CHAPTER 1-25 (CERITA LENGKAP TIDAK DIPOTONG) ====================
+// ==================== FULL CHAPTER 1-25 (CERITA LENGKAP) ====================
 const chaptersData = [
-{id:1, title:"Chapter 1 — Anak Tanpa Cahaya", preview:"Malam itu desa Elaris diselimuti kabut tebal. Dan seorang bayi lahir tanpa setitik pun mana.",
+{id:1, title:"Chapter 1 — Anak Tanpa Mana", preview:"Malam itu desa Elaris diselimuti kabut tebal. Dan seorang bayi lahir tanpa setitik pun mana.",
 content:`Malam itu desa Elaris diselimuti kabut yang lebih tebal dari biasanya. Kabut putih turun perlahan dari lereng hutan, menyelimuti atap-atap rumah kayu, jalan batu kecil, dan ladang gandum yang mulai menguning. Tidak ada hujan. Tidak ada angin. Tidak ada suara serangga malam. Seolah seluruh dunia sedang menahan napas.
 
 Di sebuah rumah sederhana di pinggir paling utara desa, seorang wanita muda berbaring lemah di atas ranjang kayu. Keringat membasahi dahinya. Napasnya berat. Namun kedua tangannya memeluk sesuatu dengan lembut. Seorang bayi laki-laki. Tangisannya kecil. Terlalu kecil.
