@@ -140,7 +140,7 @@
       font-size: 0.85rem;
     }
 
-    /* Cover Section */
+    /* Cover Section - hanya preview, tanpa tombol upload */
     .cover-section {
       background: var(--bg-card);
       border-radius: 1.5rem;
@@ -178,31 +178,10 @@
       font-family: 'Segoe UI', sans-serif;
     }
 
-    .cover-upload {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .cover-label {
-      background: var(--accent);
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 2rem;
-      cursor: pointer;
-      font-size: 0.8rem;
+    .cover-info {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
       font-family: 'Segoe UI', sans-serif;
-      text-align: center;
-      border: none;
-      display: inline-block;
-    }
-
-    .cover-label:hover {
-      opacity: 0.9;
-    }
-
-    input#coverInput {
-      display: none;
     }
 
     /* Modal Tentang Novel */
@@ -475,20 +454,33 @@
       text-align: justify;
     }
 
-    .footer-social {
+    /* Footer dengan Tentang Penulis & Medsos */
+    .footer-about {
       background: var(--footer-bg);
       border-radius: 1.5rem;
-      padding: 1.2rem;
+      padding: 1.5rem;
       margin-top: 1.5rem;
       text-align: center;
       font-family: 'Segoe UI', sans-serif;
     }
 
+    .footer-about h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+      color: var(--accent);
+    }
+
+    .footer-about p {
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+    }
+
     .social-links {
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      margin: 0.8rem 0 0.5rem;
+      gap: 1.5rem;
+      margin: 0.8rem 0;
       flex-wrap: wrap;
     }
 
@@ -496,20 +488,26 @@
       text-decoration: none;
       font-weight: 600;
       background: var(--bg-card);
-      padding: 0.3rem 1rem;
+      padding: 0.4rem 1.2rem;
       border-radius: 2rem;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       color: var(--text-primary);
       border: 1px solid var(--border);
       transition: all 0.2s;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
     }
 
     .social-link:hover {
       background: var(--accent);
       color: white;
+    }
+
+    .rating-footer {
+      margin-top: 0.8rem;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
     }
 
     /* Responsive Handphone */
@@ -547,10 +545,6 @@
       .header-buttons {
         justify-content: space-between;
       }
-      .btn, .theme-toggle {
-        white-space: normal;
-        text-align: center;
-      }
     }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -572,15 +566,14 @@
     </div>
   </div>
 
-  <!-- Cover Upload -->
+  <!-- Cover Preview - otomatis dari GitHub (tanpa tombol upload) -->
   <div class="cover-section">
     <div class="cover-preview" id="coverPreview">
       <div class="cover-placeholder" id="coverPlaceholder">📘 Cover</div>
     </div>
-    <div class="cover-upload">
-      <label class="cover-label" for="coverInput">📁 Pilih Cover (Archeon.png)</label>
-      <input type="file" id="coverInput" accept="image/png, image/jpeg, image/jpg">
-      <small style="color: var(--text-secondary); font-size:0.7rem;">Upload cover novel Anda</small>
+    <div class="cover-info">
+      <strong>ARCHEON: THE END BEGINNING</strong><br>
+      Cover novel · Official artwork
     </div>
   </div>
 
@@ -607,7 +600,7 @@
     <p><strong>ARCHEON: THE END BEGINNING</strong> — Seorang anak lahir tanpa setitik pun mana di dunia yang semua orang memiliki sihir. Dianggap kosong dan dikucilkan, Archeon tumbuh dalam keheningan. Tapi di dalam kehampaan yang tak tersentuh itu, tersimpan sesuatu yang lebih tua dari sihir itu sendiri. Sementara Crystal of Origin mulai retak dan mimpi-mimpi aneh datang, Archeon harus memilih: menjadi debu yang terlupakan — atau menjadi awal dari akhir yang baru.</p>
   </div>
 
-  <!-- Tombol Daftar Chapter (sudah di header, tapi biar tetap ada di tengah juga untuk kemudahan) -->
+  <!-- Tombol Daftar Chapter (dua untuk kemudahan) -->
   <button class="chapter-toggle-btn" id="chapterToggleBtn2">📚 Buka Daftar Semua Chapter ▼</button>
 
   <!-- Panel Semua Chapter -->
@@ -624,13 +617,17 @@
     <div id="detailContent" class="novel-content"></div>
   </div>
 
-  <div class="footer-social">
-    <p>📚 <strong>MUHAMMAD ALFAREL HAFIZH</strong> — Penulis ARCHEON: THE END BEGINNING</p>
+  <!-- Footer dengan Tentang Penulis & Media Sosial -->
+  <div class="footer-about">
+    <h4>📚 Tentang Penulis</h4>
+    <p><strong>MUHAMMAD ALFAREL HAFIZH</strong> — Penulis novel fantasi epik <em>ARCHEON: THE END BEGINNING</em>. Berdedikasi menciptakan dunia dengan karakter yang hidup dan cerita yang menyentuh hati.</p>
     <div class="social-links">
       <a href="https://www.tiktok.com/@varenpenikmatmbgdannaspd" target="_blank" class="social-link">🎵 TikTok · @varenpenikmatmbgdannaspd</a>
       <a href="https://www.instagram.com/varenemci" target="_blank" class="social-link">📸 Instagram · @varenemci</a>
     </div>
-    <p style="font-size: 0.7rem; margin-top: 8px;">✨ Rating 4.9 dari 1.240 pembaca | The Beginning of The End</p>
+    <div class="rating-footer">
+      ✨ Rating 4.9 dari 1.240 pembaca | The Beginning of The End ✨
+    </div>
   </div>
 </div>
 
@@ -654,6 +651,14 @@
 
 <script>
   const TARGET_CHAPTERS = 200;
+  
+  // ==================== COVER OTOMATIS DARI GITHUB ====================
+  // GANTI URL INI dengan lokasi file Archeon.png Anda di GitHub
+  // Contoh: https://raw.githubusercontent.com/username/repo/main/Archeon.png
+  // Atau jika di folder yang sama: "Archeon.png"
+  const COVER_URL = "Archeon.png";  // <-- GANTI dengan path cover Anda di GitHub
+  
+  // Data Chapter (1-25)
   const chaptersData = [
     {id:1, title:"Chapter 1 — Anak Tanpa Cahaya", preview:"Malam itu desa Elaris diselimuti kabut tebal. Dan seorang bayi lahir tanpa setitik pun mana.",
       content:`Malam itu desa Elaris diselimuti kabut yang lebih tebal dari biasanya. Di sebuah rumah sederhana, seorang wanita muda melahirkan seorang bayi laki-laki. Tabib desa, Sera, memeriksa bayi itu dan menemukan sesuatu yang mengerikan — tidak ada mana. Kosong. Elena memeluknya erat. "Dia tetap anakku." "Namanya... Archeon." Jauh di pusat desa, Crystal of Origin meredup sesaat. Retakan tipis muncul. Beberapa jam kemudian, seorang bayi perempuan lahir. Saat matanya terbuka, bunga-bunga putih mekar. "Lyria." Dua anak lahir di bawah langit yang sama. Satu membawa cahaya. Satu membawa kehampaan.`},
@@ -709,6 +714,19 @@
   const CURRENT_COUNT = sortedChapters.length;
   const PROGRESS_PERCENT = (CURRENT_COUNT / TARGET_CHAPTERS) * 100;
 
+  // Load cover dari GitHub
+  function loadCover() {
+    const preview = document.getElementById('coverPreview');
+    const img = new Image();
+    img.onload = function() {
+      preview.innerHTML = `<img src="${COVER_URL}" alt="Cover Archeon">`;
+    };
+    img.onerror = function() {
+      preview.innerHTML = `<div class="cover-placeholder">📘 Cover tidak ditemukan<br>Letakkan Archeon.png di folder yang sama</div>`;
+    };
+    img.src = COVER_URL;
+  }
+
   function renderStars() {
     const container = document.getElementById('starRating');
     if(!container) return;
@@ -763,23 +781,6 @@
     }
   }
 
-  function setupCoverUpload() {
-    const input = document.getElementById('coverInput');
-    const preview = document.getElementById('coverPreview');
-    input.addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      if(file) {
-        const reader = new FileReader();
-        reader.onload = function(ev) {
-          preview.innerHTML = `<img src="${ev.target.result}" alt="Cover">`;
-        };
-        reader.readAsDataURL(file);
-      } else {
-        preview.innerHTML = `<div class="cover-placeholder">📘 Cover</div>`;
-      }
-    });
-  }
-
   function setupModal() {
     const modal = document.getElementById('aboutModal');
     const btn = document.getElementById('aboutBtn');
@@ -809,11 +810,11 @@
   }
 
   function init() {
+    loadCover();
     renderStars();
     updateProgress();
     renderChapterList();
     initDarkMode();
-    setupCoverUpload();
     setupModal();
     const btn1 = document.getElementById('chapterToggleBtn');
     const btn2 = document.getElementById('chapterToggleBtn2');
