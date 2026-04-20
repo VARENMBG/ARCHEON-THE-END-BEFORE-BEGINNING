@@ -97,6 +97,46 @@
       font-size: 0.85rem;
     }
 
+    /* Cover Section */
+    .cover-section {
+      background: var(--bg-card);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .cover-image {
+      width: 180px;
+      height: 240px;
+      margin: 0 auto 1rem auto;
+      background: linear-gradient(135deg, var(--accent), #2c1810);
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      overflow: hidden;
+    }
+
+    .cover-image span {
+      font-size: 4rem;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .cover-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .cover-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
     /* Meta & Rating */
     .meta-row {
       display: flex;
@@ -328,7 +368,8 @@
       .chapter-nav { flex-direction: column; }
       .nav-btn { width: 100%; }
       .read-header { padding: 0.8rem 1rem; }
-      .back-home, .theme-toggle { padding: 0.4rem 0.8rem; font-size: 0.75rem; }
+      .cover-image { width: 140px; height: 190px; }
+      .cover-image span { font-size: 3rem; }
     }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -337,8 +378,17 @@
 <div class="container">
   <!-- Header -->
   <div class="read-header">
-    <button class="back-home" id="backHomeBtn">🏠 Refresh Halaman</button>
+    <button class="back-home" id="backHomeBtn">🏠 Refresh</button>
     <button class="theme-toggle" id="darkModeToggle">🌙 Mode Gelap</button>
+  </div>
+
+  <!-- Cover Section -->
+  <div class="cover-section">
+    <div class="cover-image">
+      <span>⚔️📖</span>
+    </div>
+    <div class="cover-title">ARCHEON: THE END BEGINNING</div>
+    <div class="cover-subtitle">Novel Epik · Muhammad Alfarel Hafizh</div>
   </div>
 
   <!-- Meta & Rating -->
@@ -1127,8 +1177,6 @@ function showChapterDetail(id) {
   document.getElementById('chapterPanel').classList.remove('active');
   document.getElementById('chapterDetail').style.display = 'block';
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  
-  // Update tombol next/prev state
   updateNavButtons();
 }
 
@@ -1165,7 +1213,6 @@ function toggleChapterPanel() {
   }
 }
 
-// Scroll to top button
 function initScrollTop() {
   const btn = document.getElementById('scrollTopBtn');
   window.addEventListener('scroll', () => {
